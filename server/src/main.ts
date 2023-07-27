@@ -33,25 +33,20 @@ async function bootstrap() {
     .setTitle('APPLICATION APIs')
     .setDescription('API descriptions')
     .setVersion('1.0')
-    .addBearerAuth
-    // { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-    // 'accessToken',
-    ()
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'access-token',
+    )
     .build();
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('apis', app, document, {
-      swaggerOptions: {
-        tagsSorter: 'alpha',
-        // operationsSorter: 'alpha',
-      },
-    });
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
-    app.use(bodyParser.json({ limit: '200mb' }));
-    app.use(cookieParser());
-    app.use(compression());
-    app.use(bodyParser.urlencoded({ extended: false, limit: '200mb' }));
-    app.useGlobalPipes(new ValidationPipe());
+  app.use(bodyParser.json({ limit: '200mb' }));
+  app.use(cookieParser());
+  app.use(compression());
+  app.use(bodyParser.urlencoded({ extended: false, limit: '200mb' }));
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(process.env.APP_PORT);
   console.log(process.env.DB_DATABASE);

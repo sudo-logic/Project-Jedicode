@@ -1,3 +1,5 @@
+import { User } from "./users/user.entity"
+
 require('dotenv').config({
     path: `./${process.env.NODE_ENV}.env`
 })
@@ -9,6 +11,7 @@ export const ormconfig : any =  {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [],
-    ssl:true,
+    entities: [User],
+    // ssl:true,
+    synchronize: true,
 }
