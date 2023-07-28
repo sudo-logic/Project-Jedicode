@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Request,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
@@ -13,6 +14,8 @@ import { AuthService } from './auth.service';
 import { SignInDto } from './dtos/signin.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Public } from './public.decorator';
+import { SignUpDto } from './dtos/signup.dto';
+import { EmailIsTakenError } from './email-taken.error';
 
 @ApiBearerAuth('access-token')
 @Controller('auth')
@@ -24,6 +27,14 @@ export class AuthController {
   @Public()
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
+  }
+
+  @Post('signup')
+  @Public()
+  signUp(
+    @Body() signUpDto: SignUpDto,
+  ): Promise<{ access_token: string } | EmailIsTakenError> {
+    return this.authService.signUp(signUpDto);
   }
 
   @UseGuards(AuthGuard)
