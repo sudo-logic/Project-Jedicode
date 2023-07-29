@@ -11,10 +11,10 @@ export class UsersService {
   ) {}
 
   async create(user: SignUpDto): Promise<User> {
-    return await this.usersRepository.save(user);
+    const newUser = await this.usersRepository.create(user);
+    return await this.usersRepository.save(newUser);
   }
 
-  // Finy by username
   async findOne(username: string): Promise<User | undefined> {
     return await this.usersRepository.findOne({ where: { username } });
   }
