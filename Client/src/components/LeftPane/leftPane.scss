@@ -1,0 +1,27 @@
+.options-icon {
+  visibility: hidden;
+}
+
+.ms-menu-item-title {
+  opacity: 60%;
+}
+
+.project-item:hover {
+  .options-icon {
+    visibility: visible;
+  }
+
+  .ms-menu-item-title {
+    opacity: 100%;
+  }
+}
+
+div.ant-typography,
+.ant-typography p {
+  margin-bottom: 0;
+}
+
+.ant-drawer-close {
+  display: flex;
+  align-items: center;
+}

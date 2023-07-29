@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 462.63 383.81">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #231f20;
+      }
+      @media ( prefers-color-scheme: dark ) {
+        .cls-1 {
+          fill: #ffffff;
+        }
+      }
+    </style>
+  </defs>
+  <title>Maximl</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <polygon class="cls-1" points="172.3 0.01 0 383.81 58.68 383.81 201.69 65.24 172.3 0.01"/>
+      <polygon class="cls-1" points="289.5 0.01 116.6 383.81 175.28 383.81 230.8 261.11 286.73 383.81 345.41 383.81 260.6 195.41 289.5 131.71 403.95 383.81 462.63 383.81 289.5 0.01"/>
+    </g>
+  </g>
+</svg>
