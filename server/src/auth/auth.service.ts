@@ -3,7 +3,6 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dtos/signin.dto';
 import { SignUpDto } from './dtos/signup.dto';
-import { User } from 'src/users/user.entity';
 import { EmailIsTakenError } from './email-taken.error';
 @Injectable()
 export class AuthService {

@@ -1,4 +1,3 @@
-import { User } from './users/user.entity';
 import * as path from 'path';
 
 require('dotenv').config({
