@@ -1,5 +1,11 @@
 import { Submission } from 'src/submissions/submissions.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')

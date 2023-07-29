@@ -14,7 +14,13 @@ require('dotenv').config({
 });
 
 @Module({
-  imports: [TypeOrmModule.forRoot(ormconfig), UsersModule, AuthModule, QuestionsModule, SubmissionsModule],
+  imports: [
+    TypeOrmModule.forRoot(ormconfig),
+    UsersModule,
+    AuthModule,
+    QuestionsModule,
+    SubmissionsModule,
+  ],
   controllers: [AppController, QuestionsController],
   providers: [AppService],
 })

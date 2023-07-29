@@ -10,7 +10,6 @@ class TestCaseDto {
 }
 
 export class CreateQuestionDto {
-
   @IsNotEmpty()
   @IsString()
   title: string;
