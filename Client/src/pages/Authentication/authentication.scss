@@ -1,0 +1,8 @@
+.cover-image {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.4) 8.33%,
+      rgba(0, 0, 0, 0.9) 103.36%
+    ),
+    url('https://res.cloudinary.com/maximl-prod/image/upload/w_auto,dpr_auto,c_scale,f_auto/v1643613712/login/bg-image-1_gdzglb.jpg');
+  background-size: cover !important;
+}
