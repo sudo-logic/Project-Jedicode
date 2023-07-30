@@ -19,6 +19,7 @@
     "validate": "./scripts/validate"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@reduxjs/toolkit": "^1.8.3",
     "@types/node": "^18.0.0",
     "antd": "^5.0.3",
