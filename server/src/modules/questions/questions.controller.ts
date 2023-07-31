@@ -8,9 +8,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
-import { Public } from 'src/auth/public.decorator';
 import { Question } from './question.entity';
 import { CreateQuestionDto } from './dtos/create-question.dto';
+import { Public } from '../auth/public.decorator';
+
 @Controller('questions')
 @Public()
 export class QuestionsController {

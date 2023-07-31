@@ -1,9 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+
+import { UsersService } from '../users/users.service';
+
 import { SignInDto } from './dtos/signin.dto';
 import { SignUpDto } from './dtos/signup.dto';
 import { EmailIsTakenError } from './email-taken.error';
+
 @Injectable()
 export class AuthService {
   constructor(
