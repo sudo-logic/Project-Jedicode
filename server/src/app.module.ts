@@ -12,7 +12,8 @@ import { UsersModule } from './modules/users/users.module';
 import { ormconfig } from './orm.config';
 
 // const ormconfig = require('./orm.config')
-require('dotenv').config({
+import dotenv from 'dotenv';
+dotenv.config({
   path: `./${process.env.NODE_ENV}.env`,
 });
 
