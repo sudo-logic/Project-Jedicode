@@ -1,6 +1,7 @@
+import dotenv from 'dotenv';
 import * as path from 'path';
 
-require('dotenv').config({
+dotenv.config({
   path: `./${process.env.NODE_ENV}.env`,
 });
 

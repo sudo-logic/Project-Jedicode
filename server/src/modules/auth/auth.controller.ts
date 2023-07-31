@@ -6,7 +6,6 @@ import {
   HttpStatus,
   Post,
   Request,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';

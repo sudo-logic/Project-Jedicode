@@ -1,15 +1,14 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 
 import { AppModule } from './app.module';
 
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-import axios from 'axios';
-import { ValidationPipe } from '@nestjs/common';
-
-require('dotenv').config({
+dotenv.config({
   path: `./${process.env.NODE_ENV}.env`,
 });
 
