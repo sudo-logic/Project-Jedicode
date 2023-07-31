@@ -1,4 +1,3 @@
-import { Submission } from 'src/submissions/submissions.entity';
 import {
   Entity,
   Column,
@@ -6,6 +5,8 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
+import { Submission } from '../submissions/submissions.entity';
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')

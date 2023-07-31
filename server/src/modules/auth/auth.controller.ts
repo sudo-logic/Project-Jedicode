@@ -10,12 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
 import { SignInDto } from './dtos/signin.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Public } from './public.decorator';
 import { SignUpDto } from './dtos/signup.dto';
 import { EmailIsTakenError } from './email-taken.error';
+import { AuthService } from './auth.service';
 
 @ApiBearerAuth('access-token')
 @Controller('auth')

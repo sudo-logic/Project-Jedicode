@@ -3,7 +3,7 @@ import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dtos/createSubmission.dto';
 import { Get, Post, Body } from '@nestjs/common';
 import { Submission } from './submissions.entity';
-import { Public } from 'src/auth/public.decorator';
+import { Public } from '../auth/public.decorator';
 
 @Controller('submissions')
 @Public()

@@ -1,5 +1,3 @@
-import { Public } from 'src/auth/public.decorator';
-import { Submission } from 'src/submissions/submissions.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,6 +6,8 @@ import {
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
+import { Submission } from '../submissions/submissions.entity';
+
 @Entity()
 export class Question {
   @PrimaryGeneratedColumn('uuid')
