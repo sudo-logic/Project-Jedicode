@@ -42,6 +42,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api', app, document);
 
   app.use(bodyParser.json({ limit: '200mb' }));
   app.use(cookieParser());
