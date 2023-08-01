@@ -7,12 +7,10 @@ import {
 } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Question } from '../questions/question.entity';
+import { AbstractEntity } from '../shared/abstract.entity';
 
 @Entity()
-export class Submission {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Submission extends AbstractEntity {
   @ManyToOne(() => User, (user) => user.submissions)
   @JoinColumn({ name: 'user_id' })
   user: User;
@@ -35,7 +33,4 @@ export class Submission {
 
   @Column()
   score: number;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  submitted_at: Date;
 }

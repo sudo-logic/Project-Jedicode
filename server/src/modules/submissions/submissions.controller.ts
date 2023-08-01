@@ -1,31 +1,32 @@
-import { Controller, Delete, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dtos/createSubmission.dto';
-import { Get, Post, Body } from '@nestjs/common';
 import { Submission } from './submissions.entity';
 import { Public } from '../auth/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('submissions')
 @Public()
+@ApiTags('Submissions')
 export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
-
-  @Get()
-  async findAll(): Promise<Submission[]> {
-    return await this.submissionsService.findAll();
-  }
 
   @Post()
   async create(@Body() submission: CreateSubmissionDto): Promise<Submission> {
     return await this.submissionsService.create(submission);
   }
 
-  @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() submission: CreateSubmissionDto,
-  ): Promise<Submission> {
-    return await this.submissionsService.update(id, submission);
+  @Get()
+  async findAll(): Promise<Submission[]> {
+    return await this.submissionsService.findAll();
   }
 
   @Delete(':id')

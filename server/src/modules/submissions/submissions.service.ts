@@ -16,7 +16,7 @@ export class SubmissionsService {
   }
 
   async findOne(id: string): Promise<Submission> {
-    return await this.submissionsRepository.findOne({ where: { id } });
+    return await this.submissionsRepository.findOneBy({ id });
   }
 
   async create(submission: CreateSubmissionDto): Promise<Submission> {
@@ -34,7 +34,7 @@ export class SubmissionsService {
 
   async delete(id: string): Promise<Submission> {
     const submission = await this.submissionsRepository.findOne({
-      where: { id },
+      where: { id: id },
     });
     await this.submissionsRepository.delete(id);
     return submission;

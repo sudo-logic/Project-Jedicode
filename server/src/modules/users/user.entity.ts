@@ -1,11 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Submission } from '../submissions/submissions.entity';
 
-@Entity()
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+import { AbstractEntity } from '../shared/abstract.entity';
+import { Question } from '../questions/question.entity';
 
+@Entity()
+export class User extends AbstractEntity {
   @Column({ unique: true })
   username: string;
 
@@ -15,9 +21,12 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @Column({ default: 0 })
+  score: number;
 
-  @OneToMany(() => Submission, (submission) => submission.user)
+  @ManyToOne(() => Submission, (submission) => submission.user_id)
   submissions: Submission[];
+
+  @ManyToOne(() => Question, (question) => question.id)
+  questions_attempted: User[];
 }
