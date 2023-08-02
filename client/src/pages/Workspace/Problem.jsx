@@ -7,7 +7,7 @@ function Problem() {
       <div className="flex h-11 w-full items-center pt-2 bg-dark-layer-1 text-white overflow-x-hidden">
         <div
           className={
-            "bg-dark-layer-2 rounded-md mx-4 px-5 py-[10px] text-xs cursor-pointer"
+            "bg-dark-layer-2 rounded-md mx-4 px-5 py-[10px] text-xs cursor-pointer font-medium"
           }
         >
           Description
@@ -19,11 +19,11 @@ function Problem() {
           {/* Problem heading */}
           <div className="w-full">
             <div className="flex space-x-4">
-              <div className="mr-2 text-xl text-white font-medium">
+              <div className="mr-2 text-xl text-white font-bold">
                 1. Two Sum
               </div>
               <div
-                className={`text-olive bg-olive inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
+                className={`text-olive bg-olive rounded-[21px] bg-opacity-[.15] px-2.5 pt-[6px] text-xs font-medium `}
               >
                 Easy
               </div>
@@ -50,7 +50,7 @@ function Problem() {
               {/* Example 1 */}
               <div>
                 <p className="font-medium text-white ">Example 1: </p>
-                <div className="example-card bg-dark-layer-2 rounded-md">
+                <div className="example-card bg-dark-layer-2 text-white rounded-md">
                   <pre>
                     <strong className="text-white">Input: </strong>nums =
                     [2,7,11,15], target = 9 <br />
@@ -64,7 +64,7 @@ function Problem() {
               {/* Example 2 */}
               <div>
                 <p className="font-medium text-white ">Example 2: </p>
-                <div className="example-card bg-dark-layer-2 rounded-md">
+                <div className="example-card bg-dark-layer-2 text-white rounded-md">
                   <pre>
                     <strong className="text-white">Input: </strong>nums =
                     [3,2,4], target = 6 <br />
@@ -77,7 +77,7 @@ function Problem() {
               {/* Example 3 */}
               <div>
                 <p className="font-medium text-white ">Example 3: </p>
-                <div className="example-card bg-dark-layer-2 rounded-md">
+                <div className="example-card bg-dark-layer-2 text-white rounded-md">
                   <pre>
                     <strong className="text-white">Input: </strong>nums = [3,3],
                     target = 6
