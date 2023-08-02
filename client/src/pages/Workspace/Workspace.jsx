@@ -1,14 +1,18 @@
 import React from "react";
 import Split from "react-split";
-import Problemdescription from "./Problemdescription";
+import Problem from "./Problem";
 import Editor from "./Editor";
+import Room from "../Room";
 
 function Workspace() {
   return (
-    <Split className="split h-screen">
-      <Problemdescription />
-      <Editor />
-    </Split>
+    <>
+      <Split className="split h-screen">
+        <Problem />
+        <Editor />
+      </Split>
+      <Room />
+    </>
   );
 }
 
