@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { initSocket } from "../socket";
-import ACTIONS from "../actions";
+import { initSocket } from "../toBeShifted/socket";
+import ACTIONS from "../toBeShifted/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -86,14 +86,14 @@ const Room = () => {
 
   return (
     <>
-      <div className="w-full p-8 flex justify-end ">
+      <div className="w-full p-8 flex justify-end absolute right-0 top-0">
         <Popover className="relative">
           {({ open }) => (
             <>
               <Popover.Button
                 className={`
                 ${open ? "" : "text-opacity-90"}
-                group inline-flex items-center rounded-full bg-neutral-950 p-3 text-base text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                group inline-flex items-center rounded-full bg-neutral-950 border border-white p-3 text-base text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
                 <span>
                   <svg
