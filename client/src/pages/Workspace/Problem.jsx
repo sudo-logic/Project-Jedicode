@@ -1,17 +1,12 @@
 import React from "react";
+import ListboxQuestion from "../../components/ListboxQuestion";
 
 function Problem() {
   return (
-    <div className="bg-dark-layer-1 h-screen">
+    <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
       {/* TAB */}
-      <div className="flex h-11 w-full items-center pt-2 bg-dark-layer-1 text-white overflow-x-hidden">
-        <div
-          className={
-            "bg-dark-layer-2 rounded-md mx-4 px-5 py-[10px] text-xs cursor-pointer font-medium"
-          }
-        >
-          Description
-        </div>
+      <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
+        <ListboxQuestion />
       </div>
 
       <div className="flex px-0 py-4 h-[calc(100vh-44px)] overflow-y-auto">
