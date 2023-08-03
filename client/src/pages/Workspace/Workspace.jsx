@@ -7,7 +7,7 @@ import Room from "../Room";
 function Workspace() {
   return (
     <>
-      <Split className="split h-screen">
+      <Split className="split max-h-screen p-[10px] overflow-hidden bg-[rgb(26,26,26)]">
         <Problem />
         <Editor />
       </Split>
