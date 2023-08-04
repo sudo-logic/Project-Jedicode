@@ -5,8 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server:dev": "nodemon server.js",
-    "server:prod": "node server.js",
     "build": "vite build",
     "server:dev": "nodemon server.js",
     "server:prod": "node server.js",
