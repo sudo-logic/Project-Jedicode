@@ -3,7 +3,7 @@ import React from "react";
 const Leaderboard = () => {
   return (
     <div className="w-full rounded">
-      <h1 className="text-lg text-slate-100 tracking-widest text-center mb-2 font-starwars">
+      <h1 className="text-lg text-slate-100 tracking-widest text-center mb-2 font-sans">
         Leaderboard Table
       </h1>
 
