@@ -16,7 +16,7 @@ export class AuthService {
 
   async signIn(signInDto: SignInDto) {
     const { username, password: pass } = signInDto;
-    const user = await this.usersService.findOne(username);
+    const user = await this.usersService.findByUsername(username);
     if (user?.password !== pass) {
       throw new UnauthorizedException();
     }
@@ -27,7 +27,10 @@ export class AuthService {
   }
 
   async signUp(signUpDto: SignUpDto) {
-    const existingUser = await this.usersService.findOne(signUpDto.username);
+    const existingUser = await this.usersService.isTaken(
+      signUpDto.username,
+      signUpDto.email,
+    );
     if (existingUser) {
       return new EmailIsTakenError();
     }

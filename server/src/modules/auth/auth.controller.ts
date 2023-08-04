@@ -19,17 +19,18 @@ import { AuthService } from './auth.service';
 @ApiBearerAuth('access-token')
 @Controller('auth')
 @ApiTags('Auth')
-@Public()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
+  @Public()
   async signIn(@Body() signInDto: SignInDto) {
     return await this.authService.signIn(signInDto);
   }
 
   @Post('signup')
+  @Public()
   async signUp(
     @Body() signUpDto: SignUpDto,
   ): Promise<{ access_token: string } | EmailIsTakenError> {

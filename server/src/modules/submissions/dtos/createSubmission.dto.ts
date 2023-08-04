@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { userObjectDto } from 'src/modules/shared/user.dto';
 
 export class CreateSubmissionDto {
   @IsString()
@@ -20,4 +21,5 @@ export class CreateSubmissionDto {
   @IsUUID()
   @IsNotEmpty()
   question_id: string;
+
 }
