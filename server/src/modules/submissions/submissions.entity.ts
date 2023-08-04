@@ -15,12 +15,12 @@ export class Submission extends AbstractEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column()
-  user_id: string;
-
   @ManyToOne(() => Question, (question) => question.submissions)
   @JoinColumn({ name: 'question_id' })
   question: Question;
+
+  @Column()
+  user_id: string;
 
   @Column()
   question_id: string;

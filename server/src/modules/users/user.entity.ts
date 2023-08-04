@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Submission } from '../submissions/submissions.entity';
 
@@ -24,9 +26,10 @@ export class User extends AbstractEntity {
   @Column({ default: 0 })
   score: number;
 
-  @ManyToOne(() => Submission, (submission) => submission.user_id)
+  @ManyToOne(() => Submission, (submission) => submission.user, { eager: true })
   submissions: Submission[];
 
-  @ManyToOne(() => Question, (question) => question.id)
+  @ManyToMany(() => Question, (question) => question.id, { eager: true })
+  @JoinTable()
   questions_attempted: User[];
 }

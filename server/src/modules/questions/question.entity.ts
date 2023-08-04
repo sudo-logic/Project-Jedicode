@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinColumn } from 'typeorm';
 import { Submission } from '../submissions/submissions.entity';
 import { AbstractEntity } from '../shared/abstract.entity';
 import { User } from '../users/user.entity';
+
 @Entity()
 export class Question extends AbstractEntity {
   @Column()
@@ -19,6 +20,6 @@ export class Question extends AbstractEntity {
   @OneToMany(() => Submission, (submission) => submission.question_id)
   submissions: Submission[];
 
-  @OneToMany(() => User, (user) => user.questions_attempted)
+  @ManyToMany(() => User, (user) => user.questions_attempted)
   viewers: User[];
 }
