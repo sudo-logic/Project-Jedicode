@@ -41,11 +41,11 @@ export default function CardForm() {
   return (
     <>
       {/*<!-- Component: Card with form --> */}
-      <form className="overflow-hidden w-1/3 bg-white text-gray-500 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+      <form className="overflow-hidden w-full bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
         {/*  <!-- Body--> */}
         <div className="p-6">
-          <header className="mb-4 text-center">
-            <h3 className="text-xl font-[700] text-neutral-950">Join a room</h3>
+          <header className="text-center">
+            <h3 className="text-xl font-[700] text-white">Join a room</h3>
           </header>
           <div className="flex flex-col space-y-8">
             {/*      <!-- Input field --> */}
@@ -107,7 +107,7 @@ export default function CardForm() {
           <a
             onClick={createNewRoom}
             href=""
-            className="font-[600] text-neutral-950"
+            className="text-white font-bold"
           >
             Create Room
           </a>{" "}
