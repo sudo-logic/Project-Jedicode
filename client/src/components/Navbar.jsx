@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo.png";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoExitOutline } from "react-icons/io5";
@@ -8,8 +8,24 @@ import { IoExitOutline } from "react-icons/io5";
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  fetch("http://34.100.255.183/auth/profile", {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setUsername(data.username);
+      setLoad(false);
+    });
 
   function ProfileOverlay() {
     return (
@@ -37,14 +53,18 @@ export default function Navbar() {
               </span>
             </figure>
             {/*  <!-- Body--> */}
-            <div className="p-6">
-              <header className="mb-4">
-                <h3 className="text-xl font-medium text-slate-700">
-                  Nichole Jones
-                </h3>
-                <p className=" text-slate-400">Senior Designer</p>
-              </header>
-            </div>
+            {load ? (
+              <h1>Loading...</h1>
+            ) : (
+              <div className="p-6">
+                <header className="mb-4">
+                  <h3 className="text-xl font-medium text-slate-700">
+                    {username}
+                  </h3>
+                  <p className=" text-slate-400">Senior Designer</p>
+                </header>
+              </div>
+            )}
             {/*  <!-- Action base sized with lead icon buttons  --> */}
             <div className="flex justify-end gap-2 p-6 pt-0">
               <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded bg-gray-50 px-5 text-sm font-medium tracking-wide text-gray-500 transition duration-300 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-200 focus:text-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:shadow-none">
@@ -78,7 +98,11 @@ export default function Navbar() {
           >
             {/*      <!-- Brand logo --> */}
             <div className="flex items-center gap-2 whitespace-nowrap py-3 text-lg focus:outline-none lg:flex-1">
-              <img src={Logo} className="w-44 cursor-pointer transition-shadow duration-100 hover:shadow-sm hover:shadow-gray-300"  onClick={() => navigate("/")} />
+              <img
+                src={Logo}
+                className="w-44 cursor-pointer transition-shadow duration-100 hover:shadow-sm hover:shadow-gray-300"
+                onClick={() => navigate("/")}
+              />
             </div>
             {/*      <!-- Mobile trigger --> */}
             <button

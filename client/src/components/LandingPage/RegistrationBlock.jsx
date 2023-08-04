@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -36,11 +36,11 @@ const RegistrationBlock = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data?.statusCode === 401) {
             notify();
             setPOSTload(false);
           } else {
+            localStorage.setItem('token', data.access_token)
             navigate("/dashboard");
           }
         });
@@ -58,7 +58,7 @@ const RegistrationBlock = () => {
               onChange={handleLoginForm}
               required="true"
               placeholder="Enter username"
-              className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black"
+              className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black autofill:bg-black"
               autoComplete="username"
             />
             <label
@@ -77,7 +77,7 @@ const RegistrationBlock = () => {
               onChange={handleLoginForm}
               required="true"
               placeholder="Enter username"
-              className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black"
+              className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black autofill:bg-black"
               autoComplete="current-password"
             />
             <label
