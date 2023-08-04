@@ -3,7 +3,7 @@ import React from "react";
 const WarHistory = () => {
   return (
     <div className="w-full rounded pb-10">
-      <h1 className="text-lg text-slate-100 text-center tracking-widest mb-2  font-starwars">
+      <h1 className="text-lg text-slate-100 text-center tracking-widest mb-2  font-sans">
         Your Past Wars
       </h1>
 
