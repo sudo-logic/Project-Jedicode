@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Axiforma", "sans-serif"],
+        starwars: ["StarWars", "sans-serif"],
       },
       colors: {
         "dark-layer-1": "rgb(10,10,10)",
