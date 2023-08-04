@@ -3,18 +3,20 @@ import CodeMirror from "@uiw/react-codemirror";
 import Split from "react-split";
 import { javascript } from "@codemirror/lang-javascript";
 import { atomone } from "@uiw/codemirror-theme-atomone";
+import LangDropdown from "../../components/LangDropdown";
 
 function Editor() {
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
-      <div className="flex w-full items-center pt-2 pb-2 bg-dark-layer-1 text-white overflow-x-hidden rounded-t-md">
-        <div
+      <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
+        {/* <div
           className={
             "bg-dark-layer-2 rounded-md mx-2 px-5 py-[10px] text-xs cursor-pointer "
           }
         >
           Javascript
-        </div>
+        </div> */}
+        <LangDropdown />
       </div>
       <Split
         className="h-[calc(100vh-72px)] "

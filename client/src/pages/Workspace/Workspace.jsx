@@ -11,7 +11,11 @@ function Workspace() {
         <Problem />
         <Editor />
       </Split>
-      <Room />
+      <div className="p-[22px] flex justify-end absolute right-0 top-0">
+        {" "}
+        <Room />
+        {/* <Timer/> */}
+      </div>
     </>
   );
 }
