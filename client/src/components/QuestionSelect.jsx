@@ -1,18 +1,18 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const questions = [
-  { name: "1. Two Sum" },
-  { name: "2. Lorem Ipsum" },
-  { name: "3. William Shakespear" },
+  { name: "Q1. Two Sum" },
+  { name: "Q2. Lorem Ipsum" },
+  { name: "Q3. Dolor sit amet" },
 ];
 
-export default function ListboxQuestion() {
+export default function QuestionSelect() {
   const [selected, setSelected] = useState(questions[0]);
 
   return (
-    <div className="bg-dark-layer-2 m-2 text-xs cursor-pointer font-medium rounded-md w-56">
+    <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-56">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative text-white w-full cursor-default rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
