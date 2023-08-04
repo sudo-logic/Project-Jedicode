@@ -17,7 +17,9 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
+* {
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
 }
 
@@ -25,7 +27,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/* 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -43,4 +45,87 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+.cm-scroller,
+.cm-gutters {
+  background-color: rgb(26, 26, 26) !important;
+}
+
+.cm-focused {
+  outline: none !important;
+}
+
+@layer components {
+  .preferenceBtn {
+    @apply relative rounded px-3 py-1.5 font-medium items-center transition-all focus: outline-none inline-flex ml-auto p-1 mr-2 hover:bg-dark-fill-3;
+  }
+
+  .preferenceBtn-tooltip {
+    @apply absolute w-auto p-2 text-sm m-2 min-w-max translate-x-3 right-0 top-5 z-10 rounded-md shadow-md text-dark-layer-2 bg-gray-200 origin-center scale-0 transition-all duration-100 ease-linear group-hover: scale-100;
+  }
+}
+
+/* dark  scrollbar */
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+/* ::-webkit-scrollbar-track {
+  background: #282828;
+} */
+
+::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+}
+
+.gutter {
+  background-color: #2d2d2d;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.gutter:hover {
+  background-color: #676767;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+  cursor: row-resize;
+}
+
+code {
+  border-radius: 5px;
+  /* border-width: 1px; */
+  font-family: "Axiforma";
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1rem;
+  padding: 3px;
+  letter-spacing: 1px;
+  white-space: pre-wrap;
+  background-color: rgb(26, 26, 26);
+}
+
+.example-card pre {
+  font-size: 14px;
+  line-height: 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  white-space: pre-wrap;
+}
+
+.example-card pre strong {
+  color: white;
+  font-size: 14px;
 }
