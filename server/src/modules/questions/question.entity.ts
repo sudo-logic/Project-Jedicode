@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany } from 'typeorm';
 import { Submission } from '../submissions/submissions.entity';
 import { AbstractEntity } from '../shared/abstract.entity';
 import { User } from '../users/user.entity';

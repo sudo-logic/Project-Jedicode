@@ -9,10 +9,8 @@ import { Public } from '../auth/public.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-    @Get()
-    async findAll() {
-        return this.usersService.findAll();
-    }
-    
-
+  @Get()
+  async findAll() {
+    return this.usersService.findAll();
+  }
 }
