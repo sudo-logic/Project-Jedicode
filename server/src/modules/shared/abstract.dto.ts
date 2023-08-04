@@ -1,13 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import {
-  IsDateString,
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsDateString, IsOptional } from 'class-validator';
 import { userObjectDto } from './user.dto';
 
 export class AbstractDTO {
