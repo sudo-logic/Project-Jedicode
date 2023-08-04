@@ -6,8 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 export default function CardForm() {
   const [roomId, setRoomId] = useState("");
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
+
+  const token = localStorage.getItem('token')
+  fetch("http://34.100.255.183/auth/profile", {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => setUsername(data.username));
 
   //join the room
   const joinRoom = (e) => {
@@ -57,11 +69,11 @@ export default function CardForm() {
                 onKeyUp={handleInputEnter}
                 onChange={(e) => setRoomId(e.target.value)}
                 placeholder="Room ID"
-                className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-neutral-950 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
+                className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
               <label
                 htmlFor="room"
-                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent"
               >
                 Room ID
               </label>
@@ -76,13 +88,14 @@ export default function CardForm() {
                 type="text"
                 value={username}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => setusername(e.target.value)}
+                disabled
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="your name"
-                className="peer relative h-10 w-full rounded border border-neutral-200 px-4 pr-12 text-sm text-neutral-950 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
+                className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
               />
               <label
                 htmlFor="name"
-                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent"
               >
                 Name
               </label>
@@ -104,11 +117,7 @@ export default function CardForm() {
         </div>
         <div className=" text-xs px text-center mb-4">
           Wanna make your own room?&nbsp;
-          <a
-            onClick={createNewRoom}
-            href=""
-            className="text-white font-bold"
-          >
+          <a onClick={createNewRoom} href="" className="text-white font-bold">
             Create Room
           </a>{" "}
         </div>
