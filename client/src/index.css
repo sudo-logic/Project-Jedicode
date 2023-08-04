@@ -1,4 +1,8 @@
 @import url("./assets/Fonts/axiformaFont/stylesheet.css");
+@font-face {
+  font-family: StarWars;
+  src: url('./assets/Fonts/Starjedi.ttf');
+}
 /* src/assets/Fonts/axiformaFont */
 
 @tailwind base;
