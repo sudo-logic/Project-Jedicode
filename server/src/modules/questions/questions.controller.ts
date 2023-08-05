@@ -31,6 +31,11 @@ export class QuestionsController {
     return await this.questionsService.findAll();
   }
 
+  @Get('random/:limit')
+  async getRandomQuestions(@Param('limit') limit: string) {
+    return await this.questionsService.findRandom(parseInt(limit));
+  }
+
   @Get(':id')
   async getQuestionById(@Param('id') id: string) {
     return await this.questionsService.findOne(id);

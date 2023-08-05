@@ -26,6 +26,15 @@ export class QuestionsService {
     return question;
   }
 
+  async findRandom(limit: number): Promise<Question[]> {
+    const questions = await this.questionsRepository
+      .createQueryBuilder('questions')
+      .orderBy('RANDOM()')
+      .limit(limit)
+      .getMany();
+    return questions;
+  }
+
   async remove(id: string): Promise<void> {
     await this.questionsRepository.delete(id);
   }
