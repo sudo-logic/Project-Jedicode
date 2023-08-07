@@ -6,40 +6,40 @@ import {
   HttpStatus,
   Post,
   Request,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
 import { SignInDto } from './dtos/signin.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from './public.decorator';
 import { SignUpDto } from './dtos/signup.dto';
 import { EmailIsTakenError } from './email-taken.error';
+import { AuthService } from './auth.service';
 
 @ApiBearerAuth('access-token')
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
   @Public()
-  signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto);
+  async signIn(@Body() signInDto: SignInDto) {
+    return await this.authService.signIn(signInDto);
   }
 
   @Post('signup')
   @Public()
-  signUp(
+  async signUp(
     @Body() signUpDto: SignUpDto,
   ): Promise<{ access_token: string } | EmailIsTakenError> {
-    return this.authService.signUp(signUpDto);
+    return await this.authService.signUp(signUpDto);
   }
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  async getProfile(@Request() req) {
+    return await req.user;
   }
 }

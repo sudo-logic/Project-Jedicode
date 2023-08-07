@@ -1,0 +1,10 @@
+.client-common:
+  before_script:
+    - cd client
+    - npm install
+
+client-build:
+  extends: .client-common
+  stage: build
+  script:
+    - npm run build

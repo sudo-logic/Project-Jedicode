@@ -1,0 +1,15 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  paths:
+    - client/node_modules/
+    - server/node_modules/
+
+include:
+  - local: client/.gitlab-ci.yml
+  - local: server/.gitlab-ci.yml

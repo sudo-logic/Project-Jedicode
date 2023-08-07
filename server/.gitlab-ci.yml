@@ -1,0 +1,16 @@
+.server-common:
+  before_script:
+    - cd server
+    - npm install
+
+server-build:
+  extends: .server-common
+  stage: build
+  script:
+    - npm run build
+
+server-lint:
+  extends: .server-common
+  stage: test
+  script:
+    - npm run lint
