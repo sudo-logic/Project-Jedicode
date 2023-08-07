@@ -1,13 +1,14 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-import axios from 'axios';
-import { ValidationPipe } from '@nestjs/common';
+import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config({
+import { AppModule } from './app.module';
+
+dotenv.config({
   path: `./${process.env.NODE_ENV}.env`,
 });
 
@@ -40,6 +41,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
   SwaggerModule.setup('api', app, document);
 
   app.use(bodyParser.json({ limit: '200mb' }));
@@ -49,6 +51,5 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(process.env.APP_PORT);
-  console.log(process.env.DB_DATABASE);
 }
 bootstrap();
