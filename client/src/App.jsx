@@ -10,11 +10,11 @@ function App() {
   return (
     <div className="w-screen h-screen bg-[url('./assets/background.jpg')]  text-neutral-400 overflow-x-hidden">
       <ToastContainer />
-      
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/editor/:roomId" element={<Workspace />}></Route>
+        <Route path="/editor/:roomId" element={<Workspace />} />
       </Routes>
     </div>
   );

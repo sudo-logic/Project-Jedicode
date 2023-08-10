@@ -10,12 +10,12 @@ const Dashboard = () => {
       <Navbar />
       <div className="p-10 grid grid-rows-2 grid-cols-4 justify-center items-start gap-x-16 h-full bg-black">
         
-        <div className="row-start-1 col-span-3 w-full h-1/2 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black"></div>
-
         {/* war options */}
-        <div className="row-start-2 col-span-3 -mt-28">
+        <div className="row-start-1 col-span-3 mt-5">
           <CustomizeWar />
         </div>
+
+        <div className="row-start-2 col-span-3 w-full h-1/2 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black mt-16"></div>
 
         {/* leaderboard and war history */}
         <div className="grid col-start-4 grid-rows-1 flex-col justify-center content-center gap-5">
