@@ -1,11 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service';
 
 import { SignInDto } from './dtos/signin.dto';
 import { SignUpDto } from './dtos/signup.dto';
-import { EmailIsTakenError } from './email-taken.error';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +35,7 @@ export class AuthService {
       signUpDto.email,
     );
     if (existingUser) {
-      return new EmailIsTakenError();
+      throw new HttpException({ message: ['User already exists'] }, 409);
     }
 
     const user = await this.usersService.create(signUpDto);
