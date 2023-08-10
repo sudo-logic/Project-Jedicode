@@ -36,11 +36,13 @@ const RegistrationBlock = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data?.statusCode === 401) {
+          if (data.statusCode !== undefined) {
             notify();
+            console.log(data)
             setPOSTload(false);
           } else {
-            localStorage.setItem('token', data.access_token)
+            console.log (data)
+            localStorage.setItem("token", data.access_token);
             navigate("/dashboard");
           }
         });
@@ -143,15 +145,16 @@ const RegistrationBlock = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          if (data?.statusCode === 401) {
-            notify();
-            setPOSTload(false);
-          } else if (data?.statusCode === 400) {
+          if (data?.statusCode === 400) {
             for (let i = 0; i < data?.message.length; i++) {
               toast.error(data?.message[i]);
             }
             setPOSTload(false);
+          } else if (data?.statusCode !== 200) {
+            notify();
+            setPOSTload(false);
           } else {
+            console.log(data);
             navigate("/dashboard");
           }
         });
@@ -238,7 +241,7 @@ const RegistrationBlock = () => {
     );
   }
 
-  const [login, setLogin] = useState(<Signup />);
+  const [login, setLogin] = useState(<Login />);
 
   function handleLoginClick() {
     setLogin(<Login />);
