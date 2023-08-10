@@ -9,27 +9,11 @@ import { CodeRunnerDto } from './dto/code-runner.dto';
 @ApiTags('Runner')
 @Public()
 export class RunnerController {
-  constructor(
-    private readonly questionService: QuestionsService,
-    private readonly runnerService: RunnerService,
-  ) {}
+  constructor(private readonly runnerService: RunnerService) {}
 
   @Post()
   async runCode(@Body() codeRunnerDto: CodeRunnerDto) {
-    const question = await this.questionService.findOne(
-      codeRunnerDto.question_id,
-    );
-    const testCases = question.test_cases;
-
-    const results = [];
-    for (const testCase of testCases) {
-      const result = await this.runnerService.submit_and_wait(
-        codeRunnerDto,
-        testCase,
-      );
-      results.push(result);
-    }
-
+    const results = await this.runnerService.run_code(codeRunnerDto);
     return results;
   }
 }

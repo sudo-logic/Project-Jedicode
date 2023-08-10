@@ -11,7 +11,11 @@ export class CreateSubmissionDto {
 
   @IsNumber()
   @IsNotEmpty()
-  score: number;
+  language_id: number;
+
+  // @IsNumber()
+  // @IsNotEmpty()
+  // score: number;
 
   @IsUUID()
   @IsNotEmpty()
