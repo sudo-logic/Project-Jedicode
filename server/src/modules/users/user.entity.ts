@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Submission } from '../submissions/submissions.entity';
 
 import { AbstractEntity } from '../shared/abstract.entity';
@@ -18,10 +18,10 @@ export class User extends AbstractEntity {
   @Column({ default: 0 })
   score: number;
 
-  @ManyToOne(() => Submission, (submission) => submission.user, { eager: true })
+  @OneToMany(() => Submission, (submission) => submission.user, {})
   submissions: Submission[];
 
-  @ManyToMany(() => Question, (question) => question.id, { eager: true })
+  @ManyToMany(() => Question, (question) => question.id, {})
   @JoinTable()
   questions_attempted: User[];
 }

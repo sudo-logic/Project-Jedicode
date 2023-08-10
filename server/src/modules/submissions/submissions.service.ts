@@ -11,16 +11,26 @@ export class SubmissionsService {
   ) {}
 
   async findAll(): Promise<Submission[]> {
-    const submissions = await this.submissionsRepository.find();
+    const submissions = await this.submissionsRepository.find({
+      // relations: ['user', 'question'],
+    });
     return submissions;
   }
 
   async findOne(id: string): Promise<Submission> {
-    return await this.submissionsRepository.findOneBy({ id });
+    // return await this.submissionsRepository.findOneBy({ id });
+    return await this.submissionsRepository.findOne({
+      where: { id: id },
+      relations: ['user', 'question'],
+    });
   }
 
-  async create(submission: CreateSubmissionDto): Promise<Submission> {
+  async create(
+    submission: CreateSubmissionDto,
+    score: number,
+  ): Promise<Submission> {
     const newSubmission = this.submissionsRepository.create(submission);
+    newSubmission.score = score;
     return await this.submissionsRepository.save(newSubmission);
   }
 

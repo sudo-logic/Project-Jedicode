@@ -1,4 +1,4 @@
-import { ormconfig } from 'src/orm.config';
+import { ormconfig } from '../../orm.config';
 
 export const jwtConstants = {
   secret: ormconfig.password,

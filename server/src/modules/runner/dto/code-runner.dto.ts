@@ -11,5 +11,5 @@ export class CodeRunnerDto {
 
   @IsString()
   @IsNotEmpty()
-  sourceCode: string;
+  code: string;
 }
