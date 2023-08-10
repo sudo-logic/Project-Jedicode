@@ -2,15 +2,31 @@ import { Injectable } from '@nestjs/common';
 import { CodeRunnerDto } from './dto/code-runner.dto';
 import { TestCase } from '../shared/test-case.interface';
 import axios from 'axios';
-
+import { QuestionsService } from '../questions/questions.service';
 @Injectable()
 export class RunnerService {
-  async submit_and_wait(codeRunnerDTO: CodeRunnerDto, testCase: TestCase) {
+  constructor(private readonly questionsService: QuestionsService) {}
+
+  async run_code(codeRunnerDTO: CodeRunnerDto) {
+    const question = await this.questionsService.findOne(
+      codeRunnerDTO.question_id,
+    );
+    const testCases = question.test_cases;
+
+    const results = [];
+    for (const testCase of testCases) {
+      const result = await this.submit_and_wait(codeRunnerDTO, testCase);
+      results.push(result);
+    }
+    return results;
+  }
+
+  async submit_and_wait(codeRunnerDto: CodeRunnerDto, testCase: TestCase) {
     const response = await axios.post(
       'http://34.100.255.183:2358/submissions/?wait=true',
       {
-        source_code: codeRunnerDTO.sourceCode,
-        language_id: codeRunnerDTO.language_id,
+        source_code: codeRunnerDto.code,
+        language_id: codeRunnerDto.language_id,
         number_of_runs: null,
         stdin: testCase.input,
         expected_output: testCase.output,
