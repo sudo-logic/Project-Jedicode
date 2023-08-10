@@ -2,10 +2,26 @@ FROM node:latest as development
 
 WORKDIR /usr/src/app
 
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
 
-RUN rm -rf package-lock.json && npm install && npm run build
+EXPOSE 3000
 
-EXPOSE 5000
+CMD ["npm", "run", "dev"]
 
-CMD ["npm", "start"]
+
+
+# FROM node:latest as development
+
+# WORKDIR /usr/src/app
+
+# COPY . .
+
+# RUN rm -rf package-lock.json && npm install && npm run build
+
+# EXPOSE 5000
+
+# CMD ["npm", "start"]
