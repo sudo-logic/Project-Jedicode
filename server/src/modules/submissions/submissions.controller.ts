@@ -59,8 +59,8 @@ export class SubmissionsController {
     // passed_cases = result.filter((r) => r.status.id === 3).length;
     // submission.score = passed_cases / total_cases;
 
-    let total_cases = result.length;
-    let passed_cases = result.filter((r) => r.status.id === 3).length;
+    const total_cases = result.length;
+    const passed_cases = result.filter((r) => r.status.id === 3).length;
     let score = (passed_cases / total_cases) * 10;
     score = Math.round(score);
 
