@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
@@ -11,8 +11,12 @@ const questions = await axios
 
 console.log(questions);
 
-export default function QuestionSelect() {
+export default function QuestionSelect(props) {
   const [selected, setSelected] = useState(questions[0]);
+
+  useEffect(() => {
+    props.onChange(selected);
+  }, [selected]);
 
   return (
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-auto">
