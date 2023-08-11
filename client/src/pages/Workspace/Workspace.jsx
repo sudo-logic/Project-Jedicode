@@ -11,7 +11,10 @@ function Workspace() {
 
   return (
     <>
-      <Split className="split max-h-screen p-[10px] overflow-hidden bg-[rgb(26,26,26)]">
+      <Split
+        className="split max-h-screen p-[10px] overflow-hidden bg-[rgb(26,26,26)]"
+        sizes={[45, 55]}
+      >
         <Problem />
         <Editor />
       </Split>

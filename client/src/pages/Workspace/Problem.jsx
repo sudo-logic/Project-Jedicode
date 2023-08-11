@@ -28,8 +28,8 @@ function Problem() {
             <QuestionSelect />
           </div>
 
-          <div className="flex px-0 py-4 h-[calc(100vh-44px)] overflow-y-auto">
-            <div className="px-5">
+          <div className="flex pb-2  h-[calc(100vh-44px)]">
+            <div className="px-4 pt-2 pb-8 overflow-y-scroll">
               {/* Problem heading */}
               <div className="w-full">
                 <div className="flex space-x-4">
