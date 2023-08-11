@@ -86,14 +86,14 @@ const Room = () => {
 
   return (
     <>
-      <div className="w-full p-8 flex justify-end absolute right-0 top-0">
+      <div className="">
         <Popover className="relative">
           {({ open }) => (
             <>
               <Popover.Button
                 className={`
                 ${open ? "" : "text-opacity-90"}
-                group inline-flex items-center rounded-full bg-neutral-950 border border-white p-3 text-base text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                group inline-flex items-center rounded-full bg-dark-layer-2 p-2 text-base text-white  hover:text-opacity-100 focus:outline-none `}
               >
                 <span>
                   <svg

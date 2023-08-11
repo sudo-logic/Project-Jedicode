@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import QuestionSelect from "../../components/QuestionSelect";
 
 function Problem() {
   const [data, setData] = useState();
@@ -17,20 +18,14 @@ function Problem() {
   }, []);
 
   return (
-    <div className="bg-dark-layer-1 h-screen">
+    <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
       {/* TAB */}
       {load ? (
         <div>Loading...</div>
       ) : (
         <div>
-          <div className="flex h-11 w-full items-center pt-2 bg-dark-layer-1 text-white overflow-x-hidden">
-            <div
-              className={
-                "bg-dark-layer-2 rounded-md mx-4 px-5 py-[10px] text-xs cursor-pointer font-medium"
-              }
-            >
-              Description
-            </div>
+          <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
+            <QuestionSelect />
           </div>
 
           <div className="flex px-0 py-4 h-[calc(100vh-44px)] overflow-y-auto">
@@ -57,7 +52,9 @@ function Problem() {
                 <div className="mt-4">
                   {data?.examples.map((example, id) => (
                     <div>
-                      <p className="font-medium text-white ">Example {id + 1}: </p>
+                      <p className="font-medium text-white ">
+                        Example {id + 1}:{" "}
+                      </p>
                       <div className="example-card bg-dark-layer-2 text-white rounded-md">
                         <pre>
                           <strong className="text-white">Input: </strong>{" "}
