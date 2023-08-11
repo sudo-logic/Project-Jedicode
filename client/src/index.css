@@ -1,7 +1,7 @@
 @import url("./assets/Fonts/axiformaFont/stylesheet.css");
 @font-face {
   font-family: StarWars;
-  src: url('./assets/Fonts/Starjedi.ttf');
+  src: url("./assets/Fonts/Starjedi.ttf");
 }
 /* src/assets/Fonts/axiformaFont */
 
@@ -72,7 +72,7 @@ button:focus-visible {
 
 /* dark  scrollbar */
 ::-webkit-scrollbar {
-  width: 0.4rem;
+  width: 0.2rem;
 }
 
 /* ::-webkit-scrollbar-track {
@@ -80,7 +80,7 @@ button:focus-visible {
 } */
 
 ::-webkit-scrollbar-thumb {
-  background: #4d4d4d;
+  background: #323232;
 }
 
 .split {
