@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from "react";
 import QuestionSelect from "../../components/QuestionSelect";
+import axios from "axios";
 
 function Problem() {
   const [data, setData] = useState();
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(true);
 
-  useEffect(() => {
+  const getQuestion = (question) => {
     setLoad(true);
-    console.log('hi')
-    fetch(
-      "http://34.100.255.183/questions/a76b8c56-284c-412f-b086-1b06d23bb4bc"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-        setLoad(false);
-      });
-  }, [QuestionSelect]);
+    console.log(question);
+    setData(question);
+    setLoad(false);
+  };
 
   return (
     <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
       {/* TAB */}
+      <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
+        <QuestionSelect onChange={getQuestion} />
+      </div>
       {load ? (
         <div>Loading...</div>
       ) : (
         <div>
-          <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
-            <QuestionSelect />
-          </div>
-
           <div className="flex pb-2  h-[calc(100vh-44px)]">
             <div className="px-4 pt-2 pb-8 overflow-y-scroll">
               {/* Problem heading */}
