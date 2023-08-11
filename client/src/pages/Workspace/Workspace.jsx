@@ -18,7 +18,7 @@ function Workspace() {
         <Problem />
         <Editor />
       </Split>
-      <div className="p-[22px] flex justify-between gap-3 absolute right-0 top-0">
+      <div className="flex justify-between gap-5 absolute right-1 top-[22px]">
         <QTimer expiryTimestamp={time} />
         <Room />
       </div>
