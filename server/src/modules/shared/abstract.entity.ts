@@ -7,9 +7,6 @@ import {
 import { IUser } from './user.interface';
 
 export abstract class AbstractEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
   @CreateDateColumn({ nullable: true })
   created_at: Date;
 
@@ -22,6 +19,9 @@ export abstract class AbstractEntity {
 
   @Column('jsonb', { nullable: true })
   last_updated_by: IUser;
+
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   // @Column('jsonb',{nullable:true})
   // extra_info : object
