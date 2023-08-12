@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import { IsUUID, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 
 export class userObjectDto {
@@ -26,4 +26,16 @@ export class userObjectDto {
   @IsNotEmpty({ message: 'Email should not be empty' })
   @Expose()
   email: string;
+
+  // // Queestions Attempted
+  // @ApiProperty({
+  //   description: 'Questions Attempted',
+  // })
+  // @Expose()
+  // @Transform((value) => {
+  //   return value.value.map((item) => {
+  //     return item.id;
+  //   });
+  // })
+  // questions_attempted: string[];
 }
