@@ -7,7 +7,6 @@ function Problem() {
 
   useEffect(() => {
     setLoad(true);
-    console.log('hi')
     fetch(
       "http://34.100.255.183/questions/a76b8c56-284c-412f-b086-1b06d23bb4bc"
     )
@@ -16,7 +15,7 @@ function Problem() {
         setData(data);
         setLoad(false);
       });
-  }, [QuestionSelect]);
+  }, []);
 
   return (
     <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
@@ -37,10 +36,10 @@ function Problem() {
                   <div className="mr-2 text-xl text-white font-bold">
                     1. {data?.title}
                   </div>
-                  <div className="flex justify-center items-center text-olive bg-olive rounded-[21px] bg-opacity-[0.15] px-2.5 ">
-                    <div className={` text-xs font-medium uppercase`}>
-                      {data?.difficulty}
-                    </div>
+                  <div
+                    className={`text-olive bg-olive rounded-[21px] bg-opacity-[.15] px-2.5 pt-[6px] text-xs font-medium uppercase`}
+                  >
+                    {data?.difficulty}
                   </div>
                 </div>
 
@@ -52,7 +51,7 @@ function Problem() {
                 {/* Examples */}
                 <div className="mt-4">
                   {data?.examples.map((example, id) => (
-                    <div key={id}>
+                    <div>
                       <p className="font-medium text-white ">
                         Example {id + 1}:{" "}
                       </p>
@@ -77,7 +76,7 @@ function Problem() {
                   </div>
                   <ul className="text-white ml-5 list-disc">
                     {data?.constraints.map((contraint, id) => (
-                      <li className="mt-2" key={id}>
+                      <li className="mt-2">
                         <code>{contraint}</code>
                       </li>
                     ))}
