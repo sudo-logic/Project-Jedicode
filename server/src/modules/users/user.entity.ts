@@ -23,5 +23,5 @@ export class User extends AbstractEntity {
 
   @ManyToMany(() => Question, (question) => question.id, {})
   @JoinTable()
-  questions_attempted: User[];
+  questions_attempted: Question[];
 }
