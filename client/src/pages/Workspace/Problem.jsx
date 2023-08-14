@@ -8,7 +8,6 @@ function Problem() {
 
   const getQuestion = (question) => {
     setLoad(true);
-    console.log(question);
     setData(question);
     setLoad(false);
   };

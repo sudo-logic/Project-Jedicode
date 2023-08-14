@@ -31,7 +31,6 @@ const RegistrationBlock = () => {
       axios
         .post("http://34.100.255.183/auth/login", loginCreds)
         .then((res) => {
-          console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
           navigate("/dashboard");
         })
