@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoExitOutline } from "react-icons/io5";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -32,6 +33,11 @@ export default function Navbar() {
     });
 
   function ProfileOverlay() {
+    function logout() {
+      localStorage.clear();
+      navigate("/");
+      toast.success("Logout Success");
+    }
     return (
       <>
         {/*<!-- Component: User profile card --> */}
@@ -76,7 +82,9 @@ export default function Navbar() {
                 <CgProfile size={24} />
               </button>
               <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none">
-                <span className="order-2">Log Out</span>
+                <span className="order-2" onClick={logout}>
+                  Log Out
+                </span>
                 <IoExitOutline size={24} />
               </button>
             </div>
