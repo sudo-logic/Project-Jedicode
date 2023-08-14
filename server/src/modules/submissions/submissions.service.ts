@@ -28,8 +28,10 @@ export class SubmissionsService {
   async create(
     submission: CreateSubmissionDto,
     score: number,
+    user_id: string,
   ): Promise<Submission> {
     const newSubmission = this.submissionsRepository.create(submission);
+    newSubmission.user_id = user_id;
     newSubmission.score = score;
     return await this.submissionsRepository.save(newSubmission);
   }

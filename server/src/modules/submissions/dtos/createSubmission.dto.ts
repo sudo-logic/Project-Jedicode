@@ -17,9 +17,9 @@ export class CreateSubmissionDto {
   // @IsNotEmpty()
   // score: number;
 
-  @IsUUID()
-  @IsNotEmpty()
-  user_id: string;
+  // @IsUUID()
+  // @IsNotEmpty()
+  // user_id: string;
 
   @IsUUID()
   @IsNotEmpty()
