@@ -1,11 +1,27 @@
-FROM node:14.19.0-alpine3.14 as development
+FROM node:latest as development
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package*.json ./
 
-RUN rm -rf package-lock.json && npm install && npm run build
+RUN npm install
+
+COPY . .
 
 EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:dev"]
+
+
+
+# FROM node:latest as development
+
+# WORKDIR /usr/src/app
+
+# COPY . .
+
+# RUN rm -rf package-lock.json && npm install && npm run build
+
+# EXPOSE 5000
+
+# CMD ["npm", "start"]

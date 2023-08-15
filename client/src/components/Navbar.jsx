@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoExitOutline } from "react-icons/io5";
+import axios from "axios";
 
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -14,17 +15,20 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  fetch("http://34.100.255.183/auth/profile", {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      setUsername(data.username);
+
+  axios
+    .get("http://34.100.255.183/auth/profile", {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setUsername(response.data.username);
       setLoad(false);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
   function ProfileOverlay() {

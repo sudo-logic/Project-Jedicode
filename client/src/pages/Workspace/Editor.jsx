@@ -3,10 +3,30 @@ import CodeMirror from "@uiw/react-codemirror";
 import Split from "react-split";
 import { javascript } from "@codemirror/lang-javascript";
 import { atomone } from "@uiw/codemirror-theme-atomone";
+import LangDropdown from "../../components/LangDropdown";
+import axios from "axios";
 
 function Editor() {
   const [code, setCode] = useState("const a = 100;");
   const [codeResponse, setCodeResponse] = useState([]);
+  const [load, setLoad] = useState(true);
+  const [uuid, setUUID] = useState("")
+
+  const token = localStorage.getItem("token")
+  axios
+    .get("http://34.100.255.183/auth/profile", {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setUUID(response.data.sub);
+      setLoad(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   
   const handleRun = (e) => {
     const judgeBody = {
@@ -31,28 +51,54 @@ function Editor() {
       });
   };
 
+  const handleSubmit = (e) => {
+    const judgeBody = {
+      language_id: 71,
+      question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
+      code: code,
+      language: "python",
+      user_id: uuid,
+    };
+
+    e.preventDefault();
+    fetch("http://34.100.255.183/submissions", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(judgeBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCodeResponse(data);
+      });
+  };
+
   const handleCodeInput = (editor, data, value) => {
     setCode(editor);
   };
 
   return (
-    <div className="flex flex-col bg-dark-layer-1">
-      <div className="flex h-11 w-full items-center pt-2 bg-dark-layer-1 text-white overflow-x-hidden">
-        <div
+    <div className="flex flex-col bg-dark-layer-2 rounded-md ">
+      <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
+        {/* <div
           className={
-            "bg-dark-layer-2 rounded-md mx-4 px-5 py-[10px] text-xs cursor-pointer "
+            "bg-dark-layer-2 rounded-md mx-2 px-5 py-[10px] text-xs cursor-pointer "
           }
         >
           Javascript
-        </div>
+        </div> */}
+        <LangDropdown />
       </div>
       <Split
-        className="h-[calc(100vh-94px)] mt-4 "
+        className="h-[calc(100vh-72px)] "
         direction="vertical"
         sizes={[70, 30]}
         minSize={70}
       >
-        <div className="w-full bg-[rgb(26,26,26)] overflow-auto">
+        <div className="w-full bg-dark-layer-1 overflow-auto rounded-b-md">
           <CodeMirror
             value={code}
             theme={atomone}
@@ -64,7 +110,7 @@ function Editor() {
             className="cursor-text"
           />
         </div>
-        <div>test cases</div>
+        <div className="bg-black rounded-md mb-2">test cases</div>
         {codeResponse[0]?.stdout === null || codeResponse[0] === undefined ? (
           <></>
         ) : (
@@ -82,14 +128,14 @@ function Editor() {
           </div>
         )}
       </Split>
-      <div className="flex flex-row justify-end gap-10 mb-5 mr-10">
+      <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}
         >
           Run
         </button>
-        <button className="w-24 rounded-md px-3 py-2  bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow">
+        <button className="w-24 rounded-md px-3 py-2  bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow" onClick={handleSubmit}>
           Submit
         </button>
       </div>
