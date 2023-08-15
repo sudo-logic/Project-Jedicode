@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const RegistrationBlock = () => {
   const navigate = useNavigate();
@@ -26,25 +27,17 @@ const RegistrationBlock = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       setPOSTload(true);
-      fetch("http://34.100.255.183/auth/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginCreds),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.statusCode !== undefined) {
-            notify();
-            console.log(data)
-            setPOSTload(false);
-          } else {
-            console.log (data)
-            localStorage.setItem("token", data.access_token);
-            navigate("/dashboard");
-          }
+
+      axios
+        .post("http://34.100.255.183/auth/login", loginCreds)
+        .then((res) => {
+          console.log(res.data);
+          localStorage.setItem("token", res.data.access_token);
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          notify();
+          setPOSTload(false);
         });
     };
 
@@ -134,28 +127,18 @@ const RegistrationBlock = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       setPOSTload(true);
-      fetch("http://34.100.255.183/auth/signup", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupCreds),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          if (data?.statusCode === 400) {
-            for (let i = 0; i < data?.message.length; i++) {
-              toast.error(data?.message[i]);
-            }
-            setPOSTload(false);
-          } else if (data?.statusCode !== 200) {
-            notify();
-            setPOSTload(false);
-          } else {
-            console.log(data);
-            navigate("/dashboard");
+      axios
+        .post("http://localhost:5000/auth/signup", signupCreds)
+        .then((res) => {
+          console.log(res.data);
+          localStorage.setItem("token", res.data.access_token);
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          setPOSTload(false);
+          console.log(err);
+          for (let i = 0; i < err.response.data.message.length; i++) {
+            toast.error(err.response.data.message[i]);
           }
         });
     };

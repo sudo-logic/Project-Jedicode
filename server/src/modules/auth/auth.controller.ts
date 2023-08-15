@@ -13,7 +13,6 @@ import { SignInDto } from './dtos/signin.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from './public.decorator';
 import { SignUpDto } from './dtos/signup.dto';
-import { EmailIsTakenError } from './email-taken.error';
 import { AuthService } from './auth.service';
 
 @ApiBearerAuth('access-token')
@@ -33,7 +32,7 @@ export class AuthController {
   @Public()
   async signUp(
     @Body() signUpDto: SignUpDto,
-  ): Promise<{ access_token: string } | EmailIsTakenError> {
+  ): Promise<{ access_token: string }> {
     return await this.authService.signUp(signUpDto);
   }
 

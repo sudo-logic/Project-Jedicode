@@ -1,7 +1,7 @@
 @import url("./assets/Fonts/axiformaFont/stylesheet.css");
 @font-face {
   font-family: StarWars;
-  src: url('./assets/Fonts/Starjedi.ttf');
+  src: url("./assets/Fonts/Starjedi.ttf");
 }
 /* src/assets/Fonts/axiformaFont */
 
@@ -53,7 +53,7 @@ button:focus-visible {
 
 .cm-scroller,
 .cm-gutters {
-  background-color: rgb(26, 26, 26) !important;
+  background-color: rgb(35, 35, 35) !important;
 }
 
 .cm-focused {
@@ -66,13 +66,13 @@ button:focus-visible {
   }
 
   .preferenceBtn-tooltip {
-    @apply absolute w-auto p-2 text-sm m-2 min-w-max translate-x-3 right-0 top-5 z-10 rounded-md shadow-md text-dark-layer-2 bg-gray-200 origin-center scale-0 transition-all duration-100 ease-linear group-hover: scale-100;
+    @apply absolute w-auto p-2 text-sm m-2 min-w-max translate-x-3 right-0 top-5 z-10 rounded-md shadow-md text-dark-layer-2 bg-gray-200 origin-center scale-0 transition-all duration-100 ease-linear group-hover:;
   }
 }
 
 /* dark  scrollbar */
 ::-webkit-scrollbar {
-  width: 0.4rem;
+  width: 0.2rem;
 }
 
 /* ::-webkit-scrollbar-track {
@@ -80,7 +80,7 @@ button:focus-visible {
 } */
 
 ::-webkit-scrollbar-thumb {
-  background: #4d4d4d;
+  background: #323232;
 }
 
 .split {
@@ -89,21 +89,20 @@ button:focus-visible {
 }
 
 .gutter {
-  background-color: #2d2d2d;
+  background-color: rgb(26, 26, 26);
   background-repeat: no-repeat;
   background-position: 50%;
 }
-.gutter:hover {
-  background-color: #676767;
-}
 
 .gutter.gutter-horizontal {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  background-image: url("../src/assets/vertical-dots.svg");
+  background-size: 4px;
   cursor: col-resize;
 }
 
 .gutter.gutter-vertical {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+  background-image: url("../src/assets/rotated-dots.svg");
+  background-size: 16px;
   cursor: row-resize;
 }
 

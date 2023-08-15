@@ -14,6 +14,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ormconfig } from './orm.config';
 import { RunnerController } from './modules/runner/runner.controller';
 import { RunnerModule } from './modules/runner/runner.module';
+import { RoomsModule } from './modules/rooms/rooms.module';
 
 dotenv.config({
   path: `./${process.env.NODE_ENV}.env`,
@@ -27,6 +28,7 @@ dotenv.config({
     QuestionsModule,
     SubmissionsModule,
     RunnerModule,
+    RoomsModule,
   ],
   controllers: [AppController, QuestionsController, RunnerController],
   providers: [AppService, ChatGateway],
