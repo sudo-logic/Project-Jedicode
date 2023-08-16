@@ -3,23 +3,16 @@ import { v4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useSnapshot } from "valtio";
+import { globalState } from "../utils/proxy";
 
 export default function CardForm() {
-  const [roomId, setRoomId] = useState("");
-  const [username, setUsername] = useState("");
-  const [load, setLoad] = useState(false);
-  const navigate = useNavigate();
 
-  const token = localStorage.getItem('token')
-  fetch("http://34.100.255.183/auth/profile", {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => setUsername(data.username));
+  const state = useSnapshot(globalState);
+
+  const [roomId, setRoomId] = useState("");
+  const [username, setUsername] = useState(state?.profile?.username);
+  const navigate = useNavigate();
 
   //join the room
   const joinRoom = (e) => {
