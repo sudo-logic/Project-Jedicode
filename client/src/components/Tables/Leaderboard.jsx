@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Leaderboard = () => {
+  const [leaderboardData, setLeaderboardData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/users/leaderboard`)
+      .then((response) => setLeaderboardData(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <div className="w-full rounded">
       <h1 className="text-lg text-slate-100 tracking-widest text-center mb-2 font-sans">
@@ -32,17 +42,22 @@ const Leaderboard = () => {
               Score
             </th>
           </tr>
-          <tr className="transition-colors duration-300 hover:bg-slate-50 bg-black">
-            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-              1
-            </td>
-            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-              Michael Big
-            </td>
-            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-              1500
-            </td>
-          </tr>
+          {leaderboardData.map((user, index) => (
+            <tr
+              key={user.id}
+              className="transition-colors duration-300 hover:bg-slate-50 bg-black"
+            >
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {index + 1}
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {user.username}
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {user.score}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
