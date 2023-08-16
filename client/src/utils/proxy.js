@@ -14,12 +14,19 @@ const fetchProfile = async () => {
 }
 
 const fetchQuestions = async () => {
-  const data = await fetch("https://34.100.255.183/questions");
+  const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/questions`);
+  return data.json();
+};
+
+const fetchLanguages = async () => {
+  const data = await fetch(`${import.meta.env.VITE_JUDGE_URL}/languages/all`);
   return data.json();
 };
 
 export const globalState = proxy({
   questions: fetchQuestions(),
   profile: fetchProfile(),
-  apiURI: import.meta.env.VITE_BACKEND_URL
+  languages: fetchLanguages(),
+  apiURI: import.meta.env.VITE_BACKEND_URL,
+  languageId: 1
 });
