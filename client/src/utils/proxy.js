@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { proxy } from "valtio";
 
 const token = localStorage.getItem("token")
