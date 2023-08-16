@@ -5,6 +5,8 @@ import { javascript } from "@codemirror/lang-javascript";
 import { atomone } from "@uiw/codemirror-theme-atomone";
 import LangDropdown from "../../components/LangDropdown";
 import axios from "axios";
+import { globalState } from "../../utils/proxy";
+import { useSnapshot } from "valtio";
 
 function Editor() {
   const [code, setCode] = useState("const a = 100;");
@@ -12,9 +14,11 @@ function Editor() {
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("")
 
+  const state = useSnapshot(globalState)
+
   const token = localStorage.getItem("token")
   axios
-    .get("http://34.100.255.183/auth/profile", {
+    .get(`${state.apiURI}/auth/profile`, {
       headers: {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -36,7 +40,7 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch("http://34.100.255.183/runner", {
+    fetch(`${state.apiURI}/runner`, {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -61,7 +65,7 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch("http://34.100.255.183/submissions", {
+    fetch(`${state.apiURI}/submissions`, {
       method: "POST",
       headers: {
         accept: "application/json",

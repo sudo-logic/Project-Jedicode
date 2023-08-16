@@ -3,8 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useSnapshot } from "valtio";
+import { globalState } from "../../utils/proxy";
 
 const RegistrationBlock = () => {
+
+  const state = useSnapshot(globalState)
+  const URI = state.apiURI
+
   const navigate = useNavigate();
 
   function Login() {
@@ -29,7 +35,7 @@ const RegistrationBlock = () => {
       setPOSTload(true);
 
       axios
-        .post("http://34.100.255.183/auth/login", loginCreds)
+        .post(`${URI}/auth/login`, loginCreds)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
