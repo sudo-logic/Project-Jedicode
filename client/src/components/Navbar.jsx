@@ -14,7 +14,7 @@ export default function Navbar() {
   
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
-  const [username, setUsername] = useState(state?.profile?.username);
+  const [username, setUsername] = useState(state?.profile?.username || "");
 
   const [load, setLoad] = useState(false);
 

@@ -2,9 +2,13 @@ import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
+import { useSnapshot } from "valtio";
+import { globalState } from "../utils/proxy";
 
+const state = globalState
+const URI = state.apiURI
 const questions = await axios
-  .get("http://34.100.255.183/questions/random/3")
+  .get(`${URI}/questions/random/3`)
   .then((res) => {
     return res.data;
   });
