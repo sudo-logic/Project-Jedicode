@@ -20,4 +20,15 @@ export class UsersController {
   async findAll() {
     return this.usersService.findAll();
   }
+
+  @Get('leaderboard')
+  @Serialize(userObjectDto)
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: [userObjectDto],
+  })
+  async getLeaderboard() {
+    return this.usersService.getLeaderboard();
+  }
 }
