@@ -34,7 +34,7 @@ function Editor() {
   
   const handleRun = (e) => {
     const judgeBody = {
-      language_id: 71,
+      language_id: globalState.languageId,
       question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
       code: code,
     };
@@ -133,6 +133,7 @@ function Editor() {
         )}
       </Split>
       <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
+        <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button>
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}
