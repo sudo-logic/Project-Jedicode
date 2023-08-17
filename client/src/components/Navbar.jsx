@@ -12,7 +12,7 @@ import { globalState } from "../utils/proxy";
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  
+
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
   const [username, setUsername] = useState(state?.profile?.username || "");
@@ -20,23 +20,6 @@ export default function Navbar() {
   const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
-
-  // const token = localStorage.getItem("token");
-
-  // axios
-  //   .get("http://34.100.255.183/auth/profile", {
-  //     headers: {
-  //       accept: "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     setUsername(response.data.username);
-  //     setLoad(false);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 
   function ProfileOverlay() {
     function logout() {

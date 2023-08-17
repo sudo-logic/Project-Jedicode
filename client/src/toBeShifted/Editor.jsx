@@ -7,7 +7,7 @@ import { atomone } from "@uiw/codemirror-theme-atomone";
 function Editor() {
   const [code, setCode] = useState("const a = 100;");
   const [codeResponse, setCodeResponse] = useState([]);
-  
+
   const handleRun = (e) => {
     const judgeBody = {
       language_id: 71,
