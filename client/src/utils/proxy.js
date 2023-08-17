@@ -20,7 +20,7 @@ const fetchQuestions = async () => {
 };
 
 const fetchLanguages = async () => {
-  const data = await fetch(`${import.meta.env.VITE_JUDGE_URL}/languages/all`);
+  const data = await fetch(`https://ce.judge0.com/languages/all`);
   return data.json();
 };
 
