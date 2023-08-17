@@ -12,7 +12,7 @@ import { globalState } from "../utils/proxy";
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-
+  
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
   const [username, setUsername] = useState(state?.profile?.username || "");
@@ -20,6 +20,7 @@ export default function Navbar() {
   const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
+
 
   function ProfileOverlay() {
     function logout() {
@@ -108,11 +109,10 @@ export default function Navbar() {
             {/*      <!-- Mobile trigger --> */}
             <button
               className={`relative order-10 block h-10 w-10 self-center lg:hidden
-              ${
-                isToggleOpen
+              ${isToggleOpen
                   ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(3)]:w-0 [&_span:nth-child(2)]:-rotate-45 "
                   : ""
-              }
+                }
             `}
               onClick={() => setIsToggleOpen(!isToggleOpen)}
               aria-expanded={isToggleOpen ? "true" : "false"}
