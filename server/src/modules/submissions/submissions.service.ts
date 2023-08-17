@@ -29,10 +29,12 @@ export class SubmissionsService {
     submission: CreateSubmissionDto,
     score: number,
     user_id: string,
+    result: object,
   ): Promise<Submission> {
     const newSubmission = this.submissionsRepository.create(submission);
     newSubmission.user_id = user_id;
     newSubmission.score = score;
+    newSubmission.runner_response = result;
     return await this.submissionsRepository.save(newSubmission);
   }
 

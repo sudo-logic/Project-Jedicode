@@ -27,4 +27,7 @@ export class Submission extends AbstractEntity {
 
   @Column()
   score: number;
+
+  @Column({ type: 'json', nullable: true })
+  runner_response: object;
 }
