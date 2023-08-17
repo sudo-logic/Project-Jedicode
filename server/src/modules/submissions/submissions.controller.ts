@@ -76,7 +76,12 @@ export class SubmissionsController {
     let score = (passed_cases / total_cases) * 10;
     score = Math.round(score);
 
-    return await this.submissionsService.create(submission, score, user);
+    return await this.submissionsService.create(
+      submission,
+      score,
+      user,
+      result,
+    );
   }
 
   @Get()
