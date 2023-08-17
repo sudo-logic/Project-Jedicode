@@ -23,7 +23,7 @@ export default function QuestionSelect(props) {
     async function fetchRandomQuestions() {
       try {
         const response = await axios.get(
-          "http://34.100.255.183/questions/random/3"
+          `${import.meta.env.VITE_BACKEND_URL}/questions/random/3`,
         );
         setQuestions(response.data);
         setSelected(response.data[0]);

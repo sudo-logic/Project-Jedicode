@@ -133,7 +133,7 @@ const RegistrationBlock = () => {
       e.preventDefault();
       setPOSTload(true);
       axios
-        .post("http://localhost:5000/auth/signup", signupCreds)
+        .post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, signupCreds)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.access_token);

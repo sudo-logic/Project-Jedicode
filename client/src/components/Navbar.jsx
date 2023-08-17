@@ -12,7 +12,7 @@ import { globalState } from "../utils/proxy";
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  
+
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
   const [username, setUsername] = useState(state?.profile?.username || "");
