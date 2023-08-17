@@ -5,6 +5,8 @@ import { javascript } from "@codemirror/lang-javascript";
 import { atomone } from "@uiw/codemirror-theme-atomone";
 import LangDropdown from "../../components/LangDropdown";
 import axios from "axios";
+import { globalState } from "../../utils/proxy";
+import { useSnapshot } from "valtio";
 
 function Editor() {
   const [code, setCode] = useState("const a = 100;");
@@ -12,9 +14,11 @@ function Editor() {
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("")
 
+  const state = useSnapshot(globalState)
+
   const token = localStorage.getItem("token")
   axios
-    .get("http://34.100.255.183/auth/profile", {
+    .get(`${state.apiURI}/auth/profile`, {
       headers: {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -30,13 +34,13 @@ function Editor() {
   
   const handleRun = (e) => {
     const judgeBody = {
-      language_id: 71,
+      language_id: globalState.languageId,
       question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
       code: code,
     };
 
     e.preventDefault();
-    fetch("http://34.100.255.183/runner", {
+    fetch(`${state.apiURI}/runner`, {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -61,7 +65,7 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch("http://34.100.255.183/submissions", {
+    fetch(`${state.apiURI}/submissions`, {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -129,6 +133,7 @@ function Editor() {
         )}
       </Split>
       <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
+        <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button>
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}
