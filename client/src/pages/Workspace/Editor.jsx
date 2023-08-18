@@ -13,10 +13,9 @@ function Editor() {
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("");
-
   const state = useSnapshot(globalState);
-
   const token = localStorage.getItem("token");
+
   axios
     .get(`${state.apiURI}/auth/profile`, {
       headers: {
@@ -40,18 +39,15 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch(`${state.apiURI}/runner`, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(judgeBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setCodeResponse(data);
+
+    axios
+      .post(`/runner`, judgeBody)
+      .then((response) => {
+        console.log(response);
+        setCodeResponse(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -65,18 +61,15 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch(`${state.apiURI}/submissions`, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(judgeBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setCodeResponse(data);
+
+    axios
+      .post(`/submissions`, judgeBody)
+      .then((response) => {
+        console.log(response);
+        setCodeResponse(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -152,6 +145,23 @@ function Editor() {
           </div>
         )}
       </Split>
+      <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
+        <button onClick={() => console.log(`stored ${state.languageId}`)}>
+          Tester
+        </button>
+        <button
+          className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
+          onClick={handleRun}
+        >
+          Run
+        </button>
+        <button
+          className="w-24 rounded-md px-3 py-2  bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

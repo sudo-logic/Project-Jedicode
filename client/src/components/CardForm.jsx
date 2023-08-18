@@ -7,6 +7,7 @@ import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 import { proxy } from "valtio";
 import { useProxy } from "valtio/utils";
+import axios from "axios";
 
 export default function CardForm() {
   const state = useSnapshot(globalState);
@@ -33,7 +34,19 @@ export default function CardForm() {
   // create a new room
   const createNewRoom = (e) => {
     e.preventDefault();
-    room.roomId = v4();
+    const room = axios
+      .post(`/rooms`)
+      .then((res) => {
+        console.log(res.data);
+        const roomId = res.data.id;
+        setRoomId(roomId);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong! 😥");
+      });
+
+    setRoomId(roomId);
     toast("Room created! ✦");
   };
 

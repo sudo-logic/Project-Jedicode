@@ -6,7 +6,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/users/leaderboard`)
+      .get(`/users/leaderboard`)
       .then((response) => setLeaderboardData(response.data))
       .catch((error) => console.log(error));
   }, []);

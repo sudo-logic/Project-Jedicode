@@ -6,12 +6,6 @@ import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
 const state = globalState;
-const URI = state.apiURI;
-const questions = await axios.get(`${URI}/questions/random/3`).then((res) => {
-  return res.data;
-});
-
-console.log(questions);
 
 export default function QuestionSelect(props) {
   const [questions, setQuestions] = useState([]);
@@ -20,9 +14,7 @@ export default function QuestionSelect(props) {
   useEffect(() => {
     async function fetchRandomQuestions() {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/questions/random/3`
-        );
+        const response = await axios.get(`/questions/random/3`);
         setQuestions(response.data);
         setSelected(response.data[0]);
       } catch (error) {
