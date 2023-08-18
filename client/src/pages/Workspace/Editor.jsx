@@ -16,6 +16,8 @@ function Editor() {
   const state = useSnapshot(globalState);
   const token = localStorage.getItem("token");
 
+  console.log(state.room);
+
   axios
     .get(`/auth/profile`)
     .then((response) => {
