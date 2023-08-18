@@ -12,11 +12,11 @@ function Editor() {
   const [code, setCode] = useState("const a = 100;");
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
-  const [uuid, setUUID] = useState("")
+  const [uuid, setUUID] = useState("");
 
-  const state = useSnapshot(globalState)
+  const state = useSnapshot(globalState);
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   axios
     .get(`${state.apiURI}/auth/profile`, {
       headers: {
@@ -31,7 +31,7 @@ function Editor() {
     .catch((error) => {
       console.log(error);
     });
-  
+
   const handleRun = (e) => {
     const judgeBody = {
       language_id: globalState.languageId,
@@ -100,9 +100,9 @@ function Editor() {
         className="h-[calc(100vh-72px)] "
         direction="vertical"
         sizes={[70, 30]}
-        minSize={70}
+        minSize={[250, 150]}
       >
-        <div className="w-full bg-dark-layer-1 overflow-auto rounded-b-md">
+        <div className="w-full bg-dark-layer-1 overflow-auto rounded-b-md relative">
           <CodeMirror
             value={code}
             theme={atomone}
@@ -113,8 +113,28 @@ function Editor() {
             }}
             className="cursor-text"
           />
+          <div className="flex flex-row justify-end gap-8 absolute bottom-0 right-0 p-3">
+            <button
+              className=" font-bold text-white"
+              onClick={() => console.log(`stored ${state.languageId}`)}
+            >
+              Tester
+            </button>
+            <button
+              className="w-24 rounded-md px-3 py-2 bg-white text-neutral-950 font-bold "
+              onClick={handleRun}
+            >
+              Run
+            </button>
+            <button
+              className="w-24 rounded-md px-3 py-2  bg-green-600 text-white font-bold"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
         </div>
-        <div className="bg-black rounded-md mb-2">test cases</div>
+        <div className="bg-black rounded-md p-3 text-white">test cases</div>
         {codeResponse[0]?.stdout === null || codeResponse[0] === undefined ? (
           <></>
         ) : (
@@ -132,18 +152,6 @@ function Editor() {
           </div>
         )}
       </Split>
-      <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
-        <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button>
-        <button
-          className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
-          onClick={handleRun}
-        >
-          Run
-        </button>
-        <button className="w-24 rounded-md px-3 py-2  bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
     </div>
   );
 }

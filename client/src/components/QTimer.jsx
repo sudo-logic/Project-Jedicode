@@ -2,12 +2,11 @@ import React from "react";
 import { useTimer } from "react-timer-hook";
 
 export default function QTimer({ expiryTimestamp }) {
-  const { seconds, minutes, isRunning, start, pause, resume, restart } =
-    useTimer({
-      expiryTimestamp,
-      autoStart: true,
-      onExpire: () => console.warn("onExpire called"),
-    });
+  const { seconds, minutes, isRunning } = useTimer({
+    expiryTimestamp,
+    autoStart: true,
+    onExpire: () => console.warn("onExpire called"),
+  });
 
   return (
     <div className="rounded-md bg-dark-layer-2 flex gap-3 text-white items-center px-2">
@@ -27,7 +26,7 @@ export default function QTimer({ expiryTimestamp }) {
           />
         </svg>
       </div>
-      <div className=" pt-[2px] text-dark-label-2 text-sm font-semibold">
+      <div className=" pt-[2px] text-white text-sm font-semibold">
         <span>{minutes}</span> : <span>{seconds}</span>
       </div>
     </div>

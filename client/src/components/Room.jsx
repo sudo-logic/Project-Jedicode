@@ -211,7 +211,7 @@ const Room = () => {
                               />
                             </svg>
                           </div>
-                          <span className=" font-medium text-sm text-NEUTRAL-950 pr-2">
+                          <span className=" font-medium text-sm text-neutral-950 pr-2">
                             Leave the room
                           </span>
                         </div>
