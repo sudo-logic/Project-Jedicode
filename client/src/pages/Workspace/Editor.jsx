@@ -17,7 +17,7 @@ function Editor() {
   const token = localStorage.getItem("token");
 
   axios
-    .get(`${state.apiURI}/auth/profile`, {
+    .get(`/auth/profile`, {
       headers: {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
