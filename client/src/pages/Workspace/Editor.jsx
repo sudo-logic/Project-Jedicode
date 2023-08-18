@@ -17,12 +17,7 @@ function Editor() {
   const token = localStorage.getItem("token");
 
   axios
-    .get(`/auth/profile`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .get(`/auth/profile`)
     .then((response) => {
       setUUID(response.data.sub);
       setLoad(false);
