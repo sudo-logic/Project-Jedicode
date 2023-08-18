@@ -5,13 +5,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoExitOutline } from "react-icons/io5";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  
+
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
   const [username, setUsername] = useState(state?.profile?.username || "");
@@ -20,22 +21,6 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  // const token = localStorage.getItem("token");
-
-  // axios
-  //   .get("http://34.100.255.183/auth/profile", {
-  //     headers: {
-  //       accept: "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     setUsername(response.data.username);
-  //     setLoad(false);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 
   function ProfileOverlay() {
 
@@ -88,6 +73,7 @@ export default function Navbar() {
               onClick={() => {
                 navigate("/")
                 localStorage.clear("token")
+                toast.success("Logout Success");
               }}
               >
                 <span className="order-2">Log Out</span>
@@ -125,11 +111,10 @@ export default function Navbar() {
             {/*      <!-- Mobile trigger --> */}
             <button
               className={`relative order-10 block h-10 w-10 self-center lg:hidden
-              ${
-                isToggleOpen
+              ${isToggleOpen
                   ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(3)]:w-0 [&_span:nth-child(2)]:-rotate-45 "
                   : ""
-              }
+                }
             `}
               onClick={() => setIsToggleOpen(!isToggleOpen)}
               aria-expanded={isToggleOpen ? "true" : "false"}

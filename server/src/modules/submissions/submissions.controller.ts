@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Body,
+  Param,
+  Req,
+} from '@nestjs/common';
 import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dtos/createSubmission.dto';
 import { Submission } from './submissions.entity';
@@ -8,7 +16,6 @@ import { RunnerService } from '../runner/runner.service';
 import { CodeRunnerDto } from '../runner/dto/code-runner.dto';
 
 @Controller('submissions')
-@Public()
 @ApiTags('Submissions')
 export class SubmissionsController {
   constructor(
@@ -17,13 +24,18 @@ export class SubmissionsController {
   ) {}
 
   @Post()
-  async create(@Body() submission: CreateSubmissionDto): Promise<Submission> {
+  async create(
+    @Body() submission: CreateSubmissionDto,
+    @Req() request,
+  ): Promise<Submission> {
     const codeRunnerDto = new CodeRunnerDto();
     codeRunnerDto.code = submission.code;
     codeRunnerDto.language_id = submission.language_id;
     codeRunnerDto.question_id = submission.question_id;
 
     const result = await this.runnerService.run_code(codeRunnerDto);
+
+    const user = request.user.sub;
 
     // Set submission.score depending on result
     // [
@@ -64,7 +76,12 @@ export class SubmissionsController {
     let score = (passed_cases / total_cases) * 10;
     score = Math.round(score);
 
-    return await this.submissionsService.create(submission, score);
+    return await this.submissionsService.create(
+      submission,
+      score,
+      user,
+      result,
+    );
   }
 
   @Get()

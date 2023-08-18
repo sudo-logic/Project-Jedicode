@@ -1,17 +1,18 @@
 import { proxy } from "valtio";
 
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
 
 const fetchProfile = async () => {
-  const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/profile`, {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }) || "";
+  const data =
+    (await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/profile`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })) || "";
 
-  return data.json()
-}
+  return data.json();
+};
 
 const fetchQuestions = async () => {
   const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/questions`);
@@ -19,7 +20,7 @@ const fetchQuestions = async () => {
 };
 
 const fetchLanguages = async () => {
-  const data = await fetch(`${import.meta.env.VITE_JUDGE_URL}/languages/all`);
+  const data = await fetch(`https://ce.judge0.com/languages/all`);
   return data.json();
 };
 
