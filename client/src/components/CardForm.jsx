@@ -11,20 +11,19 @@ import axios from "axios";
 
 export default function CardForm() {
   const state = useSnapshot(globalState);
-  const room = useProxy(globalState, { sync: true });
-  //const [roomId, setRoomId] = useState("");
+  const $state = useProxy(globalState, { sync: true });
   const [username, setUsername] = useState(state?.profile?.username);
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = (e) => {
     e.preventDefault();
-    if (!room.roomId || !username) {
+    if (!$state.room.id || !username) {
       toast.error("Room ID and username is required! ");
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${room.roomId}`, {
+    navigate(`/editor/${$state.room.id}`, {
       state: {
         username,
       },
@@ -38,16 +37,13 @@ export default function CardForm() {
       .post(`/rooms`)
       .then((res) => {
         console.log(res.data);
-        const roomId = res.data.id;
-        setRoomId(roomId);
+        $state.room = res.data;
+        toast("Room created! ✦");
       })
       .catch((err) => {
         console.log(err);
         toast.error("Something went wrong! 😥");
       });
-
-    setRoomId(roomId);
-    toast("Room created! ✦");
   };
 
   const handleInputEnter = (e) => {
@@ -71,9 +67,9 @@ export default function CardForm() {
               <input
                 id="room"
                 type="text"
-                value={room.roomId}
+                value={$state.room.id}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => (room.roomId = e.target.value)}
+                onChange={(e) => ($state.room.id = e.target.value)}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />

@@ -21,5 +21,5 @@ export const globalState = proxy({
   profile: fetchProfile(),
   languages: fetchLanguages(),
   languageId: 1,
-  roomId: "",
+  room: {},
 });
