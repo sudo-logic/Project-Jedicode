@@ -87,6 +87,50 @@ const Leaderboard = () => {
               100
             </td>
           </tr>
+          <tr className="transition-colors duration-300 hover:bg-slate-50 bg-black">
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              5
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              Rahul Gandhi
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              100
+            </td>
+          </tr>
+          <tr className="transition-colors duration-300 hover:bg-slate-50 bg-black">
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              5
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              Rahul Gandhi
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              100
+            </td>
+          </tr>
+          <tr className="transition-colors duration-300 hover:bg-slate-50 bg-black">
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              5
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              Rahul Gandhi
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              100
+            </td>
+          </tr>
+          <tr className="transition-colors duration-300 hover:bg-slate-50 bg-black">
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              5
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              Rahul Gandhi
+            </td>
+            <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+              100
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

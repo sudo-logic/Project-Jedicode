@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
+import useToken from "../../utils/token";
 
 const RegistrationBlock = () => {
 
@@ -16,6 +17,8 @@ const RegistrationBlock = () => {
   function Login() {
     const notify = () =>
       toast.error("Login Error: Please Check Your Username and Password");
+
+    const {setToken, token} = useToken()
 
     const [loginCreds, setLoginCreds] = useState({
       username: "",
@@ -37,8 +40,8 @@ const RegistrationBlock = () => {
       axios
         .post(`${URI}/auth/login`, loginCreds)
         .then((res) => {
-          console.log(res.data);
-          localStorage.setItem("token", res.data.access_token);
+          // localStorage.setItem("token", res.data.access_token);
+          setToken(res.data.access_token);
           navigate("/dashboard");
         })
         .catch((err) => {
@@ -116,6 +119,8 @@ const RegistrationBlock = () => {
   }
 
   function Signup() {
+    const { setToken, token } = useToken();
+
     const [signupCreds, setSignupCreds] = useState({
       username: "",
       email: "",
@@ -134,18 +139,16 @@ const RegistrationBlock = () => {
       e.preventDefault();
       setPOSTload(true);
       axios
-        .post("http://localhost:5000/auth/signup", signupCreds)
+        .post(`${URI}/auth/signup`, signupCreds)
         .then((res) => {
           console.log(res.data);
-          localStorage.setItem("token", res.data.access_token);
+          // localStorage.setItem("token", res.data.access_token);
+          setToken(res.data.access_token);
           navigate("/dashboard");
         })
         .catch((err) => {
+          notify();
           setPOSTload(false);
-          console.log(err);
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            toast.error(err.response.data.message[i]);
-          }
         });
     };
 

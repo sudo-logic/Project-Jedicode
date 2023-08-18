@@ -22,9 +22,9 @@ const Dashboard = () => {
           <div className="">
             <Leaderboard />
           </div>
-          <div className="row-span-1">
+          {/* <div className="row-span-1">
             <WarHistory />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

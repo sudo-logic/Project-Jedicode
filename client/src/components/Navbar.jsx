@@ -38,6 +38,9 @@ export default function Navbar() {
   //   });
 
   function ProfileOverlay() {
+
+    const navigate = useNavigate()
+
     return (
       <>
         {/*<!-- Component: User profile card --> */}
@@ -81,7 +84,12 @@ export default function Navbar() {
                 <span className="order-2">My Profile</span>
                 <CgProfile size={24} />
               </button>
-              <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none">
+              <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
+              onClick={() => {
+                navigate("/")
+                localStorage.clear("token")
+              }}
+              >
                 <span className="order-2">Log Out</span>
                 <IoExitOutline size={24} />
               </button>

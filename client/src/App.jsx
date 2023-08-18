@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 // import Room from "./pages/Room";
 import Workspace from "./pages/Workspace/Workspace";
@@ -7,13 +7,25 @@ import Dashboard from "./pages/Dashboard";
 import { ToastContainer } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "./utils/proxy";
+import useToken from "./utils/token";
+import { useEffect } from "react";
 
 function App() {
-  const state = useSnapshot(globalState)
+  const state = useSnapshot(globalState);
+
+  const navigate = useNavigate();
+
+  const { token } = useToken();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
 
   // TODO:
-  // jaha use karna ho 
-  // const state = useSnapshot(globalState) 
+  // jaha use karna ho
+  // const state = useSnapshot(globalState)
   // kar dena and state.questions ya state.profile daal dena, toh data aajayega
   // since server is very fast, loader ki zarurat nahi padi but agar kahi edge case mila toh uss time global loader daal dege
   // PEACE ✌️
