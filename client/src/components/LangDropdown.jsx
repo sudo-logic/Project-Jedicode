@@ -12,7 +12,7 @@ export default function LangDropdown() {
   const [load, setLoad] = useState(languages == undefined ? true : false);
 
   const [selected, setSelected] = useState(
-    languages == undefined ? null : languages[0]
+    languages == undefined ? null : languages[80]
   );
 
   useEffect(() => {
