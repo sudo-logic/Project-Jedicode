@@ -5,24 +5,14 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
-const state = globalState;
-
 export default function QuestionSelect(props) {
+  const state = useSnapshot(globalState);
   const [questions, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    async function fetchRandomQuestions() {
-      try {
-        const response = await axios.get(`/questions/random/3`);
-        setQuestions(response.data);
-        setSelected(response.data[0]);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    }
-
-    fetchRandomQuestions();
+    setQuestions(state.room.questions);
+    setSelected(state.room.questions[0]);
   }, []);
 
   useEffect(() => {
