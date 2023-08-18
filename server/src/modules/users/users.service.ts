@@ -59,4 +59,11 @@ export class UsersService {
     }
     return false;
   }
+
+  async getLeaderboard(): Promise<User[]> {
+    return await this.usersRepository
+      .createQueryBuilder('user')
+      .orderBy('user.score', 'DESC')
+      .getMany();
+  }
 }

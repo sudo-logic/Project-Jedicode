@@ -27,6 +27,13 @@ export class userObjectDto {
   @Expose()
   email: string;
 
+  @ApiProperty({
+    description: 'User Score',
+  })
+  @IsNotEmpty({ message: 'User Score should not be empty' })
+  @Expose()
+  score: number;
+
   // // Queestions Attempted
   // @ApiProperty({
   //   description: 'Questions Attempted',
