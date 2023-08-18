@@ -5,13 +5,11 @@ import axios from "axios";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
-const state = globalState
-const URI = state.apiURI
-const questions = await axios
-  .get(`${URI}/questions/random/3`)
-  .then((res) => {
-    return res.data;
-  });
+const state = globalState;
+const URI = state.apiURI;
+const questions = await axios.get(`${URI}/questions/random/3`).then((res) => {
+  return res.data;
+});
 
 console.log(questions);
 
@@ -23,7 +21,7 @@ export default function QuestionSelect(props) {
     async function fetchRandomQuestions() {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/questions/random/3`,
+          `${import.meta.env.VITE_BACKEND_URL}/questions/random/3`
         );
         setQuestions(response.data);
         setSelected(response.data[0]);
@@ -40,7 +38,7 @@ export default function QuestionSelect(props) {
   }, [selected]);
 
   return (
-    <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-auto">
+    <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative text-white w-full cursor-default rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">

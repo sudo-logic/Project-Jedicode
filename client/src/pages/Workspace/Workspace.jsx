@@ -14,6 +14,8 @@ function Workspace() {
       <Split
         className="split max-h-screen p-[10px] overflow-hidden bg-[rgb(26,26,26)]"
         sizes={[40, 60]}
+        minSize={[450, 500]}
+        expandToMin={false}
       >
         <Problem />
         <Editor />
