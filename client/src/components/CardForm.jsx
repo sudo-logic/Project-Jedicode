@@ -5,24 +5,25 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
+import { proxy } from "valtio";
+import { useProxy } from "valtio/utils";
 
 export default function CardForm() {
-
   const state = useSnapshot(globalState);
-
-  const [roomId, setRoomId] = useState("");
+  const room = useProxy(globalState, { sync: true });
+  //const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState(state?.profile?.username);
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = (e) => {
     e.preventDefault();
-    if (!roomId || !username) {
+    if (!room.roomId || !username) {
       toast.error("Room ID and username is required! ");
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${roomId}`, {
+    navigate(`/editor/${room.roomId}`, {
       state: {
         username,
       },
@@ -32,8 +33,7 @@ export default function CardForm() {
   // create a new room
   const createNewRoom = (e) => {
     e.preventDefault();
-    const roomId = v4();
-    setRoomId(roomId);
+    room.roomId = v4();
     toast("Room created! ✦");
   };
 
@@ -58,9 +58,9 @@ export default function CardForm() {
               <input
                 id="room"
                 type="text"
-                value={roomId}
+                value={room.roomId}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => setRoomId(e.target.value)}
+                onChange={(e) => (room.roomId = e.target.value)}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
