@@ -7,9 +7,8 @@ import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
 
 const RegistrationBlock = () => {
-
-  const state = useSnapshot(globalState)
-  const URI = state.apiURI
+  const state = useSnapshot(globalState);
+  const URI = state.apiURI;
 
   const navigate = useNavigate();
 
@@ -35,7 +34,7 @@ const RegistrationBlock = () => {
       setPOSTload(true);
 
       axios
-        .post(`${URI}/auth/login`, loginCreds)
+        .post(`/auth/login`, loginCreds)
         .then((res) => {
           localStorage.setItem("token", res.data.access_token);
           navigate("/dashboard");
@@ -133,7 +132,7 @@ const RegistrationBlock = () => {
       e.preventDefault();
       setPOSTload(true);
       axios
-        .post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, signupCreds)
+        .post(`/auth/signup`, signupCreds)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
