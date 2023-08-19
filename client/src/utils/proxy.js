@@ -29,5 +29,5 @@ export const globalState = proxy({
   profile: fetchProfile(),
   languages: fetchLanguages(),
   apiURI: import.meta.env.VITE_BACKEND_URL,
-  languageId: 1
+  languageId: 71
 });

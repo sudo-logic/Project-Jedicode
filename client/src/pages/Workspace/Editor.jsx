@@ -9,6 +9,7 @@ import { globalState } from "../../utils/proxy";
 import { useSnapshot } from "valtio";
 import { BsCheck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 function Editor() {
   const [code, setCode] = useState("const a = 100;");
@@ -41,7 +42,6 @@ function Editor() {
       code: code,
     };
 
-    e.preventDefault();
     fetch(`${state.apiURI}/runner`, {
       method: "POST",
       headers: {
@@ -59,7 +59,7 @@ function Editor() {
 
   const handleSubmit = (e) => {
     const judgeBody = {
-      language_id: 71,
+      language_id: globalState.languageId,
       question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
       code: code,
       language: "python",
@@ -78,7 +78,7 @@ function Editor() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setCodeResponse(data);
+        toast.success("Code submitted")
       });
   };
 
@@ -154,8 +154,7 @@ function Editor() {
                 <></>
               ) : (
                 <div className="text-red-600 text-lg flex -mt-20">
-                  ERROR:
-                  {response?.stderr}
+                  {id === 0 ? codeResponse[0]?.stderr : <></>}
                 </div>
               )}
             </div>
