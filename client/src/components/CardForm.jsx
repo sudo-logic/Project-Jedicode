@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
-import { proxy } from "valtio";
 import { useProxy } from "valtio/utils";
+import Lobby from "./Lobby";
 
 export default function CardForm() {
   const state = useSnapshot(globalState);
@@ -23,7 +23,7 @@ export default function CardForm() {
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${room.roomId}`, {
+    navigate(`/lobby/${room.roomId}`, {
       state: {
         username,
       },
