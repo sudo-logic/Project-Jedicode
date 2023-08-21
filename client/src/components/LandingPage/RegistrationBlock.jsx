@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
-import { fetchProfile } from "../../utils/proxy";
+import { updateProfile } from "../../utils/proxy";
 
 const RegistrationBlock = () => {
   const state = useSnapshot(globalState);
@@ -38,7 +38,7 @@ const RegistrationBlock = () => {
         .post(`/auth/login`, loginCreds)
         .then((res) => {
           localStorage.setItem("token", res.data.access_token);
-          fetchProfile();
+          updateProfile();
           navigate("/dashboard");
         })
         .catch((err) => {
@@ -138,7 +138,7 @@ const RegistrationBlock = () => {
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
-          fetchProfile();
+          updateProfile();
           navigate("/dashboard");
         })
         .catch((err) => {
