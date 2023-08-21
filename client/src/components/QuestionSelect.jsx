@@ -35,6 +35,9 @@ export default function QuestionSelect(props) {
 
   useEffect(() => {
     props.onChange(selected);
+    console.log(selected?.id)
+    state.questionId = selected?.id
+    console.log(state.questionId)
   }, [selected]);
 
   return (

@@ -16,10 +16,13 @@ function Editor() {
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [score, setScore] = useState(0);
 
   const state = useSnapshot(globalState);
 
   const token = localStorage.getItem("token");
+
   axios
     .get(`${state.apiURI}/auth/profile`, {
       headers: {
@@ -38,7 +41,7 @@ function Editor() {
   const handleRun = (e) => {
     const judgeBody = {
       language_id: globalState.languageId,
-      question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
+      question_id: globalState.questionId,
       code: code,
     };
 
@@ -60,7 +63,7 @@ function Editor() {
   const handleSubmit = (e) => {
     const judgeBody = {
       language_id: globalState.languageId,
-      question_id: "a76b8c56-284c-412f-b086-1b06d23bb4bc",
+      question_id: globalState.questionId,
       code: code,
       language: "python",
       user_id: uuid,
@@ -72,13 +75,16 @@ function Editor() {
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(judgeBody),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        toast.success("Code submitted")
+        toast.success("Code submitted");
+        setSubmitted(true);
+        setScore(data.score);
       });
   };
 
@@ -146,8 +152,16 @@ function Editor() {
               ) : (
                 <div className="text-slate-200 w-36 justify-between text-lg flex flex-row items-start gap-2 -mt-20 ">
                   test case {id + 1}:
-                  {response.status.id === 4 ? <AiOutlineClose className="text-red-500 text-2xl"/> : ""}{" "}
-                  {response.status.id === 3 ? <BsCheck className="text-green-500 text-2xl"/> : ""}
+                  {response.status.id === 4 ? (
+                    <AiOutlineClose className="text-red-500 text-2xl" />
+                  ) : (
+                    ""
+                  )}{" "}
+                  {response.status.id === 3 ? (
+                    <BsCheck className="text-green-500 text-2xl" />
+                  ) : (
+                    ""
+                  )}
                 </div>
               )}
               {response?.stderr === null || response === undefined ? (
@@ -161,8 +175,18 @@ function Editor() {
           );
         })}
       </Split>
-      <div className="flex flex-row justify-end gap-10 mt-3 mb-5 mr-10">
+      <div className="flex flex-row relative justify-end gap-10 mt-3 mb-5 mr-10">
         {/* <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button> */}
+
+        {submitted ? <p className="absolute top-1/4 left-2 underline underline-offset-4 text-white">Score: {score}</p> : <></>}
+
+        {submitted ? (
+          <button className="w-24 rounded-md px-3 py-2 bg-blue-500 text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow">
+            Next
+          </button>
+        ) : (
+          <></>
+        )}
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}

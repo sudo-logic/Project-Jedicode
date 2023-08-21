@@ -71,6 +71,7 @@ export default function Navbar() {
               </button>
               <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
               onClick={() => {
+                // FIXME: clear proxy
                 navigate("/")
                 localStorage.clear("token")
                 toast.success("Logout Success");
