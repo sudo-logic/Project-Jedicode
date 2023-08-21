@@ -89,7 +89,6 @@ export default function CardForm() {
                 type="text"
                 value={state.profile.username}
                 onKeyUp={handleInputEnter}
-                disabled
                 placeholder="your name"
                 className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
               />
