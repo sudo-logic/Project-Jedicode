@@ -10,8 +10,11 @@ import { useSnapshot } from "valtio";
 import { BsCheck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Editor() {
+  const navigate = useNavigate();
+
   const [code, setCode] = useState("const a = 100;");
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
@@ -91,6 +94,18 @@ function Editor() {
   const handleCodeInput = (editor, data, value) => {
     setCode(editor);
   };
+
+  const handleEndTest = () => {
+    fetch(`${state.apiURI}/rooms/816da205-a700-4c62-b923-6bbf75981312`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+      // .catch((err) => console.log("Fetch error", err));
+  }
 
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
@@ -178,7 +193,13 @@ function Editor() {
       <div className="flex flex-row relative justify-end gap-10 mt-3 mb-5 mr-10">
         {/* <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button> */}
 
-        {submitted ? <p className="absolute top-1/4 left-2 underline underline-offset-4 text-white">Score: {score}</p> : <></>}
+        {submitted ? (
+          <p className="absolute top-1/4 left-2 underline underline-offset-4 text-white">
+            Score: {score}
+          </p>
+        ) : (
+          <></>
+        )}
 
         {submitted ? (
           <button className="w-24 rounded-md px-3 py-2 bg-blue-500 text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow">
@@ -187,6 +208,12 @@ function Editor() {
         ) : (
           <></>
         )}
+        <button
+          className="w-24 rounded-md px-3 py-2 bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
+          onClick={handleEndTest}
+        >
+          End Test
+        </button>
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}
