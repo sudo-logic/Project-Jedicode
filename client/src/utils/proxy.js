@@ -15,7 +15,7 @@ export const globalState = proxy(
   }
 );
 
-export const fetchProfile = async () => {
+export const updateProfile = async () => {
   // return await axios.get(`/auth/profile`).then((res) => res.data);
   globalState.profile = await axios
     .get(`/auth/profile`)

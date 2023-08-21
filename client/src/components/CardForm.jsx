@@ -12,20 +12,19 @@ import axios from "axios";
 export default function CardForm() {
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
-  const [username, setUsername] = useState(state?.profile?.username);
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = (e) => {
     e.preventDefault();
-    if (!$state.room.id || !username) {
+    if (!$state.room.id || !state.profile.username) {
       toast.error("Room ID and username is required! ");
       return;
     }
     // redirecting to editor
     navigate(`/editor/${$state.room.id}`, {
       state: {
-        username,
+        username: state.profile.username,
       },
     });
   };
@@ -88,10 +87,9 @@ export default function CardForm() {
               <input
                 id="name"
                 type="text"
-                value={username}
+                value={state.profile.username}
                 onKeyUp={handleInputEnter}
                 disabled
-                onChange={(e) => setUsername(e.target.value)}
                 placeholder="your name"
                 className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
               />
