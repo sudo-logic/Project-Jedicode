@@ -11,7 +11,7 @@ export default function CardForm() {
   const state = useSnapshot(globalState);
 
   const [roomId, setRoomId] = useState("");
-  const [username, setUsername] = useState(state?.profile?.username);
+  const [username, setUsername] = useState(state?.profile?.username || "Loading...");
   const navigate = useNavigate();
 
   //join the room
