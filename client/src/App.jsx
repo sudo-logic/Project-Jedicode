@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Workspace from "./pages/Workspace/Workspace";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
-import Lobby from "./components/lobby";
+import Lobby from "./components/Lobby";
 import { ToastContainer } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "./utils/proxy";

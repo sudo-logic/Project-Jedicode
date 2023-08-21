@@ -5,25 +5,36 @@ import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 import { Room } from "./Room";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate, Navigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  Navigate,
+  useParams,
+} from "react-router-dom";
 
 export default function Lobby() {
   const state = useSnapshot(globalState);
+  const location = useLocation();
   const room = useSnapshot(globalState);
+  const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
-  const username = useState(state?.profile?.username);
+  const [username, setUsername] = useState(state?.profile?.username);
   // const host = clients[0];
 
+  if (!location.state) {
+    return <Navigate to="/" />;
+  }
+
   const joinRoom = (e) => {
-    //   e.preventDefault();
+    e.preventDefault();
     //   console.log(host);
     //   // redirecting to editor
     //   if (host && host.socketId === clients[0].socketId) {
-    //     navigate(`/editor/${room.roomId}`, {
-    //       state: {
-    //         username,
-    //       },
-    //     });
+    navigate(`/editor/${room.roomId}`, {
+      state: {
+        username,
+      },
+    });
     //   }
   };
 
