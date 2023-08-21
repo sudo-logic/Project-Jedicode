@@ -37,7 +37,7 @@ export default function LangDropdown() {
   return (
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       {load ? (
-        <h1>Loading</h1>
+        <p className=" text-base py-2 pl-4">Loading...</p>
       ) : (
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mt-1 w-64">
