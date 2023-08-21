@@ -18,11 +18,16 @@ export const Room = () => {
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
-  const [isLobby, setIsLobby] = useState(true);
-
-  console.log(location.search("lobby"));
+  const [isLobby, setIsLobby] = useState(false);
+  var isPath = window.location.href;
 
   useEffect(() => {
+    if (isPath.search("lobby")) {
+      console.log("1");
+    } else {
+      console.log("2");
+    }
+
     const init = async () => {
       socketRef.current = await initSocket();
       socketRef.current.on("connect_error", (err) => handleErrors(err));
