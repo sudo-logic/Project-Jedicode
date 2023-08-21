@@ -3,7 +3,7 @@ import Split from "react-split";
 import Problem from "./Problem";
 import Editor from "./Editor";
 import QTimer from "../../components/QTimer";
-import Room from "../../components/Room";
+import { Room } from "../../components/Room";
 
 function Workspace() {
   const time = new Date();
