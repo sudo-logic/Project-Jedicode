@@ -9,6 +9,8 @@ import { useSnapshot } from "valtio";
 import { globalState } from "./utils/proxy";
 import useToken from "./utils/token";
 import { useEffect } from "react";
+import Results from "./pages/Results";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const state = useSnapshot(globalState);
@@ -41,6 +43,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
+        <Route path="/result" element={<Results />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
