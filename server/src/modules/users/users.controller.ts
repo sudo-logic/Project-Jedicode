@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { Public } from '../auth/public.decorator';
@@ -19,6 +19,17 @@ export class UsersController {
   })
   async findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  @Serialize(userObjectDto)
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: userObjectDto,
+  })
+  async findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
   }
 
   @Get('leaderboard')
