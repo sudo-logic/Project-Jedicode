@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen bg-[url('./assets/background.jpg')]  text-neutral-400 overflow-x-hidden">
-      <ToastContainer />
+      <ToastContainer theme="dark" />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />

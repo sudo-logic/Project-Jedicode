@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-// import Logo from "../assets/Logo.png";
 import Logo from "../assets/jedicode-white.svg";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { IoExitOutline } from "react-icons/io5";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
@@ -22,10 +20,8 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-
   function ProfileOverlay() {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
       <>
@@ -70,13 +66,14 @@ export default function Navbar() {
                 <span className="order-2">My Profile</span>
                 <CgProfile size={24} />
               </button>
-              <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
-              onClick={() => {
-                // FIXME: clear proxy
-                navigate("/")
-                localStorage.clear("token")
-                toast.success("Logout Success");
-              }}
+              <button
+                className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
+                onClick={() => {
+                  // FIXME: clear proxy
+                  navigate("/");
+                  localStorage.clear("token");
+                  toast.success("Logout Success");
+                }}
               >
                 <span className="order-2">Log Out</span>
                 <IoExitOutline size={24} />
@@ -113,10 +110,11 @@ export default function Navbar() {
             {/*      <!-- Mobile trigger --> */}
             <button
               className={`relative order-10 block h-10 w-10 self-center lg:hidden
-              ${isToggleOpen
+              ${
+                isToggleOpen
                   ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(3)]:w-0 [&_span:nth-child(2)]:-rotate-45 "
                   : ""
-                }
+              }
             `}
               onClick={() => setIsToggleOpen(!isToggleOpen)}
               aria-expanded={isToggleOpen ? "true" : "false"}

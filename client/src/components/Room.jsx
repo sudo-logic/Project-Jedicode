@@ -81,13 +81,13 @@ export const Room = () => {
     e.preventDefault();
     //   console.log(host);
     // redirecting to editor
-    if (host && host.socketId === clients[0].socketId) {
-      reactNavigator(`/editor/${state.roomId}`, {
-        state: {
-          username,
-        },
-      });
-    }
+    // if (host && host.socketId === clients[0].socketId) {
+    reactNavigator(`/editor/${state.roomId}`, {
+      state: {
+        username,
+      },
+    });
+    // }
   };
 
   async function copyRoomId() {
@@ -295,47 +295,8 @@ export const Room = () => {
               )}
             </Popover>
           </div>
-          <ToastContainer theme="dark" />
         </>
       )}
     </>
   );
 };
-
-// export function Participants() {
-//   return (
-//     <>
-//       <div className=" grid gap-8 bg-white p-7 lg:grid-cols-2">
-//         {clients.map((user) => (
-//           <div
-//             key={user.socketId}
-//             className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 "
-//           >
-//             <div className="flex h-10 w-10 shrink-0 items-center justify-center text-neutral-950 bg-gray-100 rounded-lg sm:h-12 sm:w-12">
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 fill="none"
-//                 viewBox="0 0 24 24"
-//                 strokeWidth={1.5}
-//                 stroke="currentColor"
-//                 className="w-6 h-6"
-//               >
-//                 <path
-//                   strokeLinecap="round"
-//                   strokeLinejoin="round"
-//                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-//                 />
-//               </svg>
-//             </div>
-//             <div className="ml-4">
-//               <p className="text-sm font-bold text-neutral-950">
-//                 {user.username}
-//               </p>
-//               <p className="text-xs text-gray-500">{user.progress}</p>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </>
-//   );
-// }
