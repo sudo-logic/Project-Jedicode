@@ -12,7 +12,9 @@ export default function CardForm() {
   const state = useSnapshot(globalState);
 
   const [roomId, setRoomId] = useState("");
-  const [username, setUsername] = useState(state?.profile?.username || "Loading...");
+  const [username, setUsername] = useState(
+    state?.profile?.username || "Loading..."
+  );
   const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ export default function CardForm() {
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${$state.room.id}`, {
+    navigate(`/lobby/${$state.room.id}`, {
       state: {
         username: state.profile.username,
       },
