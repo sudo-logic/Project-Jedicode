@@ -3,10 +3,13 @@ import Split from "react-split";
 import Problem from "./Problem";
 import Editor from "./Editor";
 import QTimer from "../../components/QTimer";
-import { Room } from "../../components/Room";
+import Room from "../../components/Room";
+import { useSnapshot } from "valtio";
+import { globalState } from "../../utils/proxy";
 
 function Workspace() {
-  const time = new Date();
+  const state = useSnapshot(globalState);
+  const time = new Date(state.room.created_at);
   time.setSeconds(time.getSeconds() + 1800);
 
   return (

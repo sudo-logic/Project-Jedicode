@@ -1,34 +1,31 @@
-import { proxy } from "valtio";
+import axios from "axios";
+import { proxy, subscribe } from "valtio";
 
 const token = localStorage.getItem("token");
 
-const fetchProfile = async () => {
-  const data =
-    (await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/profile`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })) || "";
+// const fetchProfile = async () => {
+//   return await axios.get(`/auth/profile`).then((res) => res.data);
+// };
 
-  return data.json();
+export const globalState = proxy(
+  JSON.parse(localStorage.getItem("foo")) || {
+    profile: {},
+    languageId: 1,
+    room: {},
+  }
+);
+
+export const updateProfile = async () => {
+  // return await axios.get(`/auth/profile`).then((res) => res.data);
+  globalState.profile = await axios
+    .get(`/auth/profile`)
+    .then((res) => res.data);
 };
 
-const fetchQuestions = async () => {
-  const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/questions`);
-  return data.json();
-};
+const unsubscribe = subscribe(globalState, () =>
+  console.log("globalState has changed to", globalState)
+);
 
-const fetchLanguages = async () => {
-  const data = await fetch(`https://ce.judge0.com/languages/all`);
-  return data.json();
-};
-
-export const globalState = proxy({
-  questions: fetchQuestions(),
-  profile: fetchProfile(),
-  languages: fetchLanguages(),
-  apiURI: import.meta.env.VITE_BACKEND_URL,
-  languageId: 1,
-  roomId: "",
+subscribe(globalState, () => {
+  localStorage.setItem("foo", JSON.stringify(globalState));
 });
