@@ -21,11 +21,9 @@ export const Room = () => {
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
-  const [clients, setClients] = useState([
-    { socketId: "387546t", username: "bla blaa" },
-  ]);
+  const [clients, setClients] = useState([]);
   const [username, setUsername] = useState(state?.profile?.username);
-  const host = clients[0];
+  const [host, setHost] = useState(clients[0]);
   const path = window.location.pathname.substring(1, 7);
   var test = true;
   if (path === "editor") {
@@ -33,7 +31,6 @@ export const Room = () => {
   }
 
   useEffect(() => {
-    console.log(clients);
     const init = async () => {
       socketRef.current = await initSocket();
       socketRef.current.on("connect_error", (err) => handleErrors(err));
