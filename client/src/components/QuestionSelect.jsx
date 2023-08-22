@@ -6,7 +6,7 @@ import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
 export default function QuestionSelect(props) {
-  const state = useSnapshot(globalState);
+  const state = globalState;
   const [questions, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
 
@@ -17,6 +17,9 @@ export default function QuestionSelect(props) {
 
   useEffect(() => {
     props.onChange(selected);
+    console.log(selected?.id)
+    state.questionId = selected?.id
+    console.log(state.questionId)
   }, [selected]);
 
   return (

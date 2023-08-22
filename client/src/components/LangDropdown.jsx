@@ -21,7 +21,7 @@ export default function LangDropdown() {
     fetchLanguages().then((res) => {
       console.log(res);
       setLanguages(res);
-      setSelected(res[0]);
+      setSelected(res[43]);
       setLoad(false);
     });
   }, []);
