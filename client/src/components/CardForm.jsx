@@ -19,9 +19,16 @@ export default function CardForm() {
   const navigate = useNavigate();
 
   //join the room
-  const joinRoom = (e) => {
+  const joinRoom = async (e) => {
     e.preventDefault();
-    if (!$state.room.id || !state.profile.username) {
+    if (!state.room.questions || state.room.id != roomId) {
+      $state.room = await axios.get(`/rooms/${roomId}`).then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
+    }
+    
+    if (!state.room.id || !state.profile.username) {
       toast.error("Room ID and username is required! ");
       return;
     }
@@ -42,6 +49,7 @@ export default function CardForm() {
         console.log(res.data);
         $state.room = res.data;
         $state.started = false;
+        setRoomId(res.data.id);
         toast("Room created! ✦");
       })
       .catch((err) => {
@@ -50,7 +58,7 @@ export default function CardForm() {
       });
   };
 
-  const handleInputEnter = (e) => {
+  const handleInputEnter = async (e) => {
     if (e.code === "Enter") {
       joinRoom();
     }
@@ -92,9 +100,9 @@ export default function CardForm() {
               <input
                 id="room"
                 type="text"
-                value={$state.room.id}
+                value={roomId}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => ($state.room.id = e.target.value)}
+                onChange={(e) => (setRoomId(e.target.value))}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
