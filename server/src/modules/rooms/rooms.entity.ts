@@ -23,10 +23,12 @@ export class Room extends AbstractEntity {
   player_data: { user_id: string; score: number; is_host: boolean }[];
   // player_data: { [user: string]: { score: number; is_host: boolean } }[];
 
-
   @Column({ nullable: true })
   completed_at: Date;
 
   @Column({ default: 'lobby' })
   status: string;
+
+  @Column('json', { nullable: true })
+  room_config: { count: number; duration: number };
 }
