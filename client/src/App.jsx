@@ -1,3 +1,4 @@
+import "./utils/axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 // import Room from "./pages/Room";

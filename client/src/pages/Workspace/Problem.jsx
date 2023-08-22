@@ -27,7 +27,7 @@ function Problem() {
               {/* Problem heading */}
               <div className="flex space-x-4">
                 <div className="mr-2 text-xl text-white font-bold">
-                  1. {data?.title}
+                  {data?.title}
                 </div>
                 <div className="flex justify-center items-center text-olive bg-olive rounded-[21px] bg-opacity-[0.15] px-2.5 ">
                   <div className={` text-xs font-medium uppercase`}>
