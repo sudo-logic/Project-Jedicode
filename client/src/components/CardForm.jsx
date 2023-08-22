@@ -6,12 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 import { useProxy } from "valtio/utils";
-import Lobby from "./Lobby";
 
 export default function CardForm() {
   const state = useSnapshot(globalState);
   const room = useProxy(globalState, { sync: true });
-  //const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState(state?.profile?.username);
   const navigate = useNavigate();
 
@@ -34,6 +32,7 @@ export default function CardForm() {
   const createNewRoom = (e) => {
     e.preventDefault();
     room.roomId = v4();
+    room.started = false;
     toast("Room created! ✦");
   };
 
