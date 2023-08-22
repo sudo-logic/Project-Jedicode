@@ -27,7 +27,8 @@ export default function QTimer({ expiryTimestamp }) {
         </svg>
       </div>
       <div className=" pt-[2px] text-white text-sm font-semibold">
-        <span>{minutes}</span> : <span>{seconds}</span>
+        <span>{("0" + minutes).slice(-2)}</span> :{" "}
+        <span>{("0" + seconds).slice(-2)}</span>
       </div>
     </div>
   );

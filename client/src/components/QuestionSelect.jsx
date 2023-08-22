@@ -1,8 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import axios from "axios";
-import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
 
 export default function QuestionSelect(props) {
@@ -17,9 +15,9 @@ export default function QuestionSelect(props) {
 
   useEffect(() => {
     props.onChange(selected);
-    console.log(selected?.id)
-    state.questionId = selected?.id
-    console.log(state.questionId)
+    console.log(selected?.id);
+    state.questionId = selected?.id;
+    console.log(state.questionId);
   }, [selected]);
 
   return (

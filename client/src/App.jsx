@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Workspace from "./pages/Workspace/Workspace";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
+import Lobby from "./components/Lobby";
 import { ToastContainer } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "./utils/proxy";
@@ -38,11 +39,12 @@ function App() {
 
   return (
     <div className="w-screen h-screen bg-[url('./assets/background.jpg')]  text-neutral-400 overflow-x-hidden">
-      <ToastContainer />
+      <ToastContainer theme="dark" />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/lobby/:roomId" element={<Lobby />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
         <Route path="/result" element={<Results />} />
         <Route path="/*" element={<PageNotFound />} />

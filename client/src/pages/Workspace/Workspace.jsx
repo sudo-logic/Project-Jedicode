@@ -3,7 +3,7 @@ import Split from "react-split";
 import Problem from "./Problem";
 import Editor from "./Editor";
 import QTimer from "../../components/QTimer";
-import Room from "../../components/Room";
+import { Room } from "../../components/Room";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
 
@@ -23,7 +23,7 @@ function Workspace() {
         <Problem />
         <Editor />
       </Split>
-      <div className="flex justify-between gap-5 absolute right-1 top-[22px]">
+      <div className="flex justify-between gap-5 absolute right-10 top-[22px]">
         <QTimer expiryTimestamp={time} />
         <Room />
       </div>
