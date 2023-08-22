@@ -41,6 +41,7 @@ export default function CardForm() {
       .then((res) => {
         console.log(res.data);
         $state.room = res.data;
+        $state.started = false;
         toast("Room created! ✦");
       })
       .catch((err) => {
