@@ -3,8 +3,11 @@ import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { initSocket } from "../toBeShifted/socket";
 import ACTIONS from "../toBeShifted/actions";
+import { useSnapshot } from "valtio";
+import { globalState } from "../utils/proxy";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InvitePlayers from "./InvitePlayers";
 import {
   useLocation,
   useNavigate,
@@ -13,21 +16,24 @@ import {
 } from "react-router-dom";
 
 export const Room = () => {
+  const state = useSnapshot(globalState);
   const socketRef = useRef(null);
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
-  const [clients, setClients] = useState([]);
-  const [isLobby, setIsLobby] = useState(false);
-  var isPath = window.location.href;
+  const [clients, setClients] = useState([
+    { socketId: "387546t", username: "bla blaa" },
+  ]);
+  const [username, setUsername] = useState(state?.profile?.username);
+  const host = clients[0];
+  const path = window.location.pathname.substring(1, 7);
+  var test = true;
+  if (path === "editor") {
+    test = false;
+  }
 
   useEffect(() => {
-    if (isPath.search("lobby")) {
-      console.log("1");
-    } else {
-      console.log("2");
-    }
-
+    console.log(clients);
     const init = async () => {
       socketRef.current = await initSocket();
       socketRef.current.on("connect_error", (err) => handleErrors(err));
@@ -74,6 +80,19 @@ export const Room = () => {
     };
   }, []);
 
+  const joinRoom = (e) => {
+    e.preventDefault();
+    //   console.log(host);
+    // redirecting to editor
+    if (host && host.socketId === clients[0].socketId) {
+      reactNavigator(`/editor/${state.roomId}`, {
+        state: {
+          username,
+        },
+      });
+    }
+  };
+
   async function copyRoomId() {
     try {
       await navigator.clipboard.writeText(roomId);
@@ -90,7 +109,7 @@ export const Room = () => {
 
   return (
     <>
-      {isLobby ? (
+      {test ? (
         <>
           <div className=" grid gap-8 bg-white p-7 lg:grid-cols-2">
             {clients.map((user) => (
@@ -122,6 +141,17 @@ export const Room = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="m-4 flex justify-between">
+            <InvitePlayers />
+            <button
+              type="button"
+              className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 text-white px-4 py-2 text-sm font-bold bg-neutral-950 "
+              onClick={joinRoom}
+              disabled={host && host.socketId !== clients[0].socketId}
+            >
+              Start!
+            </button>
           </div>
         </>
       ) : (
