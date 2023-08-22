@@ -5,17 +5,20 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
+import useToken from "../../utils/token";
+import { updateProfile } from "../../utils/proxy";
 
 const RegistrationBlock = () => {
-
-  const state = useSnapshot(globalState)
-  const URI = state.apiURI
+  const state = useSnapshot(globalState);
+  const URI = state.apiURI;
 
   const navigate = useNavigate();
 
   function Login() {
     const notify = () =>
       toast.error("Login Error: Please Check Your Username and Password");
+
+    const {setToken, token} = useToken()
 
     const [loginCreds, setLoginCreds] = useState({
       username: "",
@@ -35,9 +38,10 @@ const RegistrationBlock = () => {
       setPOSTload(true);
 
       axios
-        .post(`${URI}/auth/login`, loginCreds)
+        .post(`/auth/login`, loginCreds)
         .then((res) => {
           localStorage.setItem("token", res.data.access_token);
+          updateProfile();
           navigate("/dashboard");
         })
         .catch((err) => {
@@ -56,7 +60,7 @@ const RegistrationBlock = () => {
               name="username"
               value={loginCreds.username}
               onChange={handleLoginForm}
-              required="true"
+              required={true}
               placeholder="Enter username"
               className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black autofill:bg-black"
               autoComplete="username"
@@ -75,7 +79,7 @@ const RegistrationBlock = () => {
               name="password"
               value={loginCreds.password}
               onChange={handleLoginForm}
-              required="true"
+              required={true}
               placeholder="Enter username"
               className="relative text-md w-96 h-10 px-4 placeholder-transparent transition-all border-b border-slate-200 outline-none focus-visible:outline-none peer text-slate-200 focus:border-[#FFDF00] focus:border focus:outline-none disabled:text-slate-400 bg-black autofill:bg-black"
               autoComplete="current-password"
@@ -115,6 +119,8 @@ const RegistrationBlock = () => {
   }
 
   function Signup() {
+    const { setToken, token } = useToken();
+
     const [signupCreds, setSignupCreds] = useState({
       username: "",
       email: "",
@@ -133,18 +139,16 @@ const RegistrationBlock = () => {
       e.preventDefault();
       setPOSTload(true);
       axios
-        .post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, signupCreds)
+        .post(`/auth/signup`, signupCreds)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
+          updateProfile();
           navigate("/dashboard");
         })
         .catch((err) => {
+          notify();
           setPOSTload(false);
-          console.log(err);
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            toast.error(err.response.data.message[i]);
-          }
         });
     };
 

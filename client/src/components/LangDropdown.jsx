@@ -2,28 +2,42 @@ import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { globalState } from "../utils/proxy";
-import { useSnapshot } from "valtio";
+import axios from "axios";
 
 export default function LangDropdown() {
-  const state = useSnapshot(globalState);
   const changeState = globalState;
-  const languages = state?.languages;
 
-  const [load, setLoad] = useState(languages == undefined ? true : false);
-
-  const [selected, setSelected] = useState(
-    languages == undefined ? null : languages[0]
-  );
+  const [load, setLoad] = useState(true);
+  const [languages, setLanguages] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    console.log(`selected: ${selected.id}`);
-    console.log(changeState.languageId);
-    changeState.languageId = selected.id;
+    const fetchLanguages = async () => {
+      return await axios
+        .get(`https://ce.judge0.com/languages/all`)
+        .then((res) => res.data.filter((lang) => !lang.is_archived));
+    };
+
+    fetchLanguages().then((res) => {
+      console.log(res);
+      setLanguages(res);
+      setSelected(res[43]);
+      setLoad(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selected) {
+      console.log(`selected: ${selected.id}`);
+      console.log(changeState.languageId);
+      changeState.languageId = selected.id;
+    }
   }, [selected]);
+
   return (
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       {load ? (
-        <h1>Loading</h1>
+        <p className=" text-base py-2 pl-4">Loading...</p>
       ) : (
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mt-1 w-64">
