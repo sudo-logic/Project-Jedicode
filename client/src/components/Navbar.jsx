@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Logo from "../assets/Logo.png";
+// import Logo from "../assets/Logo.png";
+import Logo from "../assets/jedicode.svg";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
