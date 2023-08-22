@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
-import { proxy } from "valtio";
 import { useProxy } from "valtio/utils";
 import axios from "axios";
 
@@ -13,7 +12,9 @@ export default function CardForm() {
   const state = useSnapshot(globalState);
 
   const [roomId, setRoomId] = useState("");
-  const [username, setUsername] = useState(state?.profile?.username || "Loading...");
+  const [username, setUsername] = useState(
+    state?.profile?.username || "Loading..."
+  );
   const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export default function CardForm() {
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${$state.room.id}`, {
+    navigate(`/lobby/${$state.room.id}`, {
       state: {
         username: state.profile.username,
       },
@@ -40,6 +41,7 @@ export default function CardForm() {
       .then((res) => {
         console.log(res.data);
         $state.room = res.data;
+        $state.started = false;
         toast("Room created! ✦");
       })
       .catch((err) => {

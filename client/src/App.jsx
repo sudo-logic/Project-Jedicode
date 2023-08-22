@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Workspace from "./pages/Workspace/Workspace";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
+import Lobby from "./components/Lobby";
 import { ToastContainer } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { globalState } from "./utils/proxy";
@@ -43,6 +44,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/lobby/:roomId" element={<Lobby />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
         <Route path="/result" element={<Results />} />
         <Route path="/*" element={<PageNotFound />} />
