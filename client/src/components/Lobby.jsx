@@ -1,15 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSnapshot } from "valtio";
-import { globalState } from "../utils/proxy";
+import React from "react";
 import { Room } from "./Room";
-import InvitePlayers from "./InvitePlayers";
-import { ToastContainer, toast } from "react-toastify";
-import {
-  useLocation,
-  useNavigate,
-  Navigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 
 export default function Lobby() {
   const location = useLocation();

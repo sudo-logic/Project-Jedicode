@@ -127,7 +127,6 @@ export default function CardForm() {
         </div>
       </form>
       {/*<!-- End Card with form --> */}
-      <ToastContainer theme="dark" />
     </>
   );
 }
