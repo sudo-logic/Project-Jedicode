@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Param, Post, Put, Req } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { RoomsService } from './rooms.service';
 import { Serialize } from 'src/common/interceptors/serialize.interceptor';
 import { UpdateRoomDto } from './dtos/update-room.dto';
-
 @Controller('rooms')
 @ApiTags('Rooms')
 @ApiBearerAuth('access-token')
@@ -11,9 +10,28 @@ export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Post()
-  async createRoom(@Req() request) {
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        count: {
+          type: 'number',
+          default: 3,
+        },
+        duration: {
+          type: 'number',
+          default: 30,
+        },
+      },
+    },
+  })
+  async createRoom(
+    @Req() request,
+    @Body('count') count: number = 3,
+    @Body('duration') duration: number = 30,
+  ) {
     const host = request.user.sub;
-    return await this.roomsService.create(host);
+    return await this.roomsService.create(host, count, duration);
   }
 
   @Get()

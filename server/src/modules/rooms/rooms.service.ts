@@ -25,7 +25,7 @@ export class RoomsService {
     return await this.roomsRepository.findOne({ where: { id } });
   }
 
-  async create(host: string): Promise<Room> {
+  async create(host: string, count, duration): Promise<Room> {
     const room = new Room();
 
     // room.room_url = await axios
@@ -42,7 +42,12 @@ export class RoomsService {
       },
     ];
 
-    room.questions = await this.questionsService.findRandom(3);
+    room.room_config = {
+      count,
+      duration,
+    };
+
+    room.questions = await this.questionsService.findRandom(count);
 
     return await this.roomsRepository.save(room);
   }
