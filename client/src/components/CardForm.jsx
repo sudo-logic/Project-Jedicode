@@ -60,28 +60,28 @@ export default function CardForm() {
           <header className="text-center">
             <h3 className="text-xl font-[700] text-white">Join a room</h3>
           </header>
-          <div className="flex flex-col space-y-8">
-            <div className="relative my-6">
-              <input
-                id="name"
-                type="text"
-                value={state.profile.username}
-                onKeyUp={handleInputEnter}
-                disabled
-                placeholder="your name"
-                className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
-              />
-              {/* <label
-                htmlFor="name"
-                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent peer-disabled:px-2"
-              >
-                Name
-              </label> */}
+          {/*      <!-- Input field --> */}
+          <div className="relative my-6">
+            <input
+              id="name"
+              type="text"
+              value={state.profile.username}
+              onKeyUp={handleInputEnter}
+              placeholder="your name"
+              className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
+            />
+            <label
+              htmlFor="name"
+              className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent peer-disabled:px-2"
+            >
+              Name
+            </label>
 
-              <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
-                <span>Username</span>
-              </small>
-            </div>
+            <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
+              <span>Enter your name</span>
+            </small>
+          </div>
+          <div className="flex flex-col">
             {/*      <!-- Input field --> */}
             <div className="relative my-6">
               <input
@@ -103,31 +103,10 @@ export default function CardForm() {
                 <span>Enter your Room ID</span>
               </small>
             </div>
-            {/*      <!-- Input field --> */}
-            <div className="relative my-6">
-              <input
-                id="name"
-                type="text"
-                value={state.profile.username}
-                onKeyUp={handleInputEnter}
-                placeholder="your name"
-                className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
-              />
-              <label
-                htmlFor="name"
-                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent peer-disabled:px-2"
-              >
-                Name
-              </label>
-
-              <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
-                <span>Enter your name</span>
-              </small>
-            </div>
           </div>
         </div>
         {/*  <!-- Action base sized basic button --> */}
-        <div className="flex flex-col justify-end p-6 ">
+        <div className="flex flex-col justify-end px-6 pb-3">
           <button
             onClick={joinRoom}
             className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
