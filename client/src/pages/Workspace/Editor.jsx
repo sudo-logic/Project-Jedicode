@@ -15,24 +15,19 @@ import { useNavigate } from "react-router-dom";
 function Editor() {
   const navigate = useNavigate();
 
-  const [code, setCode] = useState("const a = 100;");
+  const [code, setCode] = useState(`print("Hello World)`);
   const [codeResponse, setCodeResponse] = useState([]);
+  const [submitResponse, setSubmitResponse] = useState({});
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
 
   const state = useSnapshot(globalState);
-
   const token = localStorage.getItem("token");
 
   axios
-    .get(`${state.apiURI}/auth/profile`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .get(`/auth/profile`)
     .then((response) => {
       setUUID(response.data.sub);
       setLoad(false);
@@ -48,18 +43,16 @@ function Editor() {
       code: code,
     };
 
-    fetch(`${state.apiURI}/runner`, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(judgeBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setCodeResponse(data);
+    e.preventDefault();
+
+    axios
+      .post(`/runner`, judgeBody)
+      .then((response) => {
+        console.log(response);
+        setCodeResponse(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -73,21 +66,22 @@ function Editor() {
     };
 
     e.preventDefault();
-    fetch(`${state.apiURI}/submissions`, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(judgeBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+
+    axios
+      .post(`/submissions`, judgeBody)
+      .then((response) => {
+        console.log("Yeh hai submit ka pehla response", response.data.score);
+        setScore(response.data.score);
+        setSubmitResponse(response.data.score);
+      })
+      .then(() => {
         toast.success("Code submitted");
         setSubmitted(true);
-        setScore(data.score);
+        console.log("Yeh hai submit response", submitResponse);
+        // setScore(response.score);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -96,14 +90,9 @@ function Editor() {
   };
 
   const handleEndTest = () => {
-    fetch(`${state.apiURI}/rooms/816da205-a700-4c62-b923-6bbf75981312`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    axios
+      .get(`/rooms/816da205-a700-4c62-b923-6bbf75981312`)
+      .then((response) => console.log(response.data))
       // .catch((err) => console.log("Fetch error", err));
   }
 
@@ -159,9 +148,8 @@ function Editor() {
         </div>
         <div className="bg-black rounded-md p-3 text-white">test cases</div>
         {codeResponse.map((response, id) => {
-          console.log(response);
           return (
-            <div>
+            <div key={id}>
               {response?.stdout === null || response === undefined ? (
                 <></>
               ) : (

@@ -5,26 +5,29 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
+import { proxy } from "valtio";
+import { useProxy } from "valtio/utils";
+import axios from "axios";
 
 export default function CardForm() {
-
   const state = useSnapshot(globalState);
 
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState(state?.profile?.username || "Loading...");
+  const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = (e) => {
     e.preventDefault();
-    if (!roomId || !username) {
+    if (!$state.room.id || !state.profile.username) {
       toast.error("Room ID and username is required! ");
       return;
     }
     // redirecting to editor
-    navigate(`/editor/${roomId}`, {
+    navigate(`/editor/${$state.room.id}`, {
       state: {
-        username,
+        username: state.profile.username,
       },
     });
   };
@@ -32,9 +35,17 @@ export default function CardForm() {
   // create a new room
   const createNewRoom = (e) => {
     e.preventDefault();
-    const roomId = v4();
-    setRoomId(roomId);
-    toast("Room created! ✦");
+    const room = axios
+      .post(`/rooms`)
+      .then((res) => {
+        console.log(res.data);
+        $state.room = res.data;
+        toast("Room created! ✦");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong! 😥");
+      });
   };
 
   const handleInputEnter = (e) => {
@@ -53,14 +64,35 @@ export default function CardForm() {
             <h3 className="text-xl font-[700] text-white">Join a room</h3>
           </header>
           <div className="flex flex-col space-y-8">
+            <div className="relative my-6">
+              <input
+                id="name"
+                type="text"
+                value={state.profile.username}
+                onKeyUp={handleInputEnter}
+                disabled
+                placeholder="your name"
+                className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
+              />
+              {/* <label
+                htmlFor="name"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-gray-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-neutral-400 peer-disabled:before:bg-transparent peer-disabled:px-2"
+              >
+                Name
+              </label> */}
+
+              <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
+                <span>Username</span>
+              </small>
+            </div>
             {/*      <!-- Input field --> */}
             <div className="relative my-6">
               <input
                 id="room"
                 type="text"
-                value={roomId}
+                value={$state.room.id}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => setRoomId(e.target.value)}
+                onChange={(e) => ($state.room.id = e.target.value)}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
@@ -79,10 +111,8 @@ export default function CardForm() {
               <input
                 id="name"
                 type="text"
-                value={username}
+                value={state.profile.username}
                 onKeyUp={handleInputEnter}
-                disabled
-                onChange={(e) => setUsername(e.target.value)}
                 placeholder="your name"
                 className="peer relative h-10 w-full rounded bg-[#212121] border border-neutral-200 px-4 pr-12 text-sm placeholder-transparent outline-none transition-all text-white autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-[#535353] disabled:text-white"
               />

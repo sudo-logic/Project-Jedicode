@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
+import axios from "axios";
 // import winner from "../assets/winner.svg";
 
 const ResultTable = () => {
@@ -12,16 +13,12 @@ const ResultTable = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`${state.apiURI}/rooms/816da205-a700-4c62-b923-6bbf75981312`, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data?.player_data);
-        console.log(data?.player_data);
+    axios
+      .get(`/rooms/816da205-a700-4c62-b923-6bbf75981312`)
+      .then((response) => {
+        response.data.player_data
+        setData(response.data.player_data);
+        console.log(response.data.player_data);
       })
       // .then(() => {
       //   for(let i = 0; i<data?.length; i++) {
@@ -35,20 +32,21 @@ const ResultTable = () => {
       //       .catch(err => console.log("Profile fetch error: ", err))
       //   }
       // })
-      .catch((err) => console.log("Fetch error", err));
+      .catch((err) => console.log("Fetch result error", err));
   }, []);
 
   useEffect(() => {
     for (let i = 0; i < data?.length; i++) {
-      fetch(`${state.apiURI}/users/${data[i]?.user_id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Ab dekh yaha se", data);
-          setUserId(prev => [...prev, data.username]);
+      axios
+        .get(`/users/${data[i]?.user_id}`)
+        .then((response) => {
+          console.log("Ab dekh yaha se", response.data);
+          setUserId((prev) => [...prev, response.data.username]);
         })
         .catch((err) => console.log("Profile fetch error: ", err));
     }
     setLoad(false)
+    console.log(data)
   }, [data]);
   
   return (
@@ -78,7 +76,7 @@ const ResultTable = () => {
               >
                 {userId[key]}
               </div>
-              <h4 key={key} className="px-6 py-3 border-b border-slate-400">
+              <h4 key={key} className="px-6 py-3 border-b text-l border-slate-400">
                 {user.score}
               </h4>
             </>
