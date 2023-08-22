@@ -82,7 +82,7 @@ export const Room = () => {
     //   console.log(host);
     // redirecting to editor
     // if (host && host.socketId === clients[0].socketId) {
-    reactNavigator(`/editor/${state.roomId}`, {
+    reactNavigator(`/editor/${state.room.id}`, {
       state: {
         username,
       },
