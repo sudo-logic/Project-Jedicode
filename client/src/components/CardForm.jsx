@@ -27,7 +27,7 @@ export default function CardForm() {
         return res.data;
       });
     }
-    
+
     if (!state.room.id || !state.profile.username) {
       toast.error("Room ID and username is required! ");
       return;
@@ -78,6 +78,7 @@ export default function CardForm() {
             <input
               id="name"
               type="text"
+              readOnly={true}
               value={state.profile.username}
               onKeyUp={handleInputEnter}
               placeholder="your name"
@@ -102,7 +103,7 @@ export default function CardForm() {
                 type="text"
                 value={roomId}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => (setRoomId(e.target.value))}
+                onChange={(e) => setRoomId(e.target.value)}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-gray-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
