@@ -8,7 +8,7 @@ import { globalState } from "../utils/proxy";
 import { useProxy } from "valtio/utils";
 import axios from "axios";
 
-export default function CardForm() {
+export default function CreateRoom() {
   const state = useSnapshot(globalState);
 
   const [roomId, setRoomId] = useState("");
@@ -16,26 +16,33 @@ export default function CardForm() {
     state?.profile?.username || "Loading..."
   );
   const [duration, setDuration] = useState(30);
-  const [questionLimit, setQuestionLimit] = useState(3)
+  const [questionLimit, setQuestionLimit] = useState(3);
 
-  const questionArray = [1, 2, 3, 4, 5]
-  const durationArray = [15, 30, 45, 60, 90, 120]
+  const questionArray = [2, 3, 4, 5];
+  const durationArray = [15, 30, 45, 60, 90, 120];
 
   const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
   const handleDurationSelect = (e) => {
-    setDuration(e.target.value)
-  }
+    setDuration(e.target.value);
+  };
 
   const handleQuestionLimitSelect = (e) => {
     setQuestionLimit(e.target.value);
   };
 
   //join the room
-  const joinRoom = (e) => {
+  const joinRoom = async (e) => {
     e.preventDefault();
-    if (!$state.room.id || !state.profile.username) {
+    if (!state.room.questions || state.room.id != roomId) {
+      $state.room = await axios.get(`/rooms/${roomId}`).then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
+    }
+
+    if (!state.room.id || !state.profile.username) {
       toast.error("Room ID and username is required! ");
       return;
     }
@@ -53,13 +60,21 @@ export default function CardForm() {
     const room = axios
       .post(`/rooms`, {
         count: questionLimit,
-        duration
+        duration,
       })
       .then((res) => {
         console.log(res.data);
         $state.room = res.data;
         $state.started = false;
+        setRoomId(res.data.id);
         toast("Room created! ✦");
+      })
+      .then(() => {
+        navigate(`/lobby/${$state.room.id}`, {
+          state: {
+            username: state.profile.username,
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +82,7 @@ export default function CardForm() {
       });
   };
 
-  const handleInputEnter = (e) => {
+  const handleInputEnter = async (e) => {
     if (e.code === "Enter") {
       joinRoom();
     }
@@ -80,13 +95,14 @@ export default function CardForm() {
         {/*  <!-- Body--> */}
         <div className="p-6">
           <header className="text-center">
-            <h3 className="text-xl font-[700] text-white">Join a room</h3>
+            <h3 className="text-xl font-[700] text-white">Create a room</h3>
           </header>
           {/*      <!-- Input field --> */}
-          <div className="relative my-6">
+          {/* <div className="relative my-6">
             <input
               id="name"
               type="text"
+              readOnly={true}
               value={state.profile.username}
               onKeyUp={handleInputEnter}
               placeholder="your name"
@@ -102,16 +118,16 @@ export default function CardForm() {
             <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
               <span>Enter your name</span>
             </small>
-          </div>
+          </div> */}
           <div className="flex flex-col">
             {/*      <!-- Input field --> */}
-            <div className="relative my-6">
+            {/* <div className="relative my-6">
               <input
                 id="room"
                 type="text"
-                value={$state.room.id}
+                value={roomId}
                 onKeyUp={handleInputEnter}
-                onChange={(e) => ($state.room.id = e.target.value)}
+                onChange={(e) => setRoomId(e.target.value)}
                 placeholder="Room ID"
                 className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
               />
@@ -124,7 +140,7 @@ export default function CardForm() {
               <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition peer-invalid:text-pink-500">
                 <span>Enter your Room ID</span>
               </small>
-            </div>
+            </div> */}
           </div>
           <div className="flex flex-row gap-20 justify-center items-center">
             <div className="relative my-6 md:w-1/2">
@@ -217,18 +233,18 @@ export default function CardForm() {
         {/*  <!-- Action base sized basic button --> */}
         <div className="flex flex-col justify-end px-6 pb-3">
           <button
-            onClick={joinRoom}
+            onClick={createNewRoom}
             className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
           >
-            <span>Join</span>
+            <span>Create</span>
           </button>
         </div>
-        <div className=" text-xs px text-center mb-4">
+        {/* <div className=" text-xs px text-center mb-4">
           Wanna make your own room?&nbsp;
           <a onClick={createNewRoom} href="" className="text-white font-bold">
             Create Room
           </a>{" "}
-        </div>
+        </div> */}
       </form>
       {/*<!-- End Card with form --> */}
     </>

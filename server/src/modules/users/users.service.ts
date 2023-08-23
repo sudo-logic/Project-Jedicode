@@ -64,6 +64,7 @@ export class UsersService {
     return await this.usersRepository
       .createQueryBuilder('user')
       .orderBy('user.score', 'DESC')
+      .addOrderBy('user.created_at', 'ASC')
       .getMany();
   }
 }
