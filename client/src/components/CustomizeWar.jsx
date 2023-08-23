@@ -24,14 +24,6 @@ export default function CustomizeWar() {
   const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
-  const handleDurationSelect = (e) => {
-    setDuration(e.target.value);
-  };
-
-  const handleQuestionLimitSelect = (e) => {
-    setQuestionLimit(e.target.value);
-  };
-
   //join the room
   const joinRoom = async (e) => {
     e.preventDefault();
@@ -47,11 +39,7 @@ export default function CustomizeWar() {
       return;
     }
     // redirecting to editor
-    navigate(`/lobby/${$state.room.id}`, {
-      state: {
-        username: state.profile.username,
-      },
-    });
+    navigate(`/lobby/${$state.room.id}`);
   };
 
   // create a new room
@@ -148,7 +136,7 @@ export default function CustomizeWar() {
                   id="id-11"
                   name="id-11"
                   value={duration}
-                  onChange={handleDurationSelect}
+                  onChange={(e) => setDuration(e.target.value)}
                   required
                   className="peer relative h-12 w-full appearance-none rounded border border-slate-200 bg-[#212121] px-4 text-neutral-400 outline-none transition-all autofill:bg-white focus:border-emerald-500 focus-visible:outline-none focus:focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 >
@@ -195,7 +183,7 @@ export default function CustomizeWar() {
                   name="id-11"
                   required
                   value={questionLimit}
-                  onChange={handleQuestionLimitSelect}
+                  onChange={(e) => setQuestionLimit(e.target.value)}
                   className="peer relative h-12 w-full appearance-none rounded border border-slate-200 bg-[#212121] px-4 text-neutral-400 outline-none transition-all autofill:bg-white focus:border-emerald-500 focus-visible:outline-none focus:focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 >
                   {questionArray.map((question, key) => (
