@@ -162,7 +162,7 @@ export default function CreateRoom() {
                 <option value="3">Option 3</option> */}
               </select>
               <label
-                for="id-11"
+                htmlFor="id-11"
                 className="pointer-events-none absolute top-3 left-2 z-[1] px-2 text-base text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-valid:-top-2 peer-valid:text-xs peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
                 Duration
@@ -203,7 +203,7 @@ export default function CreateRoom() {
                 ))}
               </select>
               <label
-                for="id-11"
+                htmlFor="id-11"
                 className="pointer-events-none absolute top-3 left-2 z-[1] px-2 text-base text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-valid:-top-2 peer-valid:text-xs peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
                 Questions limit

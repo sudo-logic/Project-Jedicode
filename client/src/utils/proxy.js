@@ -12,7 +12,6 @@ export const globalState = proxy(
     profile: {},
     languageId: 1,
     questionId: "",
-    questions: [],
     room: {},
   }
 );
