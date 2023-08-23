@@ -14,7 +14,6 @@ export default function Navbar() {
 
   const state = useSnapshot(globalState);
   // console.log(state?.profile)
-  const [username, setUsername] = useState(state?.profile?.username || "");
 
   const [load, setLoad] = useState(false);
 
@@ -60,7 +59,7 @@ export default function Navbar() {
               <div className="p-6">
                 <header className="mb-4">
                   <h3 className="text-xl font-medium text-slate-700">
-                    {username}
+                    {state.profile.username}
                   </h3>
                 </header>
               </div>
@@ -163,7 +162,9 @@ export default function Navbar() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-base font-medium text-white">{username}</h3>
+                <h3 className="text-base font-medium text-white">
+                  {state.profile.username}
+                </h3>
               </div>
               {/*        <!-- End Avatar --> */}
             </div>

@@ -3,14 +3,14 @@ import { Room } from "./Room";
 import { useLocation, Navigate } from "react-router-dom";
 
 export default function Lobby() {
-  // const location = useLocation();
+  const location = useLocation();
 
-  // console.log(location);
-  // console.log(location.state);
+  console.log(location);
+  console.log(location.state);
 
-  // if (!location.state) {
-  //   return <Navigate to="/" />;
-  // }
+  if (!location.state) {
+    return <Navigate to="/" />;
+  }
 
   function inviteMail() {}
 

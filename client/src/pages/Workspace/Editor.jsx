@@ -6,25 +6,29 @@ import { atomone } from "@uiw/codemirror-theme-atomone";
 import LangDropdown from "../../components/LangDropdown";
 import axios from "axios";
 import { globalState } from "../../utils/proxy";
-import { useSnapshot } from "valtio";
+import { subscribe, useSnapshot } from "valtio";
 import { BsCheck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { subscribeKey, useProxy } from "valtio/utils";
 
 function Editor() {
   const navigate = useNavigate();
 
-  const [code, setCode] = useState(`print("Hello World)`);
+  const [code, setCode] = useState(`print("Hello World")`);
   const [codeResponse, setCodeResponse] = useState([]);
-  const [submitResponse, setSubmitResponse] = useState({});
   const [load, setLoad] = useState(true);
   const [uuid, setUUID] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(0);
 
   const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
+
+  subscribeKey(globalState, "questionId", () => {
+    // setCode("");
+    setCodeResponse([]);
+  });
 
   axios
     .get(`/auth/profile`)
@@ -38,8 +42,8 @@ function Editor() {
 
   const handleRun = (e) => {
     const judgeBody = {
-      language_id: globalState.languageId,
-      question_id: globalState.questionId,
+      language_id: state.languageId,
+      question_id: state.questionId,
       code: code,
     };
 
@@ -58,8 +62,8 @@ function Editor() {
 
   const handleSubmit = (e) => {
     const judgeBody = {
-      language_id: globalState.languageId,
-      question_id: globalState.questionId,
+      language_id: state.languageId,
+      question_id: state.questionId,
       code: code,
       language: "python",
       user_id: uuid,
@@ -70,15 +74,9 @@ function Editor() {
     axios
       .post(`/submissions`, judgeBody)
       .then((response) => {
-        console.log("Yeh hai submit ka pehla response", response.data.score);
-        setScore(response.data.score);
-        setSubmitResponse(response.data.score);
-      })
-      .then(() => {
         toast.success("Code submitted");
-        setSubmitted(true);
-        console.log("Yeh hai submit response", submitResponse);
-        // setScore(response.score);
+        console.log(response.data);
+        $state.submissions[state.questionId] = response.data;
       })
       .catch((error) => {
         console.log(error);
@@ -90,9 +88,26 @@ function Editor() {
   };
 
   const handleEndTest = () => {
-    navigate("/dashboard")
-      // .catch((err) => console.log("Fetch error", err));
-  }
+    navigate("/dashboard");
+    // .catch((err) => console.log("Fetch error", err));
+  };
+
+  const handleNextClick = () => {
+    // go to the question which is not in the submissions else go to the dashboard
+    // e.preventDefault();
+    const questions = state.room.questions;
+    const selected = state.selected;
+
+    for (let i = questions.length - 1; i >= 0; i--) {
+      if (!state.submissions[questions[i].id]) {
+        $state.selected = questions[i];
+        return;
+      }
+    }
+    toast("All questions are complete!\nYou may now end the test. 🐱");
+    // navigate("/dashboard");
+    return;
+  };
 
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
@@ -179,16 +194,19 @@ function Editor() {
       <div className="flex flex-row relative justify-end gap-10 mt-3 mb-5 mr-10">
         {/* <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button> */}
 
-        {submitted ? (
+        {state.submissions[state.questionId] ? (
           <p className="absolute top-1/4 left-2 underline underline-offset-4 text-white">
-            Score: {score}
+            Score: {state.submissions[state.questionId].score}
           </p>
         ) : (
           <></>
         )}
 
-        {submitted ? (
-          <button className="w-24 rounded-md px-3 py-2 bg-blue-500 text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow">
+        {state.submissions[state.questionId] ? (
+          <button
+            className="w-24 rounded-md px-3 py-2 bg-blue-500 text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow"
+            onClick={handleNextClick}
+          >
             Next
           </button>
         ) : (

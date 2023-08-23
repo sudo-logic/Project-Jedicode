@@ -2,11 +2,24 @@ import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { globalState } from "../utils/proxy";
+import { useSnapshot } from "valtio";
+import { useProxy } from "valtio/utils";
 
 export default function QuestionSelect(props) {
-  const state = globalState;
-  const [questions, setQuestions] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
+  // const [questions, setQuestions] = useState([]);
+
+  const questions = state.room.questions;
+  const selected = state.selected;
+
+  const setQuestions = (value) => {
+    $state.room.questions = value;
+  };
+
+  const setSelected = (value) => {
+    $state.selected = value;
+  };
 
   useEffect(() => {
     setQuestions(state.room.questions);
@@ -15,9 +28,9 @@ export default function QuestionSelect(props) {
 
   useEffect(() => {
     props.onChange(selected);
-    console.log(selected?.id);
-    state.questionId = selected?.id;
-    console.log(state.questionId);
+    // console.log(selected?.id);
+    $state.questionId = selected?.id;
+    // console.log(state.questionId);
   }, [selected]);
 
   return (
