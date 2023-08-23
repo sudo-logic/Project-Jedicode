@@ -11,6 +11,9 @@ export class UpdateRoomDto {
   completed_at: Date;
 
   @IsOptional()
+  started_at: Date;
+
+  @IsOptional()
   @IsString()
   status: string;
 }
