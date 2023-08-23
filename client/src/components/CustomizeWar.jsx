@@ -10,6 +10,7 @@ import axios from "axios";
 
 export default function CustomizeWar() {
   const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
 
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState(
@@ -21,25 +22,43 @@ export default function CustomizeWar() {
   const questionArray = [2, 3, 4, 5];
   const durationArray = [15, 30, 45, 60, 90, 120];
 
-  const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = async (e) => {
-    e.preventDefault();
-    if (!state.room.questions || state.room.id != roomId) {
-      $state.room = await axios.get(`/rooms/${roomId}`).then((res) => {
-        console.log(res.data);
-        return res.data;
-      });
-    }
+    if (e) e.preventDefault();
 
-    if (!state.room.id || !state.profile.username) {
+    if (!state.profile.username || !roomId) {
       toast.error("Room ID and username is required! ");
       return;
     }
-    // redirecting to editor
-    navigate(`/lobby/${$state.room.id}`);
+
+    $state.room = await axios
+      .get(`/rooms/${roomId}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        toast.error("Room not found! 😥");
+        return;
+      });
+
+    if (!state.room) {
+      toast.error("Room not found! 😥");
+      return;
+    }
+
+    await axios
+      .post(`/rooms/${roomId}/join`)
+      .then((res) => {
+        navigate(`/lobby/${$state.room.id}`, {
+          state: { username: state.profile.username },
+        });
+      })
+      .catch((err) => {
+        toast.error("Error joining room! 😥");
+        return;
+      });
   };
 
   // create a new room
@@ -51,14 +70,8 @@ export default function CustomizeWar() {
         duration,
       })
       .then((res) => {
-        console.log(res.data);
-        $state.room = res.data;
-        $state.started = false;
         setRoomId(res.data.id);
         toast("Room created! ✦");
-      })
-      .then(() => {
-        navigate(`/lobby/${$state.room.id}`);
       })
       .catch((err) => {
         console.log(err);
