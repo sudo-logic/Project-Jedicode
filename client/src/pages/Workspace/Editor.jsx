@@ -90,9 +90,7 @@ function Editor() {
   };
 
   const handleEndTest = () => {
-    axios
-      .get(`/rooms/816da205-a700-4c62-b923-6bbf75981312`)
-      .then((response) => console.log(response.data))
+    navigate("/dashboard")
       // .catch((err) => console.log("Fetch error", err));
   }
 
@@ -197,7 +195,7 @@ function Editor() {
           <></>
         )}
         <button
-          className="w-24 rounded-md px-3 py-2 bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
+          className="w-24 rounded-md px-3 py-2 bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-yellow-500 transition-shadow"
           onClick={handleEndTest}
         >
           End Test

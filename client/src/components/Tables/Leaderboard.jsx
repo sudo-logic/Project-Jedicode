@@ -12,13 +12,13 @@ const Leaderboard = () => {
   }, []);
 
   return (
-    <div className="w-full rounded">
-      <h1 className="text-lg text-slate-100 tracking-widest uppercase text-center mb-2 font-sans">
+    <div className="w-full rounded h-4/5 border-b border-slate-200 overflow-y-auto overflow-x-hidden ">
+      <h1 className="text-lg text-slate-100 uppercase tracking-widest text-center mb-2 font-sans">
         Leaderboard Table
       </h1>
 
       <table
-        className="w-full text-center border border-separate rounded overflow-y-auto border-slate-200 shadow-md shadow-[#5656ff]"
+        className="w-full text-center border border-separate rounded overflow-y-scroll border-slate-200 shadow-md shadow-[#5656ff]"
         cellSpacing="0"
       >
         <tbody>
