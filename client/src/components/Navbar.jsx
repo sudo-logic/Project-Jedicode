@@ -138,7 +138,10 @@ export default function Navbar() {
             </button>
 
             <ProfileOverlay />
-            <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
+            <div
+              className="ml-auto flex cursor-pointer gap-2 items-center lg:ml-0 lg:p-0"
+              onClick={() => setIsProfileOpen(true)}
+            >
               {/*        <!-- Avatar --> */}
               <div
                 className="flex flex-row items-center cusor-pointer"

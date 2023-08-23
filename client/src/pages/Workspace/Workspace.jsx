@@ -10,7 +10,8 @@ import { globalState } from "../../utils/proxy";
 function Workspace() {
   const state = useSnapshot(globalState);
   const time = new Date(state.room.created_at);
-  time.setSeconds(time.getSeconds() + 1800);
+  time.setSeconds(time.getSeconds() + state.room.room_config.duration);
+  console.log(time.getSeconds() + state?.room?.room_config?.duration);
 
   return (
     <>
