@@ -37,14 +37,20 @@ export default function Navbar() {
                 <AiOutlineClose size={24} />
               </span>
               <span className="relative inline-flex h-20 w-20 items-center justify-center rounded-full text-white">
-                <img
-                  src="https://i.pravatar.cc/80?img=22"
-                  alt="user name"
-                  title="user name"
-                  width="80"
-                  height="80"
-                  className="max-w-full rounded-full"
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1}
+                  stroke="black"
+                  className="w-full h-full"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
               </span>
             </figure>
             {/*  <!-- Body--> */}
@@ -56,16 +62,11 @@ export default function Navbar() {
                   <h3 className="text-xl font-medium text-slate-700">
                     {username}
                   </h3>
-                  <p className=" text-slate-400">Senior Designer</p>
                 </header>
               </div>
             )}
             {/*  <!-- Action base sized with lead icon buttons  --> */}
             <div className="flex justify-end gap-2 p-6 pt-0">
-              <button className="inline-flex h-10 flex-1 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded bg-gray-50 px-5 text-sm font-medium tracking-wide text-gray-500 transition duration-300 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-200 focus:text-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:shadow-none">
-                <span className="order-2">My Profile</span>
-                <CgProfile size={24} />
-              </button>
               <button
                 className="inline-flex h-10 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
                 onClick={() => {
@@ -137,25 +138,31 @@ export default function Navbar() {
             </button>
 
             <ProfileOverlay />
-            <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
+            <div
+              className="ml-auto flex cursor-pointer gap-2 items-center lg:ml-0 lg:p-0"
+              onClick={() => setIsProfileOpen(true)}
+            >
               {/*        <!-- Avatar --> */}
               <a
                 href="#"
                 className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-white"
               >
-                <img
-                  src="https://i.pravatar.cc/40?img=35"
-                  alt="user name"
-                  title="user name"
-                  width="40"
-                  height="40"
-                  className="max-w-full rounded-full transition-shadow duration-100 hover:shadow-[0_0_20px] hover:shadow-gray-100"
-                  onClick={() => setIsProfileOpen(true)}
-                />
-                <span className="absolute bottom-0 right-0 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-pink-500 p-1 text-sm text-white">
-                  <span className="sr-only"> 7 new emails </span>
-                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1}
+                  stroke="currentColor"
+                  className="w-8 h-8 max-w-full rounded-full transition-shadow duration-100 hover:shadow-[0_0_20px] hover:shadow-gray-100"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
               </a>
+              <p className="text-white">{username}</p>
               {/*        <!-- End Avatar --> */}
             </div>
           </nav>
