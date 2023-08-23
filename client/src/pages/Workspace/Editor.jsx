@@ -11,8 +11,10 @@ import { BsCheck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ModalIconActionButtons from "../../components/EndTestButton";
 
 function Editor() {
+
   const navigate = useNavigate();
 
   const [code, setCode] = useState(`print("Hello World")`);
@@ -90,9 +92,9 @@ function Editor() {
   };
 
   const handleEndTest = () => {
-    navigate("/dashboard")
-      // .catch((err) => console.log("Fetch error", err));
-  }
+    navigate("/dashboard");
+    // .catch((err) => console.log("Fetch error", err));
+  };
 
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
@@ -194,12 +196,7 @@ function Editor() {
         ) : (
           <></>
         )}
-        <button
-          className="w-24 rounded-md px-3 py-2 bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-yellow-500 transition-shadow"
-          onClick={handleEndTest}
-        >
-          End Test
-        </button>
+        <ModalIconActionButtons />
         <button
           className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
           onClick={handleRun}
