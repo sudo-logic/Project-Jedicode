@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 function Editor() {
   const navigate = useNavigate();
 
-  const [code, setCode] = useState(`print("Hello World)`);
+  const [code, setCode] = useState(`print("Hello World")`);
   const [codeResponse, setCodeResponse] = useState([]);
   const [submitResponse, setSubmitResponse] = useState({});
   const [load, setLoad] = useState(true);
@@ -48,7 +48,7 @@ function Editor() {
     axios
       .post(`/runner`, judgeBody)
       .then((response) => {
-        console.log(response);
+        console.log(response.data[0].stdout);
         setCodeResponse(response.data);
       })
       .catch((error) => {
@@ -151,8 +151,8 @@ function Editor() {
               {response?.stdout === null || response === undefined ? (
                 <></>
               ) : (
-                <div className="text-slate-200 w-36 justify-between text-lg flex flex-row items-start gap-2 -mt-20 ">
-                  test case {id + 1}:
+                <div className="text-slate-200 w-52 justify-between text-lg flex flex-row items-start gap-2 -mt-20 ">
+                  test case {id + 1}: <p>{response.stdout}</p>
                   {response.status.id === 4 ? (
                     <AiOutlineClose className="text-red-500 text-2xl" />
                   ) : (
