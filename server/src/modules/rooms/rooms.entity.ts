@@ -24,6 +24,9 @@ export class Room extends AbstractEntity {
   // player_data: { [user: string]: { score: number; is_host: boolean } }[];
 
   @Column({ nullable: true })
+  started_at: Date;
+
+  @Column({ nullable: true })
   completed_at: Date;
 
   @Column({ default: 'lobby' })
