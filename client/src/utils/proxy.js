@@ -11,6 +11,8 @@ export const globalState = proxy(
   JSON.parse(localStorage.getItem("foo")) || {
     profile: {},
     languageId: 1,
+    questionId: "",
+    questions: [],
     room: {},
   }
 );
