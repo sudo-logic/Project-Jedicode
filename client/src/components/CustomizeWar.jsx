@@ -58,11 +58,7 @@ export default function CustomizeWar() {
         toast("Room created! ✦");
       })
       .then(() => {
-        navigate(`/lobby/${$state.room.id}`, {
-          state: {
-            username: state.profile.username,
-          },
-        });
+        navigate(`/lobby/${$state.room.id}`);
       })
       .catch((err) => {
         console.log(err);
