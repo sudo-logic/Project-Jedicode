@@ -15,8 +15,8 @@ const RegistrationBlock = () => {
   const navigate = useNavigate();
 
   function Login() {
-    const notify = () =>
-      toast.error("Login Error: Please Check Your Username and Password");
+    const notify = (err) =>
+      toast.error(`Login Error: ${err}`);
 
     const {setToken, token} = useToken()
 
@@ -45,7 +45,8 @@ const RegistrationBlock = () => {
           navigate("/dashboard");
         })
         .catch((err) => {
-          notify();
+          console.log(err.response.data.message)
+          notify(err.response.data.message);
           setPOSTload(false);
         });
     };
@@ -121,6 +122,8 @@ const RegistrationBlock = () => {
   function Signup() {
     const { setToken, token } = useToken();
 
+    const notify = (err) => toast.error(`Signup Error: ${err}`);
+
     const [signupCreds, setSignupCreds] = useState({
       username: "",
       email: "",
@@ -147,7 +150,9 @@ const RegistrationBlock = () => {
           navigate("/dashboard");
         })
         .catch((err) => {
-          notify();
+          console.log(err.response.data.message)
+          for(let i=0; i<err.response.data.message.length; i++)
+            notify(err.response.data.message[i]); 
           setPOSTload(false);
         });
     };
