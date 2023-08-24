@@ -29,7 +29,7 @@ export default function CustomizeWar() {
     if (e) e.preventDefault();
 
     if (!state.profile.username || !roomId) {
-      toast.error("Room ID and username is required! ");
+      toast.error("Room ID is required! 😥");
       return;
     }
 
