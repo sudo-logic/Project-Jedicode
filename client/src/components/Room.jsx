@@ -23,7 +23,7 @@ export const Room = () => {
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
   const [username, setUsername] = useState(state?.profile?.username);
-  const [host, setHost] = useState(clients[0]);
+  const isHost = state?.profile?.sub;
   const path = window.location.pathname.substring(1, 7);
   var test = true;
   if (path === "editor") {
@@ -31,6 +31,7 @@ export const Room = () => {
   }
 
   useEffect(() => {
+    console.log(state.room);
     const init = async () => {
       socketRef.current = await initSocket();
       socketRef.current.on("connect_error", (err) => handleErrors(err));
@@ -143,9 +144,9 @@ export const Room = () => {
             <InvitePlayers />
             <button
               type="button"
-              className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 text-white px-4 py-2 text-sm font-bold bg-neutral-950 "
+              className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 text-sm font-bold bg-neutral-950 "
               onClick={joinRoom}
-              disabled={host && host.socketId !== clients[0].socketId}
+              disabled={!(isHost == state.room.created_by.id)}
             >
               Start!
             </button>
