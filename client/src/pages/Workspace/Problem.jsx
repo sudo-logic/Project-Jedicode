@@ -13,9 +13,9 @@ function Problem() {
   };
 
   return (
-    <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
+    <div className="bg-black rounded-md overflow-y-hidden">
       {/* TAB */}
-      <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
+      <div className="flex w-full items-center bg-black rounded-md">
         <QuestionSelect onChange={getQuestion} />
       </div>
       {load ? (
