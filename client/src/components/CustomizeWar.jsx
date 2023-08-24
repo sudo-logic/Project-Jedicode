@@ -48,6 +48,8 @@ export default function CustomizeWar() {
       return;
     }
 
+    $state.room.created_at = null;
+
     await axios
       .post(`/rooms/${roomId}/join`)
       .then((res) => {
