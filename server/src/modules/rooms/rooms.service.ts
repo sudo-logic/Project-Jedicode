@@ -34,6 +34,8 @@ export class RoomsService {
     //     return res.data.join('-');
     //   });
 
+    room.created_by = await this.usersService.findOne(host);
+
     room.player_data = [
       {
         user_id: host,

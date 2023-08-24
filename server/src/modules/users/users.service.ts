@@ -67,4 +67,21 @@ export class UsersService {
       .addOrderBy('user.created_at', 'ASC')
       .getMany();
   }
+
+  async authenticate(username: string, password: string): Promise<User> {
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .where({
+        username,
+      })
+      .addSelect('user.password')
+      .getOne();
+    if (!user) {
+      return null;
+    }
+    if (user.password !== password) {
+      return null;
+    }
+    return user;
+  }
 }
