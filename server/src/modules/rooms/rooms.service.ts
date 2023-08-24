@@ -54,8 +54,9 @@ export class RoomsService {
     return await this.roomsRepository.save(room);
   }
 
-  async update(id: string, room: UpdateRoomDto): Promise<void> {
+  async update(id: string, room: UpdateRoomDto): Promise<Room> {
     await this.roomsRepository.update(id, room);
+    return await this.roomsRepository.findOne({ where: { id } });
   }
 
   async join(id: string, user_id: string): Promise<Room> {
