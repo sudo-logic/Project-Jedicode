@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QuestionSelect from "../../components/QuestionSelect";
-import axios from "axios";
+import Split from "react-split";
 
 function Problem() {
   const [data, setData] = useState();
@@ -13,17 +13,23 @@ function Problem() {
   };
 
   return (
-    <div className="bg-black rounded-md overflow-y-hidden">
+    <div className=" rounded-md overflow-y-hidden">
       {/* TAB */}
-      <div className="flex w-full items-center bg-black rounded-md">
+      <div className="flex w-full items-center bg-black rounded-t-md">
         <QuestionSelect onChange={getQuestion} />
       </div>
       {load ? (
         <div>Loading...</div>
       ) : (
         <div>
-          <div className="flex pb-2  h-[calc(100vh-44px)]">
-            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full">
+          {/* <div className="flex pb-2  h-[calc(100vh-44px)]"> */}
+          <Split
+            direction="vertical"
+            sizes={[75, 25]}
+            minSize={[250, 175]}
+            className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
+          >
+            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full bg-black rounded-b-md">
               {/* Problem heading */}
               <div className="flex space-x-4">
                 <div className="mr-2 text-xl text-white font-bold">
@@ -76,7 +82,15 @@ function Problem() {
                 </ul>
               </div>
             </div>
-          </div>
+            <div className="p-3 rounded-md bg-black text-white">
+              <div className="p-2 bg-dark-layer-2 rounded-md w-fit h-fit">
+                Test cases
+              </div>
+              <div className="py-1 text-base text-white"></div>
+              {data?.test_cases.output}
+            </div>
+          </Split>
+          {/* </div> */}
         </div>
       )}
     </div>
