@@ -5,9 +5,11 @@ import { initSocket } from "../toBeShifted/socket";
 import ACTIONS from "../toBeShifted/actions";
 import { useSnapshot } from "valtio";
 import { globalState } from "../utils/proxy";
+import { useProxy } from "valtio/utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InvitePlayers from "./InvitePlayers";
+import axios from "axios";
 import {
   useLocation,
   useNavigate,
@@ -17,6 +19,7 @@ import {
 
 export const Room = () => {
   const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
   const socketRef = useRef(null);
   const location = useLocation();
   const { roomId } = useParams();
@@ -31,7 +34,6 @@ export const Room = () => {
   }
 
   useEffect(() => {
-    console.log(state.room);
     const init = async () => {
       socketRef.current = await initSocket();
       socketRef.current.on("connect_error", (err) => handleErrors(err));
@@ -57,6 +59,24 @@ export const Room = () => {
             console.log(`${username} joined`);
           }
           setClients(clients);
+          console.log(state.room.started_at);
+          axios
+            .get(`/rooms/${roomId}`)
+            .then((res) => {
+              console.log(res.data.started_at);
+              $state.room.started_at = res.data.started_at;
+              if (res.data.started_at) {
+                reactNavigator(`/editor/${state.room.id}`, {
+                  state: {
+                    username,
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              toast.error("Room not found! 😥");
+              return;
+            });
         }
       );
 
@@ -68,6 +88,7 @@ export const Room = () => {
         });
       });
     };
+
     init();
     return () => {
       if (socketRef.current) {
@@ -78,17 +99,40 @@ export const Room = () => {
     };
   }, []);
 
-  const joinRoom = (e) => {
+  const startRoom = async (e) => {
     e.preventDefault();
     //   console.log(host);
     // redirecting to editor
     // if (host && host.socketId === clients[0].socketId) {
-    reactNavigator(`/editor/${state.room.id}`, {
-      state: {
-        username,
-      },
-    });
-    // }
+
+    await axios
+      .put(`/rooms/${roomId}`, { started_at: new Date().toISOString() })
+      .then((res) => {
+        console.log(res);
+        toast.success("hogya");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong! 😥");
+      });
+
+    await axios
+      .get(`/rooms/${roomId}`)
+      .then((res) => {
+        console.log(res.data.started_at);
+        $state.room.started_at = res.data.started_at;
+        if (res.data.started_at) {
+          reactNavigator(`/editor/${state.room.id}`, {
+            state: {
+              username,
+            },
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error("Room not found! 😥");
+        return;
+      });
   };
 
   async function copyRoomId() {
@@ -145,7 +189,7 @@ export const Room = () => {
             <button
               type="button"
               className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 text-sm font-bold bg-neutral-950 "
-              onClick={joinRoom}
+              onClick={startRoom}
               disabled={!(isHost == state.room.created_by.id)}
             >
               Start!
