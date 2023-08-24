@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,6 +7,25 @@ import { useParams } from "react-router-dom";
 
 function InvitePlayers() {
   const { roomId } = useParams();
+  const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
+
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    setIsValidEmail(validateEmail(newEmail));
+  };
+
+  const validateEmail = (email) => {
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return pattern.test(email);
+  };
+
+  function sendMail() {
+    isValidEmail
+      ? toast("Mail has been sent!")
+      : toast.error("Incorrect email address");
+  }
 
   async function copyRoomId() {
     try {
@@ -74,24 +93,28 @@ function InvitePlayers() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 text-neutral-950">
-                    <input
+                  <input
                       id="mail"
                       type="email"
                       placeholder="email@example.com"
-                      className="peer relative h-10 w-full rounded bg-white border border-neutral-200 px-2  text-sm  outline-none transition-all "
-                    ></input>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-10 h-10"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      value={email}
+                      onChange={handleEmailChange}
+                      className="peer relative h-10 w-full rounded bg-white border border-neutral-200 px-2 text-sm outline-none transition-all"
+                    />
+                   <button onClick={sendMail}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-10 h-10"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </Popover.Panel>
