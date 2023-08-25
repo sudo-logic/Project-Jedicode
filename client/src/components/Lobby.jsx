@@ -5,9 +5,6 @@ import { useLocation, Navigate } from "react-router-dom";
 export default function Lobby() {
   const location = useLocation();
 
-  if (!location.state) {
-    return <Navigate to="/" />;
-  }
 
   function inviteMail() {}
 

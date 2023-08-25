@@ -47,14 +47,14 @@ export const Room = () => {
 
       socketRef.current.emit(ACTIONS.JOIN, {
         roomId,
-        username: location.state?.username,
+        username: state.profile.username,
       });
 
       // Listening for joined event
       socketRef.current.on(
         ACTIONS.JOINED,
         ({ clients, username, socketId }) => {
-          if (username !== location.state?.username) {
+          if (username !== state.profile.username) {
             // toast.success(`${username} joined the room.`);
             console.log(`${username} joined`);
           }
@@ -66,11 +66,7 @@ export const Room = () => {
               // console.log(res.data.started_at);
               $state.room.started_at = res.data.started_at;
               if (res.data.started_at) {
-                reactNavigator(`/editor/${state.room.id}`, {
-                  state: {
-                    username,
-                  },
-                });
+                reactNavigator(`/editor/${state.room.id}`);
               }
             })
             .catch((err) => {
@@ -121,11 +117,7 @@ export const Room = () => {
         // console.log(res.data.started_at);
         $state.room.started_at = res.data.started_at;
         if (res.data.started_at) {
-          reactNavigator(`/editor/${state.room.id}`, {
-            state: {
-              username,
-            },
-          });
+          reactNavigator(`/editor/${state.room.id}`);
         }
       })
       .catch((err) => {
