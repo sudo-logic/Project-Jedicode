@@ -3,7 +3,7 @@
   src: local("Axiforma-ExtraBold"),
     url("Axiforma-ExtraBold.woff2") format("woff2"),
     url("Axiforma-ExtraBold.woff") format("woff");
-  font-weight: extrabold;
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
@@ -12,7 +12,7 @@
   font-family: "Axiforma";
   src: local("Axiforma-Regular"), url("Axiforma-Regular.woff2") format("woff2"),
     url("Axiforma-Regular.woff") format("woff");
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -21,7 +21,7 @@
   font-family: "Axiforma";
   src: local("Axiforma-Bold"), url("Axiforma-Bold.woff2") format("woff2"),
     url("Axiforma-Bold.woff") format("woff");
-  font-weight: bold;
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -30,7 +30,7 @@
   font-family: "Axiforma";
   src: local("Axiforma-Medium"), url("Axiforma-Medium.woff2") format("woff2"),
     url("Axiforma-Medium.woff") format("woff");
-  font-weight: medium;
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -40,7 +40,7 @@
   src: local("Axiforma-SemiBold"),
     url("Axiforma-SemiBold.woff2") format("woff2"),
     url("Axiforma-SemiBold.woff") format("woff");
-  font-weight: semibold;
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
