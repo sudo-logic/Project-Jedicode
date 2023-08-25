@@ -53,13 +53,13 @@ function Problem() {
             minSize={[450, 161]}
             className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
           >
-            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full bg-black rounded-b-md">
+            <div className="px-4 pt-2  overflow-y-scroll w-full bg-black rounded-b-md">
               {/* Problem heading */}
-              <div className="flex space-x-4">
-                <div className="mr-2 text-xl text-white font-bold">
+              <div className="flex gap-6">
+                <div className=" text-xl text-white font-bold">
                   {data?.title}
                 </div>
-                <div className="flex justify-center items-center text-olive bg-olive rounded-[21px] bg-opacity-[0.15] px-2.5 ">
+                <div className="flex justify-center items-center text-olive bg-olive rounded-full bg-opacity-[0.15] px-2.5 ">
                   <div className={` text-xs font-medium uppercase`}>
                     {data?.difficulty}
                   </div>
@@ -67,15 +67,15 @@ function Problem() {
               </div>
 
               {/* Problem Statement(paragraphs) */}
-              <div className="text-white text-sm mt-4">
+              <div className="text-white text-sm mt-3">
                 {data?.problem_statement}
               </div>
 
               {/* Examples */}
-              <div className="mt-4">
+              <div className="mt-6">
                 {data?.examples.map((example, id) => (
                   <div key={id}>
-                    <p className="font-medium text-white ">
+                    <p className="font-semibold text-white text-sm">
                       Example {id + 1}:{" "}
                     </p>
                     <div className="example-card bg-dark-layer-2 text-white w-fit rounded-md">
@@ -93,14 +93,14 @@ function Problem() {
               </div>
 
               {/* Constraints */}
-              <div className="my-5">
-                <div className="text-white text-sm font-medium">
+              <div className="mt-6">
+                <div className="text-white text-sm font-semibold">
                   Constraints:
                 </div>
                 <ul className="text-white ml-5 list-disc">
                   {data?.constraints.map((contraint, id) => (
-                    <li className="mt-2" key={id}>
-                      <code>{contraint}</code>
+                    <li className="mt-2 text-sm" key={id}>
+                      <span>{contraint}</span>
                     </li>
                   ))}
                 </ul>
