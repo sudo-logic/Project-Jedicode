@@ -120,7 +120,7 @@ function Problem() {
                           key={category}
                           className={({ selected }) =>
                             classNames(
-                              "  rounded-md text-sm h-fit ",
+                              "  rounded-md text-sm font-semibold ",
                               "focus:outline-none",
                               selected ? "text-white  " : " opacity-40"
                             )
