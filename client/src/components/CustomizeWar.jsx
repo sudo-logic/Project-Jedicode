@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +18,7 @@ export default function CustomizeWar() {
   );
   const [duration, setDuration] = useState(30);
   const [questionLimit, setQuestionLimit] = useState(3);
+  const [createdRoom, setCreatedRoom] = useState(false);
 
   const questionArray = [2, 3, 4, 5];
   const durationArray = [15, 30, 45, 60, 90, 120];
@@ -73,6 +74,7 @@ export default function CustomizeWar() {
       })
       .then((res) => {
         setRoomId(res.data.id);
+        setCreatedRoom(true);
         toast("Room created! ✦");
       })
       .catch((err) => {
@@ -86,6 +88,10 @@ export default function CustomizeWar() {
       joinRoom();
     }
   };
+
+  useEffect(() => {
+    joinRoom();
+  }, [createdRoom]);
 
   return (
     <>
