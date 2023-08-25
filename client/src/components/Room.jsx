@@ -55,7 +55,7 @@ export const Room = () => {
         ACTIONS.JOINED,
         ({ clients, username, socketId }) => {
           if (username !== location.state?.username) {
-            toast.success(`${username} joined the room.`);
+            // toast.success(`${username} joined the room.`);
             console.log(`${username} joined`);
           }
           setClients(clients);
@@ -82,7 +82,7 @@ export const Room = () => {
 
       // Listening for disconnected
       socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
-        toast.success(`${username} left the room.`);
+        // toast.success(`${username} left the room.`);
         setClients((prev) => {
           return prev.filter((client) => client.socketId !== socketId);
         });

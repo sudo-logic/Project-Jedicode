@@ -103,7 +103,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2 whitespace-nowrap py-3 text-lg focus:outline-none lg:flex-1">
               <img
                 src={Logo}
-                className="w-44 cursor-pointer transition-shadow duration-100 hover:shadow-sm hover:shadow-gray-300"
+                className="w-44 cursor-pointer transition-shadow duration-100 "
                 onClick={() => navigate("/")}
               />
             </div>
