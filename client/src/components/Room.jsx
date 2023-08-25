@@ -59,11 +59,11 @@ export const Room = () => {
             console.log(`${username} joined`);
           }
           setClients(clients);
-          console.log(state.room.started_at);
+          // console.log(state.room.started_at);
           axios
             .get(`/rooms/${roomId}`)
             .then((res) => {
-              console.log(res.data.started_at);
+              // console.log(res.data.started_at);
               $state.room.started_at = res.data.started_at;
               if (res.data.started_at) {
                 reactNavigator(`/editor/${state.room.id}`, {
@@ -108,8 +108,7 @@ export const Room = () => {
     await axios
       .put(`/rooms/${roomId}`, { started_at: new Date().toISOString() })
       .then((res) => {
-        console.log(res);
-        toast.success("hogya");
+        // console.log(res.started_at);
       })
       .catch((err) => {
         console.log(err);
@@ -119,7 +118,7 @@ export const Room = () => {
     await axios
       .get(`/rooms/${roomId}`)
       .then((res) => {
-        console.log(res.data.started_at);
+        // console.log(res.data.started_at);
         $state.room.started_at = res.data.started_at;
         if (res.data.started_at) {
           reactNavigator(`/editor/${state.room.id}`, {
