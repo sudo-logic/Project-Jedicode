@@ -158,7 +158,7 @@ function Editor() {
           </div> */}
         </div>
         <div className="bg-black rounded-md p-3 text-white ">
-          <div className="p-2 bg-dark-layer-2 rounded-md w-fit h-fit">
+          <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit h-fit">
             Results
           </div>
 
