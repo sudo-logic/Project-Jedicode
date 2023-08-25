@@ -90,7 +90,9 @@ export default function CustomizeWar() {
   };
 
   useEffect(() => {
-    joinRoom();
+    if (createdRoom) {
+      joinRoom();
+    }
   }, [createdRoom]);
 
   return (
