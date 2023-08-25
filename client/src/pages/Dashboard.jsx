@@ -16,16 +16,16 @@ const Dashboard = () => {
       <Navbar />
       <div className="p-10 grid grid-rows-2 grid-cols-4 justify-center items-start gap-x-16 h-full bg-black">
         {/* war options */}
-        <div className="row-start-1 row-span-1 col-span-3 mt-5">
+        <div className="row-start-1 row-span-1 col-span-3">
           <CustomizeWar />
+        </div>
+        <div className="grid col-start-4 flex-col justify-center content-center gap-5">
+          <Leaderboard />
         </div>
 
         <div className="row-start-2 col-start-1 col-span-3 w-full h-2/3 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black "></div>
 
         {/* leaderboard and war history */}
-        <div className="grid col-start-4 flex-col justify-center content-center gap-5">
-          <Leaderboard />
-        </div>
       </div>
     </>
   );
