@@ -26,33 +26,52 @@ const Problem = () => {
   //   // }));
   // });
 
-  console.log(data, data?.test_cases);
-  let temp = Object.keys(data?.test_cases);
-  console.log(temp.length);
-
   let [categories] = [
     {
-      [`case`]: [
+      "case 1": [
         {
+          id: 1,
           input: data?.test_cases[0].input,
           output: data?.test_cases[0].output,
+        },
+      ],
+      "case 2": [
+        {
+          id: 1,
+          input: data?.test_cases[1].input,
+          output: data?.test_cases[1].output,
         },
       ],
     },
   ];
 
-  for (let i = 0; i < temp.length; i++) {
-    [categories] = [
-      {
-        [`case ${i + 1}`]: [
-          {
-            input: data?.test_cases[i].input,
-            output: data?.test_cases[i].output,
-          },
-        ],
-      },
-    ];
-  }
+  // console.log(data, data?.test_cases);
+  // let temp = Object.keys(data?.test_cases);
+  // console.log(temp.length);
+
+  // let [categories] = [
+  //   {
+  //     [`case`]: [
+  //       {
+  //         input: data?.test_cases[0].input,
+  //         output: data?.test_cases[0].output,
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  // for (let i = 0; i < temp.length; i++) {
+  //   [categories] = [
+  //     {
+  //       [`case ${i + 1}`]: [
+  //         {
+  //           input: data?.test_cases[i].input,
+  //           output: data?.test_cases[i].output,
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // }
 
   return (
     <div className=" rounded-md overflow-y-hidden">
