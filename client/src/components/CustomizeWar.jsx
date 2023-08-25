@@ -9,7 +9,7 @@ import { useProxy } from "valtio/utils";
 import axios from "axios";
 
 export default function CustomizeWar() {
-  const state = useSnapshot(globalState);
+  const state = useSnapshot(globalState, { sync: true });
   const $state = useProxy(globalState, { sync: true });
 
   const [roomId, setRoomId] = useState("");
@@ -44,24 +44,34 @@ export default function CustomizeWar() {
         return res.data;
       })
       .catch((err) => {
-        toast.error("Room not found! 😥");
         setJoining(false);
         return;
       });
 
-    if (!state.room) {
+    if (!$state.room) {
       toast.error("Room not found! 😥");
       setJoining(false);
       return;
     }
 
-    $state.room.created_at = null;
+    console.log($state.room.started_at);
+    if ($state.room.started_at) {
+      if (
+        !$state.room.player_data.find(
+          (player) => player.user_id === state.profile.sub
+        )
+      ) {
+        toast.error("Room already started! 😥");
+        setJoining(false);
+        return;
+      }
+    }
 
     await axios
       .post(`/rooms/${roomId}/join`)
       .then((res) => {
         navigate(`/lobby/${$state.room.id}`, {
-          state: { username: state.profile.username },
+          state: { username: $state.profile.username },
         });
       })
       .catch((err) => {
