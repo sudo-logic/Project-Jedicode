@@ -54,11 +54,23 @@ export class RoomsService {
     return await this.roomsRepository.save(room);
   }
 
-  async update(id: string, room: UpdateRoomDto): Promise<void> {
+  async update(id: string, room: UpdateRoomDto): Promise<Room> {
     await this.roomsRepository.update(id, room);
+    return await this.roomsRepository.findOne({ where: { id } });
   }
 
   async join(id: string, user_id: string): Promise<Room> {
+    // check if user is already in the room
+    this.findOne(id).then((room) => {
+      const userAlreadyInRoom = room.player_data.find((player) => {
+        return player.user_id === user_id;
+      });
+
+      if (userAlreadyInRoom) {
+        return room;
+      }
+    });
+
     const room = await this.findOne(id);
 
     room.player_data.push({

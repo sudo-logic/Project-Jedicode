@@ -11,7 +11,7 @@ function Workspace() {
   const state = useSnapshot(globalState);
   const time = new Date(state.room.created_at);
   time.setSeconds(time.getSeconds() + state.room.room_config.duration * 60);
-  // console.log(time.getSeconds() + state.room.room_config.duration * 60);
+  console.log("Hellow orld", state.room.room_config);
 
   return (
     <>

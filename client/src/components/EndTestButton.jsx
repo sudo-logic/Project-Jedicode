@@ -2,10 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { globalState } from "../utils/proxy";
+import { useProxy } from "valtio/utils";
 
 export default function ModalIconActionButtons() {
+  const $state = useProxy(globalState, { sync: true });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isShowing, setIsShowing] = useState(false);
 
@@ -112,7 +115,10 @@ export default function ModalIconActionButtons() {
                   </h3>
                 </header>
                 {/*        <!-- Modal body --> */}
-                <div id="content-5a" className="flex-1 text-slate-300 overflow-auto">
+                <div
+                  id="content-5a"
+                  className="flex-1 text-slate-300 overflow-auto"
+                >
                   <p>After exiting the room, you cannot re-enter.</p>
                 </div>
                 {/*        <!-- Modal actions --> */}
@@ -123,10 +129,16 @@ export default function ModalIconActionButtons() {
                     </span>
                   </button>
                   <button className="inline-flex items-center justify-center flex-1 h-10 gap-2 px-5 text-sm font-medium tracking-wide transition duration-300 rounded justify-self-center whitespace-nowrap text-emerald-500 hover:bg-emerald-900 hover:text-emerald-100 focus:bg-emerald-900 focus:text-emerald-100 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent">
-                    <span onClick={() => {
-                      navigate("/dashboard")
-                      toast.success("Test Ended. Thank you for choosing us :)")
-                    }}>Exit</span>
+                    <span
+                      onClick={() => {
+                        navigate(`/result/${$state.room.id}`);
+                        toast.success(
+                          "Test Ended. Thank you for choosing us :)"
+                        );
+                      }}
+                    >
+                      Exit
+                    </span>
                   </button>
                 </div>
               </div>
