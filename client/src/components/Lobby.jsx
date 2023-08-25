@@ -21,7 +21,7 @@ export default function Lobby() {
                 Connected Jedi Knights
               </span>
 
-              <span className="block font-medium text-sm text-neutral-500">
+              <span className="block  text-sm text-neutral-500">
                 Jedi Order: Knights sparring session
               </span>
             </div>
