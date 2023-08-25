@@ -26,6 +26,8 @@ export default function CustomizeWar() {
   const navigate = useNavigate();
 
   //join the room
+  const [joining, setJoining] = useState(false);
+
   const joinRoom = async (e) => {
     if (e) e.preventDefault();
 
@@ -34,6 +36,8 @@ export default function CustomizeWar() {
       return;
     }
 
+    setJoining(true);
+
     $state.room = await axios
       .get(`/rooms/${roomId}`)
       .then((res) => {
@@ -41,11 +45,13 @@ export default function CustomizeWar() {
       })
       .catch((err) => {
         toast.error("Room not found! 😥");
+        setJoining(false);
         return;
       });
 
     if (!state.room) {
       toast.error("Room not found! 😥");
+      setJoining(false);
       return;
     }
 
@@ -60,27 +66,31 @@ export default function CustomizeWar() {
       })
       .catch((err) => {
         toast.error("Error joining room! 😥");
+        setJoining(false);
         return;
       });
   };
 
   // create a new room
-  const createNewRoom = (e) => {
+  const [creating, setCreating] = useState(false);
+
+  const createNewRoom = async (e) => {
     e.preventDefault();
-    const room = axios
-      .post(`/rooms`, {
+    setCreating(true);
+    try {
+      const res = await axios.post(`/rooms`, {
         count: questionLimit,
         duration,
-      })
-      .then((res) => {
-        setRoomId(res.data.id);
-        setCreatedRoom(true);
-        toast("Room created! ✦");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong! 😥");
       });
+      setRoomId(res.data.id);
+      setCreatedRoom(true);
+      toast("Room created! ✦");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong! 😥");
+    } finally {
+      setCreating(false);
+    }
   };
 
   const handleInputEnter = async (e) => {
@@ -245,7 +255,9 @@ export default function CustomizeWar() {
               onClick={createNewRoom}
               className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
             >
-              <span>Create</span>
+              <span>
+                {creating ? "Creating..." : createdRoom ? "Created" : "Create"}
+              </span>
             </button>
           </div>
           {/* <div className=" text-xs px text-center mb-4">
@@ -315,7 +327,7 @@ export default function CustomizeWar() {
               onClick={joinRoom}
               className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
             >
-              <span>Join</span>
+              <span> {joining ? "Joining..." : "Join"}</span>
             </button>
           </div>
         </form>
