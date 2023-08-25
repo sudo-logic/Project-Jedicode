@@ -17,32 +17,24 @@ function Problem() {
     setLoad(false);
   };
 
-  let [categories] = useState({
-    First: [
-      {
-        id: 1,
-        input: "does coffee",
-        output: "5h ago",
-      },
-      {
-        id: 2,
-        input: "Does 12 coffee make you smarter?",
-        output: "5h ago",
-      },
-    ],
-    Second: [
-      {
-        id: 1,
-        input: "Does 21 coffee make you smarter?",
-        output: "5h ago",
-      },
-      {
-        id: 2,
-        input: "Does 22 coffee make you smarter?",
-        output: "5h ago",
-      },
-    ],
-  });
+  let [categories] = [
+    {
+      First: [
+        {
+          id: 1,
+          input: data?.test_cases[0].input,
+          output: data?.test_cases[0].output,
+        },
+      ],
+      Second: [
+        {
+          id: 1,
+          input: data?.test_cases[1].input,
+          output: data?.test_cases[1].output,
+        },
+      ],
+    },
+  ];
 
   return (
     <div className=" rounded-md overflow-y-hidden">
@@ -57,8 +49,8 @@ function Problem() {
           {/* <div className="flex pb-2  h-[calc(100vh-44px)]"> */}
           <Split
             direction="vertical"
-            sizes={[65, 35]}
-            minSize={[250, 200]}
+            sizes={[79.5, 20.5]}
+            minSize={[450, 161]}
             className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
           >
             <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full bg-black rounded-b-md">
@@ -86,7 +78,7 @@ function Problem() {
                     <p className="font-medium text-white ">
                       Example {id + 1}:{" "}
                     </p>
-                    <div className="example-card bg-dark-layer-2 text-white rounded-md">
+                    <div className="example-card bg-dark-layer-2 text-white w-fit rounded-md">
                       <pre>
                         <strong className="text-white">Input: </strong>{" "}
                         {example.input} <br />
@@ -118,21 +110,19 @@ function Problem() {
               <div className="text-base text-white">
                 {" "}
                 <Tab.Group>
-                  <div className="flex flex-col gap-3">
-                    <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold text-sm h-fit">
+                  <div className="flex  gap-3">
+                    <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold h-fit">
                       Test cases
                     </div>
-                    <Tab.List className="flex space-x-1 justify-start">
+                    <Tab.List className="flex space-x-1 gap-3 justify-start bg-dark-layer-2 p-1.5 px-3 items-center rounded-md">
                       {Object.keys(categories).map((category) => (
                         <Tab
                           key={category}
                           className={({ selected }) =>
                             classNames(
-                              "p-1.5 px-3 rounded-md text-sm font-medium ",
+                              "  rounded-md text-sm h-fit ",
                               "focus:outline-none",
-                              selected
-                                ? "bg-dark-layer-2 "
-                                : "text-white hover:bg-dark-layer-2"
+                              selected ? "text-white  " : " opacity-40"
                             )
                           }
                         >
@@ -147,26 +137,19 @@ function Problem() {
                         key={idx}
                         className={classNames("mt-3", "focus:outline-none ")}
                       >
-                        <ul>
-                          {cases.map((test) => (
-                            <li key={test.id} className="relative rounded-md ">
-                              <h3 className="text-sm font-medium py-2">
-                                {test.input}
-                              </h3>
-
-                              <code className="text-white p-1  px-1.5">
-                                {test.output}
-                              </code>
-
-                              <a
-                                href="#"
-                                className={classNames(
-                                  "absolute inset-0 rounded-md"
-                                )}
-                              />
-                            </li>
-                          ))}
-                        </ul>
+                        {cases.map((test) => (
+                          <div
+                            key={test.id}
+                            className="example-card bg-dark-layer-2 text-white w-fit rounded-md"
+                          >
+                            <pre>
+                              <strong className="text-white">Input: </strong>{" "}
+                              {test.input} <br />
+                              <strong>Output: </strong>
+                              {test.output} <br />
+                            </pre>
+                          </div>
+                        ))}
                       </Tab.Panel>
                     ))}
                   </Tab.Panels>
