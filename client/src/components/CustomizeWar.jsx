@@ -70,9 +70,7 @@ export default function CustomizeWar() {
     await axios
       .post(`/rooms/${roomId}/join`)
       .then((res) => {
-        navigate(`/lobby/${$state.room.id}`, {
-          state: { username: $state.profile.username },
-        });
+        navigate(`/lobby/${$state.room.id}`);
       })
       .catch((err) => {
         toast.error("Error joining room! 😥");
