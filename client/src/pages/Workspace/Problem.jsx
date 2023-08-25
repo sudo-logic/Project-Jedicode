@@ -18,60 +18,17 @@ const Problem = () => {
     setLoad(false);
   };
 
-  // data?.test_cases.map((testCase) => {
-  //   console.log({ testCase });
-  //   const [input, output] = useState[testCase];
-  //   // setCat((prev) => ({
-  //   //   ...prev, [input, output];
-  //   // }));
-  // });
+  let categories = {};
 
-  let [categories] = [
-    {
-      "case 1": [
-        {
-          id: 1,
-          input: data?.test_cases[0].input,
-          output: data?.test_cases[0].output,
-        },
-      ],
-      "case 2": [
-        {
-          id: 1,
-          input: data?.test_cases[1].input,
-          output: data?.test_cases[1].output,
-        },
-      ],
-    },
-  ];
-
-  // console.log(data, data?.test_cases);
-  // let temp = Object.keys(data?.test_cases);
-  // console.log(temp.length);
-
-  // let [categories] = [
-  //   {
-  //     [`case`]: [
-  //       {
-  //         input: data?.test_cases[0].input,
-  //         output: data?.test_cases[0].output,
-  //       },
-  //     ],
-  //   },
-  // ];
-
-  // for (let i = 0; i < temp.length; i++) {
-  //   [categories] = [
-  //     {
-  //       [`case ${i + 1}`]: [
-  //         {
-  //           input: data?.test_cases[i].input,
-  //           output: data?.test_cases[i].output,
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // }
+  data?.test_cases.forEach((testCase, index) => {
+    categories[`Case ${index + 1}`] = [
+      {
+        // id: index + 1,
+        input: testCase.input,
+        output: testCase.output,
+      },
+    ];
+  });
 
   return (
     <div className=" rounded-md overflow-y-hidden">
@@ -162,7 +119,7 @@ const Problem = () => {
                             )
                           }
                         >
-                          {category} {index + 1}
+                          {category}
                         </Tab>
                       ))}
                     </Tab.List>
