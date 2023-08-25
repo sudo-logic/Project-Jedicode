@@ -3,8 +3,14 @@ import Navbar from "../components/Navbar";
 import CustomizeWar from "../components/CustomizeWar";
 import Leaderboard from "../components/Tables/Leaderboard";
 import WarHistory from "../components/Tables/WarHistory";
+import { useEffect } from "react";
+import { reset, updateProfile } from "../utils/proxy";
 
 const Dashboard = () => {
+  useEffect(() => {
+    updateProfile();
+  }, []);
+
   return (
     <>
       <Navbar />

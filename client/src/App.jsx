@@ -44,7 +44,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/lobby/:roomId" element={<Lobby />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
-        <Route path="/result" element={<Results />} />
+        <Route path="/result/:resultId" element={<Results />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>

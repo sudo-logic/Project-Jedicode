@@ -10,6 +10,7 @@ import axios from "axios";
 
 export default function CustomizeWar() {
   const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
 
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState(
@@ -21,25 +22,43 @@ export default function CustomizeWar() {
   const questionArray = [2, 3, 4, 5];
   const durationArray = [15, 30, 45, 60, 90, 120];
 
-  const $state = useProxy(globalState, { sync: true });
   const navigate = useNavigate();
 
   //join the room
   const joinRoom = async (e) => {
-    e.preventDefault();
-    if (!state.room.questions || state.room.id != roomId) {
-      $state.room = await axios.get(`/rooms/${roomId}`).then((res) => {
-        console.log(res.data);
-        return res.data;
-      });
-    }
+    if (e) e.preventDefault();
 
-    if (!state.room.id || !state.profile.username) {
-      toast.error("Room ID and username is required! ");
+    if (!state.profile.username || !roomId) {
+      toast.error("Room ID is required! 😥");
       return;
     }
-    // redirecting to editor
-    navigate(`/lobby/${$state.room.id}`);
+
+    $state.room = await axios
+      .get(`/rooms/${roomId}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        toast.error("Room not found! 😥");
+        return;
+      });
+
+    if (!state.room) {
+      toast.error("Room not found! 😥");
+      return;
+    }
+
+    await axios
+      .post(`/rooms/${roomId}/join`)
+      .then((res) => {
+        navigate(`/lobby/${$state.room.id}`, {
+          state: { username: state.profile.username },
+        });
+      })
+      .catch((err) => {
+        toast.error("Error joining room! 😥");
+        return;
+      });
   };
 
   // create a new room
@@ -51,14 +70,8 @@ export default function CustomizeWar() {
         duration,
       })
       .then((res) => {
-        console.log(res.data);
-        $state.room = res.data;
-        $state.started = false;
         setRoomId(res.data.id);
         toast("Room created! ✦");
-      })
-      .then(() => {
-        navigate(`/lobby/${$state.room.id}`);
       })
       .catch((err) => {
         console.log(err);
@@ -146,7 +159,7 @@ export default function CustomizeWar() {
                 <option value="3">Option 3</option> */}
                 </select>
                 <label
-                  for="id-11"
+                  htmlFor="id-11"
                   className="pointer-events-none absolute top-3 left-2 z-[1] px-2 text-base text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-valid:-top-2 peer-valid:text-xs peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                 >
                   Duration
@@ -189,7 +202,7 @@ export default function CustomizeWar() {
                   ))}
                 </select>
                 <label
-                  for="id-11"
+                  htmlFor="id-11"
                   className="pointer-events-none absolute top-3 left-2 z-[1] px-2 text-base text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-valid:-top-2 peer-valid:text-xs peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                 >
                   Questions limit
