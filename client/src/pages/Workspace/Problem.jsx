@@ -7,9 +7,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Problem() {
+const Problem = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(true);
+  const [cat, setCat] = useState([]);
 
   const getQuestion = (question) => {
     setLoad(true);
@@ -17,24 +18,41 @@ function Problem() {
     setLoad(false);
   };
 
+  // data?.test_cases.map((testCase) => {
+  //   console.log({ testCase });
+  //   const [input, output] = useState[testCase];
+  //   // setCat((prev) => ({
+  //   //   ...prev, [input, output];
+  //   // }));
+  // });
+
+  console.log(data, data?.test_cases);
+  let temp = Object.keys(data?.test_cases);
+  console.log(temp.length);
+
   let [categories] = [
     {
-      First: [
+      [`case`]: [
         {
-          id: 1,
           input: data?.test_cases[0].input,
           output: data?.test_cases[0].output,
         },
       ],
-      Second: [
-        {
-          id: 1,
-          input: data?.test_cases[1].input,
-          output: data?.test_cases[1].output,
-        },
-      ],
     },
   ];
+
+  for (let i = 0; i < temp.length; i++) {
+    [categories] = [
+      {
+        [`case ${i + 1}`]: [
+          {
+            input: data?.test_cases[i].input,
+            output: data?.test_cases[i].output,
+          },
+        ],
+      },
+    ];
+  }
 
   return (
     <div className=" rounded-md overflow-y-hidden">
@@ -53,10 +71,10 @@ function Problem() {
             minSize={[450, 161]}
             className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
           >
-            <div className="px-4 pt-2  overflow-y-scroll w-full bg-black rounded-b-md">
+            <div className="px-4 pt-2  overflow-y-scroll w-full bg-black rounded-b-md tracking-wide">
               {/* Problem heading */}
               <div className="flex gap-6">
-                <div className=" text-xl text-white font-bold">
+                <div className=" text-xl text-white font-bold ">
                   {data?.title}
                 </div>
                 <div className="flex justify-center items-center text-olive bg-olive rounded-full bg-opacity-[0.15] px-2.5 ">
@@ -67,7 +85,7 @@ function Problem() {
               </div>
 
               {/* Problem Statement(paragraphs) */}
-              <div className="text-white text-sm mt-3">
+              <div className="text-white text-sm mt-3 tracking-wide">
                 {data?.problem_statement}
               </div>
 
@@ -106,18 +124,17 @@ function Problem() {
                 </ul>
               </div>
             </div>
-            <div className="p-3 rounded-md bg-black text-sm text-white">
+            <div className="p-3 rounded-md bg-black text-sm text-white tracking-wide">
               <div className="text-base text-white">
-                {" "}
                 <Tab.Group>
                   <div className="flex  gap-3">
                     <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold h-fit">
                       Test cases
                     </div>
                     <Tab.List className="flex space-x-1 gap-3 justify-start bg-dark-layer-2 p-1.5 px-3 items-center rounded-md">
-                      {Object.keys(categories).map((category) => (
+                      {Object.keys(categories).map((category, index) => (
                         <Tab
-                          key={category}
+                          key={index}
                           className={({ selected }) =>
                             classNames(
                               "  rounded-md text-sm font-semibold ",
@@ -126,7 +143,7 @@ function Problem() {
                             )
                           }
                         >
-                          {category}
+                          {category} {index + 1}
                         </Tab>
                       ))}
                     </Tab.List>
@@ -137,9 +154,9 @@ function Problem() {
                         key={idx}
                         className={classNames("mt-3", "focus:outline-none ")}
                       >
-                        {cases.map((test) => (
+                        {cases.map((test, idxx) => (
                           <div
-                            key={test.id}
+                            key={idxx}
                             className="example-card bg-dark-layer-2 text-white w-fit rounded-md"
                           >
                             <pre>
@@ -162,6 +179,6 @@ function Problem() {
       )}
     </div>
   );
-}
+};
 
 export default Problem;
