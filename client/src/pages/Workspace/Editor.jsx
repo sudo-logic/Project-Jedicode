@@ -208,7 +208,7 @@ function Editor() {
 
           {state.submissions[state.questionId] ? (
             <button
-              className="w-24 rounded-md px-3 py-2 bg-blue-500 font-bold text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow"
+              className="w-24 rounded-md px-3 py-2 bg-blue-500 font-semibold opacity-90 text-black  hover:opacity-100 transition-all"
               onClick={handleNextClick}
             >
               Next
@@ -217,19 +217,19 @@ function Editor() {
             <></>
           )}
           <button
-            className="w-24 rounded-md px-3 py-2 font-semibold bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-yellow-500 transition-shadow"
+            className="w-24 rounded-md px-3 py-2 font-semibold bg-yellow-500 text-black opacity-90 hover:opacity-100 transition-all"
             onClick={handleEndTest}
           >
             End Test
           </button>
           <button
-            className="w-24 rounded-md px-3 py-2 font-bold bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
+            className="w-24 rounded-md px-3 py-2 font-semibold bg-white text-black opacity-90 hover:opacity-100 transition-all"
             onClick={handleRun}
           >
             Run
           </button>
           <button
-            className="w-24 rounded-md px-3 py-2 font-bold bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow"
+            className="w-24 rounded-md px-3 py-2 font-semibold bg-green-600 text-white opacity-90 hover:opacity-100 transition-all"
             onClick={handleSubmit}
           >
             Submit

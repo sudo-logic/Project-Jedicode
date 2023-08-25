@@ -270,15 +270,14 @@ export const Room = () => {
                             </div>
                           ))}
                         </div>
-                        <div className="bg-gray-50 p-4">
+                        <div className="bg-gray-100 p-4">
                           <div className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out">
-                            <span className="text-lg font-extrabold text-neutral-950">
+                            <span className="text-xl font-extrabold text-neutral-950">
                               Connected Jedi Knights
                             </span>
 
                             <span className="block text-sm text-gray-500">
-                              <strong>Jedi Order:</strong> Knights sparring
-                              session
+                              Jedi Order: Knights sparring session
                             </span>
                           </div>
                           <div className="flex justify-between gap-4">
@@ -302,7 +301,7 @@ export const Room = () => {
                                   />
                                 </svg>
                               </div>
-                              <span className=" font-medium text-sm text-neutral-950 pr-2">
+                              <span className=" font-semibold text-sm text-neutral-950 pr-2">
                                 Copy room ID
                               </span>
                             </div>
@@ -326,7 +325,7 @@ export const Room = () => {
                                   />
                                 </svg>
                               </div>
-                              <span className=" font-medium text-sm text-neutral-950 pr-2">
+                              <span className=" font-semibold text-sm text-neutral-950 pr-2">
                                 Leave the room
                               </span>
                             </div>

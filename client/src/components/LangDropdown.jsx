@@ -37,11 +37,11 @@ export default function LangDropdown() {
   return (
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       {load ? (
-        <p className=" text-base py-2 pl-4">Loading...</p>
+        <p className=" text-sm py-2 pl-4">Loading...</p>
       ) : (
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative  w-64">
-            <Listbox.Button className="relative text-white w-full cursor-default rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <Listbox.Button className="relative text-white w-full cursor-pointer text-sm rounded-md py-2 pl-4 pr-10 text-left">
               <span className="block truncate font-semibold">
                 {selected?.name}
               </span>
@@ -73,13 +73,13 @@ export default function LangDropdown() {
                       <>
                         <span
                           className={`block truncate ${
-                            selected ? "font-medium" : "font-normal"
+                            selected ? "font-semibold" : "font-normal"
                           }`}
                         >
                           {language.name}
                         </span>
                         {selected ? (
-                          <span className="absolute inset-y-0 right-2 flex items-center pl-3 text-neutral-950">
+                          <span className="absolute font-semibold inset-y-0 right-2 flex items-center pl-3 text-neutral-950">
                             ✦
                           </span>
                         ) : null}
