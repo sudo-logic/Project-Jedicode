@@ -36,41 +36,6 @@ export class SubmissionsController {
     const result = await this.runnerService.run_code(codeRunnerDto);
 
     const user = request.user.sub;
-
-    // Set submission.score depending on result
-    // [
-    //   {
-    //     "stdout": "3\n",
-    //     "time": "0.043",
-    //     "memory": 7152,
-    //     "stderr": null,
-    //     "token": "56289d8d-05bd-4f1e-8e41-a39a81ff38a5",
-    //     "compile_output": null,
-    //     "message": null,
-    //     "status": {
-    //       "id": 3,
-    //       "description": "Accepted"
-    //     }
-    //   },
-    //   {
-    //     "stdout": "3\n",
-    //     "time": "0.021",
-    //     "memory": 3252,
-    //     "stderr": null,
-    //     "token": "42565da0-6424-47d0-9d00-ed80356fd396",
-    //     "compile_output": null,
-    //     "message": null,
-    //     "status": {
-    //       "id": 4,
-    //       "description": "Wrong Answer"
-    //     }
-    //   }
-    // ]
-
-    // total_cases = result.length;
-    // passed_cases = result.filter((r) => r.status.id === 3).length;
-    // submission.score = passed_cases / total_cases;
-
     const total_cases = result.length;
     const passed_cases = result.filter((r) => r.status.id === 3).length;
     let score = (passed_cases / total_cases) * 10;

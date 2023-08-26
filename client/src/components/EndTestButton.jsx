@@ -84,9 +84,9 @@ export default function ModalIconActionButtons() {
     <>
       <button
         onClick={() => setIsShowing(true)}
-        className="w-24 rounded-md px-3 py-2 bg-yellow-500 text-black hover:shadow-[0_0_20px] hover:shadow-yellow-500 transition-shadow"
+        className=" rounded-md px-3 py-2 font-semibold bg-yellow-500 text-black opacity-90 hover:opacity-100 transition-all"
       >
-        <span>Exit Test</span>
+        <span>Submit Test</span>
       </button>
 
       {isShowing && typeof document !== "undefined"

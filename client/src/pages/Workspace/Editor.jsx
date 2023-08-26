@@ -119,6 +119,16 @@ function Editor() {
       .catch((error) => {
         console.log(error);
       });
+
+    if (
+      Object.keys($state.submissions).length === state.room.questions.length
+    ) {
+      toast(
+        <div>
+          All questions are complete! <br /> You may end the test now or wait for your friends. 🐱
+        </div>
+      );
+    }
   };
 
   const handleCodeInput = (editor, data, value) => {
@@ -135,7 +145,6 @@ function Editor() {
         return;
       }
     }
-    toast("All questions are complete!\nYou may now end the test. 🐱");
     // navigate("/dashboard");
     return;
   };
@@ -213,19 +222,27 @@ function Editor() {
           )}
 
           {state.submissions[state.questionId] ? (
-            <button
-              className="w-24 rounded-md px-3 py-2 bg-blue-500 font-semibold opacity-90 text-black  hover:opacity-100 transition-all"
-              onClick={handleNextClick}
-            >
-              Next
-            </button>
+            <>
+              {Object.keys(state.submissions).length ===
+              state.room.questions.length ? (
+                <ModalIconActionButtons />
+              ) : (
+                <>
+                  <button
+                    className="w-24 rounded-md px-3 py-2 bg-blue-500 font-semibold opacity-90 text-black  hover:opacity-100 transition-all"
+                    onClick={handleNextClick}
+                  >
+                    Next
+                  </button>
+                </>
+              )}
+            </>
           ) : (
             <></>
           )}
 
-          <ModalIconActionButtons />
           <button
-            className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
+            className="w-24 rounded-md px-3 py-2 font-semibold bg-white text-black opacity-90 hover:opacity-100 transition-all"
             onClick={handleRun}
           >
             Run
