@@ -47,15 +47,15 @@ export const Room = () => {
 
       socketRef.current.emit(ACTIONS.JOIN, {
         roomId,
-        username: location.state?.username,
+        username: state.profile.username,
       });
 
       // Listening for joined event
       socketRef.current.on(
         ACTIONS.JOINED,
         ({ clients, username, socketId }) => {
-          if (username !== location.state?.username) {
-            toast.success(`${username} joined the room.`);
+          if (username !== state.profile.username) {
+            // toast.success(`${username} joined the room.`);
             console.log(`${username} joined`);
           }
           setClients(clients);
@@ -66,11 +66,7 @@ export const Room = () => {
               // console.log(res.data.started_at);
               $state.room.started_at = res.data.started_at;
               if (res.data.started_at) {
-                reactNavigator(`/editor/${state.room.id}`, {
-                  state: {
-                    username,
-                  },
-                });
+                reactNavigator(`/editor/${state.room.id}`);
               }
             })
             .catch((err) => {
@@ -82,7 +78,7 @@ export const Room = () => {
 
       // Listening for disconnected
       socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
-        toast.success(`${username} left the room.`);
+        // toast.success(`${username} left the room.`);
         setClients((prev) => {
           return prev.filter((client) => client.socketId !== socketId);
         });
@@ -121,11 +117,7 @@ export const Room = () => {
         // console.log(res.data.started_at);
         $state.room.started_at = res.data.started_at;
         if (res.data.started_at) {
-          reactNavigator(`/editor/${state.room.id}`, {
-            state: {
-              username,
-            },
-          });
+          reactNavigator(`/editor/${state.room.id}`);
         }
       })
       .catch((err) => {
@@ -156,7 +148,7 @@ export const Room = () => {
             {clients.map((user) => (
               <div
                 key={user.socketId}
-                className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 "
+                className="-m-3 flex items-center rounded-md p-2 transition duration-150 ease-in-out hover:bg-gray-50 "
               >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center text-neutral-950 bg-gray-100 rounded-lg sm:h-12 sm:w-12">
                   <svg
@@ -175,7 +167,7 @@ export const Room = () => {
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-bold text-neutral-950">
+                  <p className="text-sm font-semibold text-neutral-950">
                     {user.username}
                   </p>
                   <p className="text-xs text-gray-500">{user.progress}</p>
@@ -187,7 +179,7 @@ export const Room = () => {
             <InvitePlayers />
             <button
               type="button"
-              className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 text-sm font-bold bg-neutral-950 "
+              className="inline-flex justify-center rounded-md border border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 text-sm font-semibold bg-neutral-950 "
               onClick={startRoom}
               disabled={!(isHost == state.room.created_by.id)}
             >
@@ -260,7 +252,7 @@ export const Room = () => {
                                 </svg>
                               </div>
                               <div className="ml-4">
-                                <p className="text-sm font-bold text-neutral-950">
+                                <p className="text-sm font-semibold text-neutral-950">
                                   {user.username}
                                 </p>
                                 <p className="text-xs text-gray-500">
@@ -270,15 +262,14 @@ export const Room = () => {
                             </div>
                           ))}
                         </div>
-                        <div className="bg-gray-50 p-4">
+                        <div className="bg-gray-100 p-4">
                           <div className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out">
-                            <span className="text-lg font-extrabold text-neutral-950">
+                            <span className="text-xl font-extrabold text-neutral-950">
                               Connected Jedi Knights
                             </span>
 
                             <span className="block text-sm text-gray-500">
-                              <strong>Jedi Order:</strong> Knights sparring
-                              session
+                              Jedi Order: Knights sparring session
                             </span>
                           </div>
                           <div className="flex justify-between gap-4">
@@ -302,7 +293,7 @@ export const Room = () => {
                                   />
                                 </svg>
                               </div>
-                              <span className=" font-medium text-sm text-neutral-950 pr-2">
+                              <span className=" font-semibold text-sm text-neutral-950 pr-2">
                                 Copy room ID
                               </span>
                             </div>
@@ -326,7 +317,7 @@ export const Room = () => {
                                   />
                                 </svg>
                               </div>
-                              <span className=" font-medium text-sm text-neutral-950 pr-2">
+                              <span className=" font-semibold text-sm text-neutral-950 pr-2">
                                 Leave the room
                               </span>
                             </div>

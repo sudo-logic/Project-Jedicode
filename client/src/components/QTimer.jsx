@@ -9,7 +9,7 @@ export default function QTimer({ expiryTimestamp }) {
   });
 
   return (
-    <div className="rounded-md bg-dark-layer-2 flex gap-3 text-white items-center px-2">
+    <div className="rounded-md bg-dark-layer-2 flex gap-3 text-white items-center px-3">
       <div className="text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export default function QTimer({ expiryTimestamp }) {
           />
         </svg>
       </div>
-      <div className=" pt-[2px] text-white text-sm font-semibold">
+      <div className=" flex items-center gap-1 text-white text-sm font-semibold">
         <span>{("0" + minutes).slice(-2)}</span> :{" "}
         <span>{("0" + seconds).slice(-2)}</span>
       </div>
