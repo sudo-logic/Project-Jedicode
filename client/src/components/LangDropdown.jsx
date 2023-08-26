@@ -19,7 +19,6 @@ export default function LangDropdown() {
     };
 
     fetchLanguages().then((res) => {
-      // console.log(res);
       setLanguages(res);
       setSelected(res[43]);
       setLoad(false);
@@ -28,8 +27,6 @@ export default function LangDropdown() {
 
   useEffect(() => {
     if (selected) {
-      // console.log(`selected: ${selected.id}`);
-      // console.log(changeState.languageId);
       changeState.languageId = selected.id;
     }
   }, [selected]);

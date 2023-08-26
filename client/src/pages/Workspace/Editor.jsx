@@ -11,6 +11,7 @@ import { BsCheck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ModalIconActionButtons from "../../components/EndTestButton";
 import { subscribeKey, useProxy } from "valtio/utils";
 
 function Editor() {
@@ -50,7 +51,7 @@ function Editor() {
     axios
       .post(`/runner`, judgeBody)
       .then((response) => {
-        console.log(response);
+        console.log(response.data[0].stdout);
         setCodeResponse(response.data);
       })
       .catch((error) => {
@@ -58,7 +59,7 @@ function Editor() {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const judgeBody = {
       language_id: state.languageId,
       question_id: state.questionId,
@@ -69,12 +70,39 @@ function Editor() {
 
     e.preventDefault();
 
-    axios
+    console.log("Player Data Array before axios request", $state.room.player_data);
+
+    const sub = await axios
       .post(`/submissions`, judgeBody)
       .then((response) => {
         toast.success("Code submitted");
-        console.log(response.data);
         $state.submissions[state.questionId] = response.data;
+        console.log($state.submissions[state.questionId]);
+        return response.data;
+      })
+      .then(() => {
+        let player_data = $state.room.player_data;
+        console.log("user_id", uuid)
+        console.log("Player Data", player_data)
+        let player_score = 0;
+        for (let i = 0; i < player_data.length; i++) {
+          if (player_data[i].user_id == state?.profile?.sub) {
+            // player_data[i].score = $state.submissions[state.questionId].score;
+            Object.values($state.submissions).forEach((item) => {
+              player_score += item.score;
+            });
+            console.log("Player Score", player_score)
+            player_data[i].score = player_score;
+            console.log("Current Player Data")
+
+            axios
+              .put(`/rooms/${state?.room?.id}`, { player_data: player_data })
+              .then(response => console.log("PUT Response", response))
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -85,14 +113,7 @@ function Editor() {
     setCode(editor);
   };
 
-  const handleEndTest = () => {
-    navigate("/dashboard");
-    // .catch((err) => console.log("Fetch error", err));
-  };
-
   const handleNextClick = () => {
-    // go to the question which is not in the submissions else go to the dashboard
-    // e.preventDefault();
     const questions = state.room.questions;
     const selected = state.selected;
 
@@ -109,14 +130,7 @@ function Editor() {
 
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
-      <div className="flex w-full items-center bg-black text-white rounded-t-md">
-        {/* <div
-          className={
-            "bg-dark-layer-2 rounded-md mx-2 px-5 py-[10px] text-xs cursor-pointer "
-          }
-        >
-          Javascript
-        </div> */}
+      <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
         <LangDropdown />
       </div>
       <Split
@@ -136,26 +150,6 @@ function Editor() {
             }}
             className="cursor-text"
           />
-          {/* <div className="flex flex-row justify-end gap-8 absolute bottom-0 right-0 p-3">
-            <button
-              className=" font-bold text-white"
-              onClick={() => console.log(`stored ${state.languageId}`)}
-            >
-              Tester
-            </button>
-            <button
-              className="w-24 rounded-md px-3 py-2 bg-white text-neutral-950 font-bold "
-              onClick={handleRun}
-            >
-              Run
-            </button>
-            <button
-              className="w-24 rounded-md px-3 py-2  bg-green-600 text-white font-bold"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </div> */}
         </div>
         <div className="bg-black rounded-md p-3 text-white ">
           <div className="p-1.5 font-bold px-3 bg-dark-layer-2 rounded-md w-fit h-fit">
@@ -216,14 +210,10 @@ function Editor() {
           ) : (
             <></>
           )}
+
+          <ModalIconActionButtons />
           <button
-            className="w-24 rounded-md px-3 py-2 font-semibold bg-yellow-500 text-black opacity-90 hover:opacity-100 transition-all"
-            onClick={handleEndTest}
-          >
-            End Test
-          </button>
-          <button
-            className="w-24 rounded-md px-3 py-2 font-semibold bg-white text-black opacity-90 hover:opacity-100 transition-all"
+            className="w-24 rounded-md px-3 py-2 bg-white text-black hover:shadow-[0_0_20px] hover:shadow-white transition-shadow"
             onClick={handleRun}
           >
             Run
