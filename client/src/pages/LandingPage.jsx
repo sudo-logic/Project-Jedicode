@@ -12,7 +12,8 @@ const LandingPage = () => {
             Welcome to{" "}
             <span className="font-bold font-starwars tracking-widest text-[#FFDF00]">
               JediCode
-            </span> <br />
+            </span>{" "}
+            <br />
             the ultimate coding experience with a twist
           </p>
           <img src={heroCard} />
@@ -21,10 +22,19 @@ const LandingPage = () => {
         <RegistrationBlock />
       </div>
 
-      <div className="mt-20 flex flex-row justify-center items-center pb-40 gap-20 px-8">
-        <LandingFeatures />
-        <LandingFeatures />
-        <LandingFeatures />
+      <div className="mt-20 flex flex-row justify-center items-stretch mb-40 gap-20 px-8">
+        <LandingFeatures
+          heading="JediCode Arena"
+          paragraph="Engage in epic coding duels. Challenge friends or rivals to head-to-head coding battles and see who emerges as the coding Jedi Master."
+        />
+        <LandingFeatures
+          heading="Real-Time Leaderboard"
+          paragraph="Rise through the ranks in real time! Witness your coding skills shine on the live leaderboard, showcasing your standing against fellow JediCode enthusiasts during heated battles."
+        />
+        <LandingFeatures
+          heading="Dark Mode"
+          paragraph="Stay comfortable during those late-night coding sessions. Our dark mode reduces eye strain and allows you to code with the power of the Force, day or night."
+        />
       </div>
     </div>
   );
