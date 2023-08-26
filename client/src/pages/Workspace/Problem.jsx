@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import QuestionSelect from "../../components/QuestionSelect";
-import axios from "axios";
+import Split from "react-split";
+import { Tab } from "@headlessui/react";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function Problem() {
   const [data, setData] = useState();
@@ -12,18 +17,51 @@ function Problem() {
     setLoad(false);
   };
 
+  let [categories] = useState({
+    First: [
+      {
+        id: 1,
+        input: "does coffee",
+        output: "5h ago",
+      },
+      {
+        id: 2,
+        input: "Does 12 coffee make you smarter?",
+        output: "5h ago",
+      },
+    ],
+    Second: [
+      {
+        id: 1,
+        input: "Does 21 coffee make you smarter?",
+        output: "5h ago",
+      },
+      {
+        id: 2,
+        input: "Does 22 coffee make you smarter?",
+        output: "5h ago",
+      },
+    ],
+  });
+
   return (
-    <div className="bg-dark-layer-1 rounded-md overflow-y-hidden">
+    <div className=" rounded-md overflow-y-hidden">
       {/* TAB */}
-      <div className="flex w-full items-center bg-dark-layer-1 rounded-md">
+      <div className="flex w-full items-center bg-black rounded-t-md">
         <QuestionSelect onChange={getQuestion} />
       </div>
       {load ? (
         <div>Loading...</div>
       ) : (
         <div>
-          <div className="flex pb-2  h-[calc(100vh-44px)]">
-            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full">
+          {/* <div className="flex pb-2  h-[calc(100vh-44px)]"> */}
+          <Split
+            direction="vertical"
+            sizes={[65, 35]}
+            minSize={[250, 200]}
+            className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
+          >
+            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full bg-black rounded-b-md">
               {/* Problem heading */}
               <div className="flex space-x-4">
                 <div className="mr-2 text-xl text-white font-bold">
@@ -76,7 +114,67 @@ function Problem() {
                 </ul>
               </div>
             </div>
-          </div>
+            <div className="p-3 rounded-md bg-black text-sm text-white">
+              <div className="text-base text-white">
+                {" "}
+                <Tab.Group>
+                  <div className="flex flex-col gap-3">
+                    <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold text-sm h-fit">
+                      Test cases
+                    </div>
+                    <Tab.List className="flex space-x-1 justify-start">
+                      {Object.keys(categories).map((category) => (
+                        <Tab
+                          key={category}
+                          className={({ selected }) =>
+                            classNames(
+                              "p-1.5 px-3 rounded-md text-sm font-medium ",
+                              "focus:outline-none",
+                              selected
+                                ? "bg-dark-layer-2 "
+                                : "text-white hover:bg-dark-layer-2"
+                            )
+                          }
+                        >
+                          {category}
+                        </Tab>
+                      ))}
+                    </Tab.List>
+                  </div>
+                  <Tab.Panels>
+                    {Object.values(categories).map((cases, idx) => (
+                      <Tab.Panel
+                        key={idx}
+                        className={classNames("mt-3", "focus:outline-none ")}
+                      >
+                        <ul>
+                          {cases.map((test) => (
+                            <li key={test.id} className="relative rounded-md ">
+                              <h3 className="text-sm font-medium py-2">
+                                {test.input}
+                              </h3>
+
+                              <code className="text-white p-1  px-1.5">
+                                {test.output}
+                              </code>
+
+                              <a
+                                href="#"
+                                className={classNames(
+                                  "absolute inset-0 rounded-md"
+                                )}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </Tab.Panel>
+                    ))}
+                  </Tab.Panels>
+                </Tab.Group>
+              </div>
+            </div>
+          </Split>
+          {/* </div> */}
         </div>
       )}
     </div>
