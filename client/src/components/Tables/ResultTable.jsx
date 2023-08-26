@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { globalState } from "../../utils/proxy";
 import axios from "axios";
+import { useProxy } from "valtio/utils";
 // import winner from "../assets/winner.svg";
 
 const ResultTable = () => {
@@ -10,11 +11,13 @@ const ResultTable = () => {
   const [userId, setUserId] = useState([]);
 
   const state = useSnapshot(globalState);
+  const $state = useProxy(globalState, { sync: true });
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
-      .get(`/rooms/816da205-a700-4c62-b923-6bbf75981312`)
+      .get(`/rooms/${$state.room.id}`)
       .then((response) => {
         response.data.player_data
         setData(response.data.player_data);
