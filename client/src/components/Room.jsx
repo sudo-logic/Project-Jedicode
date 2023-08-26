@@ -9,6 +9,7 @@ import { useProxy } from "valtio/utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InvitePlayers from "./InvitePlayers";
+import ModalIconActionButtons from "./EndTestButton";
 import axios from "axios";
 import {
   useLocation,
@@ -183,7 +184,9 @@ export const Room = () => {
               onClick={startRoom}
               disabled={!(isHost == state.room.created_by.id)}
             >
-              Start!
+              {isHost == state.room.created_by.id
+                ? "Start!"
+                : "Waiting for host to start!"}
             </button>
           </div>
         </>
@@ -272,8 +275,8 @@ export const Room = () => {
                               Jedi Order: Knights sparring session
                             </span>
                           </div>
-                          <div className="flex justify-between gap-4">
-                            <div
+                          <div className="flex justify-between gap-4 h-10">
+                            {/* <div
                               onClick={copyRoomId}
                               className="flex mt-4 gap-2 p-1 flex-1 items-center justify-center shrink-0 bg-white rounded-lg  cursor-pointer"
                             >
@@ -296,12 +299,13 @@ export const Room = () => {
                               <span className=" font-semibold text-sm text-neutral-950 pr-2">
                                 Copy room ID
                               </span>
-                            </div>
+                            </div> */}
+                            <ModalIconActionButtons />
                             <div
                               onClick={leaveRoom}
-                              className="flex mt-4 gap-1 p-1 flex-1 items-center justify-center shrink-0 bg-[#ee6969] rounded-lg  cursor-pointer"
+                              className="flex gap-1 p-1 flex-1 items-center justify-center shrink-0 bg-[#ee6969] rounded-lg  cursor-pointer"
                             >
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center  text-neutral-950 ">
+                              <div className="flex  w-10 shrink-0 items-center justify-center  text-neutral-950 ">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
