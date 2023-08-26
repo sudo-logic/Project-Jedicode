@@ -40,7 +40,7 @@ function Editor() {
     axios
       .post(`/runner`, judgeBody)
       .then((response) => {
-        console.log(response.data[0].stdout);
+        // console.log(response.data[0].stdout);
         setCodeResponse(response.data);
       })
       .catch((error) => {
@@ -59,10 +59,10 @@ function Editor() {
 
     e.preventDefault();
 
-    console.log(
-      "Player Data Array before axios request",
-      $state.room.player_data
-    );
+    // console.log(
+    //   "Player Data Array before axios request",
+    //   $state.room.player_data
+    // );
 
     await axios
       .post(`/submissions`, judgeBody)
@@ -74,15 +74,15 @@ function Editor() {
         console.log(error);
       });
 
-    console.log(
-      "Player Data Array after axios request",
-      $state.room.player_data
-    );
+    // console.log(
+    //   "Player Data Array after axios request",
+    //   $state.room.player_data
+    // );
 
     $state.room = await axios
       .get(`/rooms/${state.room.id}`)
       .then((response) => {
-        console.log("Room updated", response.data);
+        // console.log("Room updated", response.data);
         return response.data;
       })
       .catch((error) => {
@@ -94,7 +94,7 @@ function Editor() {
     for (let key in $state.submissions) {
       totalScore += $state.submissions[key].score;
     }
-    console.log("Total Score", totalScore);
+    // console.log("Total Score", totalScore);
 
     // update player_data array
     $state.room.player_data.forEach((player) => {
@@ -103,16 +103,16 @@ function Editor() {
       }
     });
 
-    console.log(
-      "Player Data Array after updating score",
-      $state.room.player_data
-    );
+    // console.log(
+    //   "Player Data Array after updating score",
+    //   $state.room.player_data
+    // );
 
     // update room in database
     $state.room = await axios
       .put(`/rooms/${state.room.id}`, { player_data: $state.room.player_data })
       .then((response) => {
-        console.log("Room updated", response.data);
+        // console.log("Room updated", response.data);
         return response.data;
       })
       .catch((error) => {

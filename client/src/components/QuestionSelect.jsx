@@ -24,7 +24,7 @@ export default function QuestionSelect(props) {
   useEffect(() => {
     setQuestions(state.room.questions);
     setSelected(state.room.questions[0]);
-    console.log(state);
+    // console.log(state);
   }, []);
 
   useEffect(() => {

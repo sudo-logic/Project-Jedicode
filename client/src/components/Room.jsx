@@ -56,7 +56,7 @@ export const Room = () => {
         ({ clients, username, socketId }) => {
           if (username !== state.profile.username) {
             // toast.success(`${username} joined the room.`);
-            console.log(`${username} joined`);
+            // console.log(`${username} joined`);
           }
           setClients(clients);
           // console.log(state.room.started_at);

@@ -37,7 +37,7 @@ export default function CreateRoom() {
     e.preventDefault();
     if (!state.room.questions || state.room.id != roomId) {
       $state.room = await axios.get(`/rooms/${roomId}`).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         return res.data;
       });
     }
@@ -63,7 +63,7 @@ export default function CreateRoom() {
         duration,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         $state.room = res.data;
         $state.started = false;
         setRoomId(res.data.id);
