@@ -1,40 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useSnapshot } from "valtio";
-import { globalState } from "../../utils/proxy";
 import axios from "axios";
 import { useProxy } from "valtio/utils";
-// import winner from "../assets/winner.svg";
+import { useParams } from "react-router-dom";
 
 const ResultTable = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(true);
   const [userId, setUserId] = useState([]);
-
-  const state = useSnapshot(globalState);
-  const $state = useProxy(globalState, { sync: true });
-
-  const token = localStorage.getItem("token");
+  const { roomId } = useParams();
 
   useEffect(() => {
     axios
-      .get(`/rooms/${$state.room.id}`)
+      .get(`/rooms/${roomId}`)
       .then((response) => {
-        response.data.player_data
+        response.data.player_data;
         setData(response.data.player_data);
-        // console.log(response.data.player_data);
       })
-      // .then(() => {
-      //   for(let i = 0; i<data?.length; i++) {
-      //     fetch(`${state.apiURI}/users/${data[i]?.user_id}`)
-      //       .then(response => response.json())
-      //       .then(data => {
-      //         console.log("Ab dekh yaha se", data)
-      //         setUserId([...userId, data])
-      //         console.log(userId)
-      //       })
-      //       .catch(err => console.log("Profile fetch error: ", err))
-      //   }
-      // })
       .catch((err) => console.log("Fetch result error", err));
   }, []);
 
@@ -47,10 +28,10 @@ const ResultTable = () => {
         })
         .catch((err) => console.log("Profile fetch error: ", err));
     }
-    setLoad(false)
+    setLoad(false);
     // console.log(data)
   }, [data]);
-  
+
   return (
     <>
       {load ? (
@@ -78,7 +59,10 @@ const ResultTable = () => {
               >
                 {userId[key]}
               </div>
-              <h4 key={key} className="px-6 py-3 border-b text-l border-slate-400">
+              <h4
+                key={key}
+                className="px-6 py-3 border-b text-l border-slate-400"
+              >
                 {user.score}
               </h4>
             </>
