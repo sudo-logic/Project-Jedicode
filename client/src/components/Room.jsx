@@ -59,6 +59,18 @@ export const Room = () => {
             // toast.success(`${username} joined the room.`);
             // console.log(`${username} joined`);
           }
+
+          // make sure client whose username is same as profile username is always first in the array
+          clients.sort((a, b) => {
+            if (a.username === state.profile.username) {
+              return -1;
+            }
+            if (b.username === state.profile.username) {
+              return 1;
+            }
+            return 0;
+          });
+
           setClients(clients);
           // console.log(state.room.started_at);
           axios
@@ -146,7 +158,7 @@ export const Room = () => {
       {test ? (
         <>
           <div className=" grid gap-8 bg-white p-7 lg:grid-cols-2">
-            {clients.map((user) => (
+            {clients.map((user, index) => (
               <div
                 key={user.socketId}
                 className="-m-3 flex items-center rounded-md p-2 transition duration-150 ease-in-out hover:bg-gray-50 "
