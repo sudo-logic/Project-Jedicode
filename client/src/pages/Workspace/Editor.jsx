@@ -55,6 +55,7 @@ function Editor() {
       code: code,
       language: "python",
       user_id: state.profile.sub,
+      room_id: state.room.id,
     };
 
     e.preventDefault();

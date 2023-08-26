@@ -5,10 +5,12 @@ import {
   JoinTable,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Question } from '../questions/question.entity';
 import { AbstractEntity } from '../shared/abstract.entity';
+import { Submission } from '../submissions/submissions.entity';
 
 @Entity()
 export class Room extends AbstractEntity {
@@ -18,6 +20,9 @@ export class Room extends AbstractEntity {
   @ManyToMany(() => Question, { eager: true })
   @JoinTable()
   questions: Question[];
+
+  @OneToMany(() => Submission, (submission) => submission.room, {})
+  submissions: Submission[];
 
   @Column('json', { nullable: true })
   player_data: { user_id: string; score: number; is_host: boolean }[];

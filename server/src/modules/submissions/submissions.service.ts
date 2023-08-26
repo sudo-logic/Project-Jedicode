@@ -35,6 +35,19 @@ export class SubmissionsService {
     newSubmission.user_id = user_id;
     newSubmission.score = score;
     newSubmission.runner_response = result;
+
+    const existingSubmission = await this.submissionsRepository.findOne({
+      where: {
+        user_id: user_id,
+        question_id: submission.question_id,
+        room_id: submission.room_id,
+      },
+    });
+
+    if (existingSubmission) {
+      await this.submissionsRepository.delete(existingSubmission.id);
+    }
+
     return await this.submissionsRepository.save(newSubmission);
   }
 
