@@ -19,7 +19,6 @@ function Editor() {
   const [code, setCode] = useState(`print("Hello World")`);
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
-  const [uuid, setUUID] = useState("");
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
@@ -28,16 +27,6 @@ function Editor() {
     // setCode("");
     setCodeResponse([]);
   });
-
-  axios
-    .get(`/auth/profile`)
-    .then((response) => {
-      setUUID(response.data.sub);
-      setLoad(false);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 
   const handleRun = (e) => {
     const judgeBody = {
@@ -65,44 +54,66 @@ function Editor() {
       question_id: state.questionId,
       code: code,
       language: "python",
-      user_id: uuid,
+      user_id: state.profile.sub,
     };
 
     e.preventDefault();
 
-    console.log("Player Data Array before axios request", $state.room.player_data);
+    console.log(
+      "Player Data Array before axios request",
+      $state.room.player_data
+    );
 
-    const sub = await axios
+    await axios
       .post(`/submissions`, judgeBody)
       .then((response) => {
         toast.success("Code submitted");
         $state.submissions[state.questionId] = response.data;
-        console.log($state.submissions[state.questionId]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    console.log(
+      "Player Data Array after axios request",
+      $state.room.player_data
+    );
+
+    $state.room = await axios
+      .get(`/rooms/${state.room.id}`)
+      .then((response) => {
+        console.log("Room updated", response.data);
         return response.data;
       })
-      .then(() => {
-        let player_data = $state.room.player_data;
-        console.log("user_id", uuid)
-        console.log("Player Data", player_data)
-        let player_score = 0;
-        for (let i = 0; i < player_data.length; i++) {
-          if (player_data[i].user_id == state?.profile?.sub) {
-            // player_data[i].score = $state.submissions[state.questionId].score;
-            Object.values($state.submissions).forEach((item) => {
-              player_score += item.score;
-            });
-            console.log("Player Score", player_score)
-            player_data[i].score = player_score;
-            console.log("Current Player Data")
+      .catch((error) => {
+        console.log(error);
+      });
 
-            axios
-              .put(`/rooms/${state?.room?.id}`, { player_data: player_data })
-              .then(response => console.log("PUT Response", response))
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        }
+    // go through all submissions and calculate sum of scores
+    let totalScore = 0;
+    for (let key in $state.submissions) {
+      totalScore += $state.submissions[key].score;
+    }
+    console.log("Total Score", totalScore);
+
+    // update player_data array
+    $state.room.player_data.forEach((player) => {
+      if (player.user_id == state.profile.sub) {
+        player.score = totalScore;
+      }
+    });
+
+    console.log(
+      "Player Data Array after updating score",
+      $state.room.player_data
+    );
+
+    // update room in database
+    $state.room = await axios
+      .put(`/rooms/${state.room.id}`, { player_data: $state.room.player_data })
+      .then((response) => {
+        console.log("Room updated", response.data);
+        return response.data;
       })
       .catch((error) => {
         console.log(error);
