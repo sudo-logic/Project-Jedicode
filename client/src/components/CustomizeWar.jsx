@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,7 @@ import { useProxy } from "valtio/utils";
 import axios from "axios";
 
 export default function CustomizeWar() {
-  const state = useSnapshot(globalState);
+  const state = useSnapshot(globalState, { sync: true });
   const $state = useProxy(globalState, { sync: true });
 
   const [roomId, setRoomId] = useState("");
@@ -18,6 +18,7 @@ export default function CustomizeWar() {
   );
   const [duration, setDuration] = useState(30);
   const [questionLimit, setQuestionLimit] = useState(3);
+  const [createdRoom, setCreatedRoom] = useState(false);
 
   const questionArray = [2, 3, 4, 5];
   const durationArray = [15, 30, 45, 60, 90, 120];
@@ -25,6 +26,8 @@ export default function CustomizeWar() {
   const navigate = useNavigate();
 
   //join the room
+  const [joining, setJoining] = useState(false);
+
   const joinRoom = async (e) => {
     if (e) e.preventDefault();
 
@@ -33,52 +36,69 @@ export default function CustomizeWar() {
       return;
     }
 
+    setJoining(true);
+
     $state.room = await axios
       .get(`/rooms/${roomId}`)
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
-        toast.error("Room not found! 😥");
+        setJoining(false);
         return;
       });
 
-    if (!state.room) {
+    if (!$state.room) {
       toast.error("Room not found! 😥");
+      setJoining(false);
       return;
     }
 
-    $state.room.created_at = null;
+    console.log($state.room.started_at);
+    if ($state.room.started_at) {
+      if (
+        !$state.room.player_data.find(
+          (player) => player.user_id === state.profile.sub
+        )
+      ) {
+        toast.error("Room already started! 😥");
+        setJoining(false);
+        return;
+      }
+    }
 
     await axios
       .post(`/rooms/${roomId}/join`)
       .then((res) => {
-        navigate(`/lobby/${$state.room.id}`, {
-          state: { username: state.profile.username },
-        });
+        navigate(`/lobby/${$state.room.id}`);
       })
       .catch((err) => {
         toast.error("Error joining room! 😥");
+        setJoining(false);
         return;
       });
   };
 
   // create a new room
-  const createNewRoom = (e) => {
+  const [creating, setCreating] = useState(false);
+
+  const createNewRoom = async (e) => {
     e.preventDefault();
-    const room = axios
-      .post(`/rooms`, {
+    setCreating(true);
+    try {
+      const res = await axios.post(`/rooms`, {
         count: questionLimit,
         duration,
-      })
-      .then((res) => {
-        setRoomId(res.data.id);
-        toast("Room created! ✦");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong! 😥");
       });
+      setRoomId(res.data.id);
+      setCreatedRoom(true);
+      toast("Room created! ✦");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong! 😥");
+    } finally {
+      setCreating(false);
+    }
   };
 
   const handleInputEnter = async (e) => {
@@ -86,6 +106,10 @@ export default function CustomizeWar() {
       joinRoom();
     }
   };
+
+  useEffect(() => {
+    if (createdRoom) joinRoom();
+  }, [createdRoom]);
 
   return (
     <>
@@ -239,7 +263,9 @@ export default function CustomizeWar() {
               onClick={createNewRoom}
               className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
             >
-              <span>Create</span>
+              <span>
+                {creating ? "Creating..." : createdRoom ? "Created" : "Create"}
+              </span>
             </button>
           </div>
           {/* <div className=" text-xs px text-center mb-4">
@@ -309,7 +335,7 @@ export default function CustomizeWar() {
               onClick={joinRoom}
               className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
             >
-              <span>Join</span>
+              <span> {joining ? "Joining..." : "Join"}</span>
             </button>
           </div>
         </form>

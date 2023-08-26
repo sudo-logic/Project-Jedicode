@@ -38,7 +38,7 @@ export default function QuestionSelect(props) {
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative text-white w-full cursor-default rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button className="relative text-white w-full cursor-pointer rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate font-bold">{selected?.title}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -70,7 +70,7 @@ export default function QuestionSelect(props) {
                       <>
                         <span
                           className={`block truncate ${
-                            selected ? "font-medium" : "font-normal"
+                            selected ? "font-semibold " : "font-normal"
                           }`}
                         >
                           {question.title}

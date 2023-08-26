@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -47,7 +47,7 @@ function InvitePlayers() {
                 ${open ? "" : "text-opacity-90"}
                 group inline-flex justify-center rounded-md text-neutral-950 px-4 py-2 text-sm font-medium bg-gray-100 `}
             >
-              <span> Invite knights</span>
+              <span className="font-semibold"> Invite knights</span>
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -93,15 +93,15 @@ function InvitePlayers() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 text-neutral-950">
-                  <input
+                    <input
                       id="mail"
                       type="email"
                       placeholder="email@example.com"
                       value={email}
                       onChange={handleEmailChange}
-                      className="peer relative h-10 w-full rounded bg-white border border-neutral-200 px-2 text-sm outline-none transition-all"
+                      className="peer relative h-10 w-full placeholder:text-sm rounded bg-white border border-neutral-200 px-2 text-sm outline-none transition-all"
                     />
-                   <button onClick={sendMail}>
+                    <button onClick={sendMail}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

@@ -152,7 +152,7 @@ function Editor() {
           />
         </div>
         <div className="bg-black rounded-md p-3 text-white ">
-          <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit h-fit">
+          <div className="p-1.5 font-bold px-3 bg-dark-layer-2 rounded-md w-fit h-fit">
             Results
           </div>
 
@@ -202,7 +202,7 @@ function Editor() {
 
           {state.submissions[state.questionId] ? (
             <button
-              className="w-24 rounded-md px-3 py-2 bg-blue-500 font-bold text-black hover:shadow-[0_0_20px] hover:shadow-blue-500 transition-shadow"
+              className="w-24 rounded-md px-3 py-2 bg-blue-500 font-semibold opacity-90 text-black  hover:opacity-100 transition-all"
               onClick={handleNextClick}
             >
               Next
@@ -219,7 +219,7 @@ function Editor() {
             Run
           </button>
           <button
-            className="w-24 rounded-md px-3 py-2  bg-green-500 text-white hover:shadow-[0_0_20px] hover:shadow-green-500 transition-shadow"
+            className="w-24 rounded-md px-3 py-2 font-semibold bg-green-600 text-white opacity-90 hover:opacity-100 transition-all"
             onClick={handleSubmit}
           >
             Submit

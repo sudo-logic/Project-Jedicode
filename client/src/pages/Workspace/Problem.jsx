@@ -7,9 +7,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Problem() {
+const Problem = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(true);
+  const [cat, setCat] = useState([]);
 
   const getQuestion = (question) => {
     setLoad(true);
@@ -17,31 +18,16 @@ function Problem() {
     setLoad(false);
   };
 
-  let [categories] = useState({
-    First: [
+  let categories = {};
+
+  data?.test_cases.forEach((testCase, index) => {
+    categories[`Case ${index + 1}`] = [
       {
-        id: 1,
-        input: "does coffee",
-        output: "5h ago",
+        // id: index + 1,
+        input: testCase.input,
+        output: testCase.output,
       },
-      {
-        id: 2,
-        input: "Does 12 coffee make you smarter?",
-        output: "5h ago",
-      },
-    ],
-    Second: [
-      {
-        id: 1,
-        input: "Does 21 coffee make you smarter?",
-        output: "5h ago",
-      },
-      {
-        id: 2,
-        input: "Does 22 coffee make you smarter?",
-        output: "5h ago",
-      },
-    ],
+    ];
   });
 
   return (
@@ -57,17 +43,17 @@ function Problem() {
           {/* <div className="flex pb-2  h-[calc(100vh-44px)]"> */}
           <Split
             direction="vertical"
-            sizes={[65, 35]}
-            minSize={[250, 200]}
+            sizes={[79.5, 20.5]}
+            minSize={[450, 161]}
             className="flex pb-2 flex-col h-[calc(100vh-44px)] rounded-md"
           >
-            <div className="px-4 pt-2 pb-8 overflow-y-scroll w-full bg-black rounded-b-md">
+            <div className="px-4 pt-2  overflow-y-scroll w-full bg-black rounded-b-md tracking-wide">
               {/* Problem heading */}
-              <div className="flex space-x-4">
-                <div className="mr-2 text-xl text-white font-bold">
+              <div className="flex gap-6">
+                <div className=" text-xl text-white font-bold ">
                   {data?.title}
                 </div>
-                <div className="flex justify-center items-center text-olive bg-olive rounded-[21px] bg-opacity-[0.15] px-2.5 ">
+                <div className="flex justify-center items-center text-olive bg-olive rounded-full bg-opacity-[0.15] px-2.5 ">
                   <div className={` text-xs font-medium uppercase`}>
                     {data?.difficulty}
                   </div>
@@ -75,18 +61,18 @@ function Problem() {
               </div>
 
               {/* Problem Statement(paragraphs) */}
-              <div className="text-white text-sm mt-4">
+              <div className="text-white text-sm mt-3 tracking-wide">
                 {data?.problem_statement}
               </div>
 
               {/* Examples */}
-              <div className="mt-4">
+              <div className="mt-6">
                 {data?.examples.map((example, id) => (
                   <div key={id}>
-                    <p className="font-medium text-white ">
+                    <p className="font-semibold text-white text-sm">
                       Example {id + 1}:{" "}
                     </p>
-                    <div className="example-card bg-dark-layer-2 text-white rounded-md">
+                    <div className="example-card bg-dark-layer-2 text-white w-fit rounded-md">
                       <pre>
                         <strong className="text-white">Input: </strong>{" "}
                         {example.input} <br />
@@ -101,38 +87,35 @@ function Problem() {
               </div>
 
               {/* Constraints */}
-              <div className="my-5">
-                <div className="text-white text-sm font-medium">
+              <div className="mt-6">
+                <div className="text-white text-sm font-semibold">
                   Constraints:
                 </div>
                 <ul className="text-white ml-5 list-disc">
                   {data?.constraints.map((contraint, id) => (
-                    <li className="mt-2" key={id}>
-                      <code>{contraint}</code>
+                    <li className="mt-2 text-sm" key={id}>
+                      <span>{contraint}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            <div className="p-3 rounded-md bg-black text-sm text-white">
+            <div className="p-3 rounded-md bg-black text-sm text-white tracking-wide">
               <div className="text-base text-white">
-                {" "}
                 <Tab.Group>
-                  <div className="flex flex-col gap-3">
-                    <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold text-sm h-fit">
+                  <div className="flex  gap-3">
+                    <div className="p-1.5 px-3 bg-dark-layer-2 rounded-md w-fit font-bold h-fit">
                       Test cases
                     </div>
-                    <Tab.List className="flex space-x-1 justify-start">
-                      {Object.keys(categories).map((category) => (
+                    <Tab.List className="flex space-x-1 gap-3 justify-start bg-dark-layer-2 p-1.5 px-3 items-center rounded-md">
+                      {Object.keys(categories).map((category, index) => (
                         <Tab
-                          key={category}
+                          key={index}
                           className={({ selected }) =>
                             classNames(
-                              "p-1.5 px-3 rounded-md text-sm font-medium ",
+                              "  rounded-md text-sm font-semibold ",
                               "focus:outline-none",
-                              selected
-                                ? "bg-dark-layer-2 "
-                                : "text-white hover:bg-dark-layer-2"
+                              selected ? "text-white  " : " opacity-40"
                             )
                           }
                         >
@@ -147,26 +130,19 @@ function Problem() {
                         key={idx}
                         className={classNames("mt-3", "focus:outline-none ")}
                       >
-                        <ul>
-                          {cases.map((test) => (
-                            <li key={test.id} className="relative rounded-md ">
-                              <h3 className="text-sm font-medium py-2">
-                                {test.input}
-                              </h3>
-
-                              <code className="text-white p-1  px-1.5">
-                                {test.output}
-                              </code>
-
-                              <a
-                                href="#"
-                                className={classNames(
-                                  "absolute inset-0 rounded-md"
-                                )}
-                              />
-                            </li>
-                          ))}
-                        </ul>
+                        {cases.map((test, idxx) => (
+                          <div
+                            key={idxx}
+                            className="example-card bg-dark-layer-2 text-white w-fit rounded-md"
+                          >
+                            <pre>
+                              <strong className="text-white">Input: </strong>{" "}
+                              {test.input} <br />
+                              <strong>Output: </strong>
+                              {test.output} <br />
+                            </pre>
+                          </div>
+                        ))}
                       </Tab.Panel>
                     ))}
                   </Tab.Panels>
@@ -179,6 +155,6 @@ function Problem() {
       )}
     </div>
   );
-}
+};
 
 export default Problem;

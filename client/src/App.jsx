@@ -17,10 +17,8 @@ function App() {
 
   const navigate = useNavigate();
 
-  const { token } = useToken();
-
   useEffect(() => {
-    if (!token) {
+    if (!state.profile.sub) {
       navigate("/");
     }
   }, []);
