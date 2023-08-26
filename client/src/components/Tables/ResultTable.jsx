@@ -21,7 +21,7 @@ const ResultTable = () => {
       .then((response) => {
         response.data.player_data
         setData(response.data.player_data);
-        console.log(response.data.player_data);
+        // console.log(response.data.player_data);
       })
       // .then(() => {
       //   for(let i = 0; i<data?.length; i++) {
@@ -43,13 +43,12 @@ const ResultTable = () => {
       axios
         .get(`/users/${data[i]?.user_id}`)
         .then((response) => {
-          console.log("Ab dekh yaha se", response.data);
           setUserId((prev) => [...prev, response.data.username]);
         })
         .catch((err) => console.log("Profile fetch error: ", err));
     }
     setLoad(false)
-    console.log(data)
+    // console.log(data)
   }, [data]);
   
   return (

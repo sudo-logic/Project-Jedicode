@@ -45,7 +45,7 @@ const RegistrationBlock = () => {
           navigate("/dashboard");
         })
         .catch((err) => {
-          console.log(err.response.data.message)
+          // console.log(err.response.data.message)
           notify(err.response.data.message);
           setPOSTload(false);
         });
@@ -144,13 +144,13 @@ const RegistrationBlock = () => {
       axios
         .post(`/auth/signup`, signupCreds)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           localStorage.setItem("token", res.data.access_token);
           updateProfile();
           navigate("/dashboard");
         })
         .catch((err) => {
-          console.log(err.response.data.message)
+          // console.log(err.response.data.message)
           for(let i=0; i<err.response.data.message.length; i++)
             notify(err.response.data.message[i]); 
           setPOSTload(false);

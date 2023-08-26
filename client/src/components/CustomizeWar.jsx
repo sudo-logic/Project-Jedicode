@@ -54,7 +54,7 @@ export default function CustomizeWar() {
       return;
     }
 
-    console.log($state.room.started_at);
+    // console.log($state.room.started_at);
     if ($state.room.started_at) {
       if (
         !$state.room.player_data.find(
