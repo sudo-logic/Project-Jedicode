@@ -61,11 +61,9 @@ export class UsersService {
   }
 
   async getLeaderboard(): Promise<User[]> {
-    return await this.usersRepository
-      .createQueryBuilder('user')
-      .orderBy('user.score', 'DESC')
-      .addOrderBy('user.created_at', 'ASC')
-      .getMany();
+    const users = await this.usersRepository.find();
+    users.sort((a, b) => b.score - a.score);
+    return users;
   }
 
   async authenticate(username: string, password: string): Promise<User> {
