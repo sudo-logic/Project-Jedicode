@@ -10,7 +10,7 @@ import { Submission } from '../submissions/submissions.entity';
 
 import { AbstractEntity } from '../shared/abstract.entity';
 import { Question } from '../questions/question.entity';
-
+import { Room } from '../rooms/rooms.entity';
 @Entity()
 export class User extends AbstractEntity {
   @Column({ unique: true })
@@ -31,6 +31,11 @@ export class User extends AbstractEntity {
   @ManyToMany(() => Question, (question) => question.id, {})
   @JoinTable()
   questions_attempted: Question[];
+
+  // Rooms the user is in
+  @ManyToMany(() => Room, (room) => room.users, { eager: false })
+  // @JoinTable()
+  rooms: Room[];
 
   score: number;
 

@@ -24,6 +24,11 @@ export class Room extends AbstractEntity {
   @OneToMany(() => Submission, (submission) => submission.room, {})
   submissions: Submission[];
 
+  // Users in the room
+  @ManyToMany(() => User, (user) => user.rooms, { eager: true })
+  @JoinTable()
+  users: User[];
+
   @Column('json', { nullable: true })
   player_data: { user_id: string; score: number; is_host: boolean }[];
   // player_data: { [user: string]: { score: number; is_host: boolean } }[];

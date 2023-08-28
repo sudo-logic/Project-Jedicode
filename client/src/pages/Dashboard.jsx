@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import { reset, updateProfile } from "../utils/proxy";
 
 const Dashboard = () => {
-  useEffect(() => {
-    updateProfile();
-  }, []);
+  // useEffect(() => {
+  //   updateProfile();
+  // }, []);
 
   return (
     <>
@@ -23,9 +23,12 @@ const Dashboard = () => {
           <Leaderboard />
         </div>
 
-        <div className="row-start-2 col-start-1 col-span-3 w-full h-2/3 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black -mt-16"></div>
+        {/* <div className="row-start-2 col-start-1 col-span-3 w-full h-2/3 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black -mt-16"></div> */}
 
         {/* leaderboard and war history */}
+        <div className="row-start-2 col-start-1 col-span-3">
+          <WarHistory />
+        </div>
       </div>
     </>
   );

@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { SignUpDto } from '../auth/dtos/signup.dto';
 
 import { User } from './user.entity';
+import { Room } from '../rooms/rooms.entity';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class UsersService {
@@ -63,6 +65,7 @@ export class UsersService {
   async getLeaderboard(): Promise<User[]> {
     const users = await this.usersRepository.find();
     users.sort((a, b) => b.score - a.score);
+    // console.log(users[0].rooms);
     return users;
   }
 
@@ -81,5 +84,17 @@ export class UsersService {
       return null;
     }
     return user;
+  }
+
+  async findPastWars(id: UUID): Promise<Room[]> {
+    // Get the user.rooms but sort by completed_at which is a Date object, use QueryBuilder
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.rooms', 'room')
+      .where('user.id = :id', { id })
+      .orderBy('room.created_at', 'DESC')
+      .getOne();
+    // console.log(rooms);
+    return user.rooms;
   }
 }
