@@ -1,96 +1,209 @@
 import React from "react";
+import { globalState } from "../../utils/proxy";
+import { useProxy } from "valtio/utils";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useReducer } from "react";
 
 const WarHistory = () => {
-  return (
-    <></>
-    // <div className="w-full rounded pb-10">
-    //   <h1 className="text-lg text-slate-100 text-center tracking-widest mb-2  font-sans">
-    //     Your Past Wars
-    //   </h1>
+  // Keeping this here for now
+  var special = [
+    "zeroth",
+    "first",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh",
+    "eighth",
+    "ninth",
+    "tenth",
+    "eleventh",
+    "twelfth",
+    "thirteenth",
+    "fourteenth",
+    "fifteenth",
+    "sixteenth",
+    "seventeenth",
+    "eighteenth",
+    "nineteenth",
+  ];
+  var deca = [
+    "twent",
+    "thirt",
+    "fort",
+    "fift",
+    "sixt",
+    "sevent",
+    "eight",
+    "ninet",
+  ];
 
-    //   <table
-    //     className="w-full text-left border border-separate rounded overflow-y-auto border-slate-200 shadow-md shadow-[#00FF00]"
-    //     cellSpacing="0"
-    //   >
-    //     <tbody>
-    //       <tr>
-    //         <th
-    //           scope="col"
-    //           className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-    //         >
-    //           Status
-    //         </th>
-    //         <th
-    //           scope="col"
-    //           className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-    //         >
-    //           Name
-    //         </th>
-    //         <th
-    //           scope="col"
-    //           className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-    //         >
-    //           Score
-    //         </th>
-    //       </tr>
-    //       <tr className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black">
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Won
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Michael Big
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           1500
-    //         </td>
-    //       </tr>
-    //       <tr className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black">
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           Lost
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           Mahesh
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           1000
-    //         </td>
-    //       </tr>
-    //       <tr className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black">
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Lost
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Beetlejuice
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           500
-    //         </td>
-    //       </tr>
-    //       <tr className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black">
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           Won
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           Lambergamber
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 ">
-    //           250
-    //         </td>
-    //       </tr>
-    //       <tr className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black">
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Lost
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           Rahul Gandhi
-    //         </td>
-    //         <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-    //           100
-    //         </td>
-    //       </tr>
-    //     </tbody>
-    //   </table>
-    // </div>
+  function stringifyNumber(n) {
+    if (n < 20) return special[n];
+    if (n % 10 === 0) return deca[Math.floor(n / 10) - 2] + "ieth";
+    return deca[Math.floor(n / 10) - 2] + "y-" + special[n % 10];
+  }
+
+  function timeSince(date) {
+    console.log(date, new Date());
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
+
+  const $state = useProxy(globalState, { sync: true });
+  const [warHistory, setWarHistory] = useState([]);
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  useEffect(() => {
+    axios
+      .get(`/users/past_wars/${$state.profile.sub}`)
+      .then((res) => {
+        // console.log(res.data);
+        setWarHistory(res.data);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  }, [$state.profile.sub]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    // <></>
+    <div className="w-full rounded pb-10">
+      <h1 className="text-lg text-slate-100 text-center tracking-widest mb-2  font-sans">
+        Your Past Wars
+      </h1>
+
+      <table
+        className="w-full text-left border border-separate rounded overflow-y-auto border-slate-200 shadow-md shadow-[#00FF00]"
+        cellSpacing="0"
+      >
+        <tbody>
+          <tr>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Index
+            </th>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Room ID
+            </th>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Creator
+            </th>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Played
+            </th>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Score
+            </th>
+            <th
+              scope="col"
+              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+            >
+              Position
+            </th>
+          </tr>
+
+          {warHistory.map((war, index) => (
+            <tr
+              key={war.id}
+              className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black"
+            >
+              {/* index td */}
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {index + 1}
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {war.id}
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {war.created_by.username}
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {timeSince(new Date(war.created_at))} ago
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {
+                  war.player_data.find(
+                    (player) => player.user_id === $state.profile.sub
+                  ).score
+                }
+              </td>
+              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                {/* {war.player_data
+                  .sort((a, b) => b.score - a.score)
+                  .findIndex(
+                    (player) => player.user_id === $state.profile.sub
+                  ) + 1}{" "}
+                / {war.player_data.length} */}
+                {stringifyNumber(
+                  war.player_data
+                    .sort((a, b) => b.score - a.score)
+                    .findIndex(
+                      (player) => player.user_id === $state.profile.sub
+                    ) + 1
+                )
+                  .charAt(0)
+                  .toUpperCase() +
+                  stringifyNumber(
+                    war.player_data
+                      .sort((a, b) => b.score - a.score)
+                      .findIndex(
+                        (player) => player.user_id === $state.profile.sub
+                      ) + 1
+                  ).slice(1)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

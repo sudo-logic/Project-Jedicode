@@ -49,6 +49,8 @@ export class RoomsService {
       duration,
     };
 
+    room.users = [await this.usersService.findOne(host)];
+
     room.questions = await this.questionsService.findRandom(count);
 
     return await this.roomsRepository.save(room);
@@ -73,6 +75,8 @@ export class RoomsService {
       is_host: false,
       score: 0,
     });
+
+    room.users.push(await this.usersService.findOne(user_id));
 
     return await this.roomsRepository.save(room);
   }
