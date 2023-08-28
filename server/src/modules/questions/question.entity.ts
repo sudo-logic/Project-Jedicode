@@ -17,14 +17,14 @@ export class Question extends AbstractEntity {
   @Column('jsonb')
   test_cases: { input: string; output: string }[];
 
-  @Column('jsonb')
+  @Column('jsonb', { nullable: true })
   constraints: string[];
 
   @Column('text')
   difficulty: string;
 
   @Column('jsonb')
-  examples: { input: string; output: string; explaination: string };
+  examples: { input: string; output: string; explaination: string }[];
 
   @OneToMany(() => Submission, (submission) => submission.question_id)
   submissions: Submission[];
