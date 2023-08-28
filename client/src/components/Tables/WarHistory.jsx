@@ -48,7 +48,6 @@ const WarHistory = () => {
   }
 
   function timeSince(date) {
-    console.log(date, new Date());
     var seconds = Math.floor((new Date() - date) / 1000);
 
     var interval = seconds / 31536000;
@@ -80,6 +79,7 @@ const WarHistory = () => {
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
+    if (!$state.profile.sub) return;
     axios
       .get(`/users/past_wars/${$state.profile.sub}`)
       .then((res) => {
