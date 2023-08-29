@@ -11,7 +11,7 @@ import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dtos/createSubmission.dto';
 import { Submission } from './submissions.entity';
 import { Public } from '../auth/public.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { RunnerService } from '../runner/runner.service';
 import { CodeRunnerDto } from '../runner/dto/code-runner.dto';
 
@@ -24,6 +24,8 @@ export class SubmissionsController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new submission' })
+  @ApiResponse({ status: 201, description: 'The created submission', type: Submission })
   async create(
     @Body() submission: CreateSubmissionDto,
     @Req() request,
@@ -50,16 +52,22 @@ export class SubmissionsController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all submissions' })
+  @ApiResponse({ status: 200, description: 'All submissions', type: [Submission] })
   async findAll(): Promise<Submission[]> {
     return await this.submissionsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a submission by ID' })
+  @ApiResponse({ status: 200, description: 'The submission', type: Submission })
   async findOne(@Param('id') id: string): Promise<Submission> {
     return await this.submissionsService.findOne(id);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a submission by ID' })
+  @ApiResponse({ status: 200, description: 'The deleted submission', type: Submission })
   async delete(@Param('id') id: string): Promise<Submission> {
     return await this.submissionsService.delete(id);
   }
