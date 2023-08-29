@@ -3,6 +3,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { globalState } from "../utils/proxy";
 import axios from "axios";
+import { judge_langs } from "../utils/extras";
 
 export default function LangDropdown() {
   const changeState = globalState;
@@ -12,17 +13,9 @@ export default function LangDropdown() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    const fetchLanguages = async () => {
-      return await axios
-        .get(`https://ce.judge0.com/languages/all`)
-        .then((res) => res.data.filter((lang) => !lang.is_archived));
-    };
-
-    fetchLanguages().then((res) => {
-      setLanguages(res);
-      setSelected(res[43]);
-      setLoad(false);
-    });
+    setLanguages(judge_langs);
+    setSelected(judge_langs.find((lang) => lang.id == 71));
+    setLoad(false);
   }, []);
 
   useEffect(() => {
