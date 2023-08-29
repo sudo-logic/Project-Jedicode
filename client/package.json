@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
     "@popperjs/core": "^2.11.8",
+    "@uiw/codemirror-extensions-langs": "^4.21.12",
     "@uiw/codemirror-theme-atomone": "^4.21.8",
     "@uiw/react-codemirror": "^4.21.8",
     "axios": "^1.4.0",
