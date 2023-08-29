@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import Split from "react-split";
-import { javascript } from "@codemirror/lang-javascript";
+import {
+  langNames,
+  langs,
+  loadLanguage,
+} from "@uiw/codemirror-extensions-langs";
 import { atomone } from "@uiw/codemirror-theme-atomone";
-import LangDropdown from "../../components/LangDropdown";
+import CodeMirror from "@uiw/react-codemirror";
 import axios from "axios";
-import { globalState } from "../../utils/proxy";
-import { subscribe, useSnapshot } from "valtio";
-import { BsCheck } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { toast } from "react-toastify";
+import { BsCheck } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import ModalIconActionButtons from "../../components/EndTestButton";
+import Split from "react-split";
+import { toast } from "react-toastify";
+import { subscribe, useSnapshot } from "valtio";
 import { subscribeKey, useProxy } from "valtio/utils";
+import ModalIconActionButtons from "../../components/EndTestButton";
+import LangDropdown from "../../components/LangDropdown";
+import { globalState } from "../../utils/proxy";
 
 function Editor() {
   const navigate = useNavigate();
@@ -22,6 +26,7 @@ function Editor() {
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
+  const [extensions, setExtensions] = useState([]);
 
   subscribeKey(globalState, "questionId", () => {
     // setCode("");
@@ -125,7 +130,8 @@ function Editor() {
     ) {
       toast(
         <div>
-          All questions are complete! <br /> You may end the test now or wait for your friends. 🐱
+          All questions are complete! <br /> You may end the test now or wait
+          for your friends. 🐱
         </div>
       );
     }
@@ -149,6 +155,71 @@ function Editor() {
     return;
   };
 
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      // Detect language change and based on that change the codemirror mode
+      const judge_langs = await axios
+        .get(`https://ce.judge0.com/languages/all`)
+        .then((res) => res.data.filter((lang) => !lang.is_archived));
+
+      // const lang = langs.find((lang) => lang.id === state.languageId);
+
+      const language_mapping = {
+        "Assembly (NASM 2.14.02)": "",
+        "Bash (5.0.0)": "",
+        "C (Clang 7.0.1)": "c",
+        "C++ (Clang 7.0.1)": "cpp",
+        "C (GCC 7.4.0)": "c",
+        "C++ (GCC 7.4.0)": "cpp",
+        "C (GCC 8.3.0)": "c",
+        "C++ (GCC 8.3.0)": "cpp",
+        "C (GCC 9.2.0)": "c",
+        "C++ (GCC 9.2.0)": "cpp",
+        "Clojure (1.10.1)": "clojure",
+        "COBOL (GnuCOBOL 2.2)": "cobol",
+        "Common Lisp (SBCL 2.0.0)": "commonLisp",
+        "F# (.NET Core SDK 3.1.202)": "",
+        "Fortran (GFortran 9.2.0)": "fortran",
+        "Go (1.13.5)": "go",
+        "Groovy (3.0.3)": "groovy",
+        "Haskell (GHC 8.8.1)": "haskell",
+        "Insect (5.0.0)": "",
+        "Java (OpenJDK 13.0.1)": "java",
+        "JavaScript (Node.js 12.14.0)": "javascript",
+        "Kotlin (1.3.70)": "kotlin",
+        "Lua (5.3.5)": "lua",
+        "Objective-C (Clang 7.0.1)": "objectiveC",
+        "OCaml (4.09.0)": "ocaml",
+        "Octave (5.1.0)": "octave",
+        "Pascal (FPC 3.0.4)": "pascal",
+        "Perl (5.28.1)": "perl",
+        "PHP (7.4.1)": "php",
+        "Prolog (GNU Prolog 1.4.5)": "prolog",
+        "Python (2.7.17)": "python",
+        "Python (3.8.1)": "python",
+        "R (4.0.0)": "r",
+        "Ruby (2.7.0)": "ruby",
+        "Rust (1.40.0)": "rust",
+        "Scala (2.13.2)": "scala",
+        "SQL (SQLite 3.27.2)": "sql",
+        "Swift (5.2.3)": "swift",
+        "TypeScript (3.7.4)": "typescript",
+        "Visual Basic.Net (vbnc 0.0.0.5943)": "vb",
+      };
+
+      const lang = judge_langs.find((lang) => lang.id === state.languageId);
+
+      if (lang && language_mapping[lang.name]) {
+        setExtensions([loadLanguage(language_mapping[lang.name])]);
+      } else {
+        setExtensions([]);
+      }
+      console.log(extensions);
+    };
+
+    fetchLanguages();
+  }, [state.languageId]);
+
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
       <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
@@ -164,7 +235,7 @@ function Editor() {
           <CodeMirror
             value={code}
             theme={atomone}
-            extensions={[javascript()]}
+            extensions={extensions}
             style={{ fontSize: 16 }}
             onChange={(editor, data, value) => {
               handleCodeInput(editor, data, value);
