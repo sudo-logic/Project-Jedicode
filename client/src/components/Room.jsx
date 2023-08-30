@@ -153,10 +153,6 @@ export const Room = () => {
     reactNavigator("/");
   }
 
-  useEffect(() => {
-    $state.clients = clients
-  }, [clients])
-
   return (
     <>
       {test ? (

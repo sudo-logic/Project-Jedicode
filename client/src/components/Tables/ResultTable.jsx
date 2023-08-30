@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useProxy } from "valtio/utils";
 import { useParams } from "react-router-dom";
-import { globalState } from "../../utils/proxy";
-import { useSnapshot } from "valtio";
 
 const ResultTable = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(true);
   const [userId, setUserId] = useState([]);
   const { roomId } = useParams();
-
-  const state = useSnapshot(globalState);
-  const $state = useProxy(globalState, { sync: true });
 
   useEffect(() => {
     axios
@@ -22,8 +17,6 @@ const ResultTable = () => {
         setData(response.data.player_data);
       })
       .catch((err) => console.log("Fetch result error", err));
-
-    console.log("Question Proxy Time", $state.questionTime);
   }, []);
 
   useEffect(() => {
@@ -44,16 +37,13 @@ const ResultTable = () => {
       {load ? (
         <h1>Loading Results...</h1>
       ) : (
-        <div className="grid grid-cols-3 rounded-md bg-slate-800">
+        <div className="grid grid-cols-2 rounded-md bg-slate-800">
           {/* <div className="w-full col-span-3 text-left border-4 border-collapse rounded-md sm:border-separate border-slate-200 flex justify-between items-center bg-slate-100 overflow-y-auto mt-5"> */}
           <div className="h-12 px-6 text-2xl font-medium border-l border-b border-slate-600 text-slate-700 p-3 bg-white rounded-tl-md">
-            Name of Player
+            Criteria
           </div>
           <div className="px-6 p-3 h-12 text-2xl border-b border-slate-400 rounded-tr-md">
             Score Obtained
-          </div>
-          <div className="px-6 p-3 h-12 text-2xl border-b border-slate-400 rounded-tr-md">
-            Time Spent
           </div>
           {/* {userId?.map((user, key) => (
             <div key={key} className="h-12 px-6 text-2xl font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 p-3 bg-white">
@@ -65,7 +55,7 @@ const ResultTable = () => {
             <>
               <div
                 key={key}
-                className="h-full px-6 text-2xl font-medium border-l first:border-l-0 text-slate-700 p-3 bg-white border-b border-slate-600"
+                className="h-12 px-6 text-2xl font-medium border-l first:border-l-0 text-slate-700 p-3 bg-white border-b border-slate-600"
               >
                 {userId[key]}
               </div>
@@ -75,24 +65,6 @@ const ResultTable = () => {
               >
                 {user.score}
               </h4>
-              <div className="p-2 border-b border-slate-400">
-                {Object.values(user.time_spent).map((question, key) => {
-                  {
-                    console.log("Submissions connsole log", Object.values(user.time_spent));
-                  }
-                  return (
-                    <>
-                      {question != 0 ? (
-                        <p className="px-6">
-                          Q-{key}: {question} seconds
-                        </p>
-                      ) : (
-                        <></>
-                      )}
-                    </>
-                  );
-                })}
-              </div>
             </>
           ))}
           {/* <div className="  flex flex-row justify-center items-center gap-20">

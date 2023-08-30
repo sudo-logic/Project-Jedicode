@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import Split from "react-split";
-import { javascript } from "@codemirror/lang-javascript";
+import {
+  langNames,
+  langs,
+  loadLanguage,
+} from "@uiw/codemirror-extensions-langs";
 import { atomone } from "@uiw/codemirror-theme-atomone";
-import LangDropdown from "../../components/LangDropdown";
+import CodeMirror from "@uiw/react-codemirror";
 import axios from "axios";
-import { globalState } from "../../utils/proxy";
-import { subscribe, useSnapshot } from "valtio";
-import { BsCheck } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { toast } from "react-toastify";
+import { BsCheck } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Split from "react-split";
+import { toast } from "react-toastify";
+import { subscribe, useSnapshot } from "valtio";
+import { subscribeKey, useProxy } from "valtio/utils";
 import ModalIconActionButtons from "../../components/EndTestButton";
 import {
   language_mapping,
@@ -27,6 +30,7 @@ function Editor() {
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
+  const [extensions, setExtensions] = useState([]);
 
   subscribeKey(globalState, "questionId", () => {
     // setCode("");
@@ -75,11 +79,6 @@ function Editor() {
       .then((response) => {
         toast.success("Code submitted");
         $state.submissions[state.questionId] = response.data;
-
-        // FIXME:
-        // let endTime = { endTime: Date.now() };
-        // $state.questionTime[state.questionId] = endTime;
-        // console.log("Question end time: ", $state.questionTime);
       })
       .catch((error) => {
         console.log(error);
@@ -191,7 +190,7 @@ function Editor() {
           <CodeMirror
             value={code}
             theme={atomone}
-            extensions={[javascript()]}
+            extensions={extensions}
             style={{ fontSize: 16 }}
             onChange={(editor, data, value) => {
               handleCodeInput(editor, data, value);
@@ -238,6 +237,7 @@ function Editor() {
       </Split>
       <div className="absolute bottom-0 right-0 pb-6 pr-6">
         <div className="flex flex-row relative justify-end gap-8 ">
+          {/* <button onClick={() => console.log(`stored ${state.languageId}`)}>Tester</button> */}
 
           {state.submissions[state.questionId] ? (
             <p className="absolute top-1/4 left-[-6rem] underline underline-offset-4 text-white">
@@ -266,6 +266,7 @@ function Editor() {
           ) : (
             <></>
           )}
+
           <button
             className="w-24 rounded-md px-3 py-2 font-semibold bg-white text-black opacity-90 hover:opacity-100 transition-all"
             onClick={handleRun}
