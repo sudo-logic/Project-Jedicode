@@ -48,13 +48,13 @@ export default function LangDropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full z-10 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute mt-1 max-h-60 w-full text-gray-400 z-10 overflow-auto rounded-md bg-dark-layer-2 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
                 {languages?.map((language, languageIdx) => (
                   <Listbox.Option
                     key={languageIdx}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 px-4 ${
-                        active ? "bg-dark-gray-7 text-white" : "text-gray-900"
+                        active ? "bg-dark-gray-6 text-white" : "text-gray-200"
                       }`
                     }
                     value={language}
@@ -63,13 +63,15 @@ export default function LangDropdown() {
                       <>
                         <span
                           className={`block truncate ${
-                            selected ? "font-semibold" : "font-normal"
+                            selected
+                              ? "font-semibold text-white"
+                              : "font-normal"
                           }`}
                         >
                           {language.name}
                         </span>
                         {selected ? (
-                          <span className="absolute font-semibold inset-y-0 right-2 flex items-center pl-3 text-neutral-950">
+                          <span className="absolute font-semibold inset-y-0 right-2 flex items-center pl-3 text-white">
                             ✦
                           </span>
                         ) : null}
