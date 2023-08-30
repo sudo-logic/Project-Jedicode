@@ -1,27 +1,18 @@
-import {
-  langNames,
-  langs,
-  loadLanguage,
-} from "@uiw/codemirror-extensions-langs";
-import { atomone } from "@uiw/codemirror-theme-atomone";
-import CodeMirror from "@uiw/react-codemirror";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { BsCheck } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import CodeMirror from "@uiw/react-codemirror";
 import Split from "react-split";
-import { toast } from "react-toastify";
-import { subscribe, useSnapshot } from "valtio";
-import { subscribeKey, useProxy } from "valtio/utils";
-import ModalIconActionButtons from "../../components/EndTestButton";
+import { javascript } from "@codemirror/lang-javascript";
+import { atomone } from "@uiw/codemirror-theme-atomone";
 import LangDropdown from "../../components/LangDropdown";
+import axios from "axios";
 import { globalState } from "../../utils/proxy";
-import {
-  language_mapping,
-  judge_langs,
-  init_templates,
-} from "../../utils/extras";
+import { subscribe, useSnapshot } from "valtio";
+import { BsCheck } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import ModalIconActionButtons from "../../components/EndTestButton";
+import { subscribeKey, useProxy } from "valtio/utils";
 
 function Editor() {
   const navigate = useNavigate();
@@ -31,7 +22,6 @@ function Editor() {
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
-  const [extensions, setExtensions] = useState([]);
 
   subscribeKey(globalState, "questionId", () => {
     // setCode("");
@@ -80,6 +70,9 @@ function Editor() {
       .then((response) => {
         toast.success("Code submitted");
         $state.submissions[state.questionId] = response.data;
+        // let endTime = {endTime: Date.now()};
+        // $state.questionTime[state.questionId] = endTime;
+        // console.log("Question end time: ", typeof $state.submissions);
       })
       .catch((error) => {
         console.log(error);
@@ -160,24 +153,6 @@ function Editor() {
     return;
   };
 
-  useEffect(() => {
-    const lang = judge_langs.find((lang) => lang.id === state.languageId);
-
-    if (lang && language_mapping[lang.name]) {
-      setExtensions([loadLanguage(language_mapping[lang.name])]);
-    } else {
-      setExtensions([]);
-    }
-
-    console.log(language_mapping[lang.name]);
-    console.log(init_templates[language_mapping[lang.name]]);
-
-    if (init_templates[language_mapping[lang.name]]) {
-      setCode(init_templates[language_mapping[lang.name]]);
-    }
-    // console.log(extensions);
-  }, [state.languageId]);
-
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
       <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
@@ -193,7 +168,7 @@ function Editor() {
           <CodeMirror
             value={code}
             theme={atomone}
-            extensions={extensions}
+            extensions={[javascript()]}
             style={{ fontSize: 16 }}
             onChange={(editor, data, value) => {
               handleCodeInput(editor, data, value);
@@ -269,7 +244,11 @@ function Editor() {
           ) : (
             <></>
           )}
-
+          <button onClick={() => {
+            console.log("Room details", $state.clients.length)
+          }}>
+            Tester
+          </button>
           <button
             className="w-24 rounded-md px-3 py-2 font-semibold bg-white text-black opacity-90 hover:opacity-100 transition-all"
             onClick={handleRun}

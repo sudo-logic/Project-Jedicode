@@ -11,6 +11,7 @@ import useToken from "./utils/token";
 import { useEffect } from "react";
 import Results from "./pages/Results";
 import PageNotFound from "./pages/PageNotFound";
+import IntermediateResult from "./pages/IntermediateResult";
 
 function App() {
   const state = useSnapshot(globalState);
@@ -43,6 +44,7 @@ function App() {
         <Route path="/lobby/:roomId" element={<Lobby />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
         <Route path="/result/:roomId" element={<Results />} />
+        <Route path="/intermediate-result" element={<IntermediateResult />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
