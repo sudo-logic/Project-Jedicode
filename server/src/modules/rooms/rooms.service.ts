@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import axios from 'axios';
 
-import { Room } from './rooms.entity';
+import { Room, playerData } from './rooms.entity';
 import { UpdateRoomDto } from './dtos/update-room.dto';
 import { QuestionsService } from '../questions/questions.service';
 import { UsersService } from '../users/users.service';
@@ -38,9 +38,9 @@ export class RoomsService {
 
     room.player_data = [
       {
+        ...playerData,
         user_id: host,
         is_host: true,
-        score: 0,
       },
     ];
 
@@ -71,9 +71,8 @@ export class RoomsService {
     }
 
     room.player_data.push({
+      ...playerData,
       user_id,
-      is_host: false,
-      score: 0,
     });
 
     room.users.push(await this.usersService.findOne(user_id));
