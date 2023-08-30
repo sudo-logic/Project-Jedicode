@@ -27,37 +27,16 @@ export default function QuestionSelect(props) {
     // console.log(state);
   }, []);
 
-  const [count, setCount] = useState($state?.questionTime[$state?.questionId] || 0);
   useEffect(() => {
     props.onChange(selected);
     // console.log(selected?.id);
     $state.questionId = selected?.id;
     // console.log(state.questionId);
-
-    // $state.questionTime[$state.questionId] = 0;
-    if($state.questionTime[$state.questionId] == undefined)
-      $state.questionTime[$state.questionId] = 0;
-    const timer = setInterval(() => {
-      setCount($state?.questionTime[$state?.questionId]);
-      $state.questionTime[$state.questionId] =
-        $state?.questionTime[$state?.questionId] + 1;
-    }, 1000);
-
-    return() => clearInterval(timer)
   }, [selected]);
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setCount($state?.questionTime[$state?.questionId]);
-  //     $state.questionTime[$state.questionId] = count + 1;
-  //     console.log("Time tracker", $state?.questionTime[$state?.questionId]);
-  //   }, 1000);
-  // }, []);
 
   return (
     <div className="bg-dark-layer-2 m-3 text-xs cursor-pointer font-medium rounded-md w-64">
       <Listbox value={selected} onChange={setSelected}>
-        {$state?.questionTime[$state?.questionId]}
         <div className="relative mt-1">
           <Listbox.Button className="relative text-white w-full cursor-pointer rounded-md py-2 pl-4 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate font-bold">{selected?.title}</span>
