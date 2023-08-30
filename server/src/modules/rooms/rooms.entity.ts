@@ -30,8 +30,7 @@ export class Room extends AbstractEntity {
   users: User[];
 
   @Column('json', { nullable: true })
-  player_data: { user_id: string; score: number; is_host: boolean }[];
-  // player_data: { [user: string]: { score: number; is_host: boolean } }[];
+  player_data: PlayerData[];
 
   @Column({ nullable: true })
   started_at: Date;
@@ -45,3 +44,16 @@ export class Room extends AbstractEntity {
   @Column('json', { nullable: true })
   room_config: { count: number; duration: number };
 }
+interface PlayerData {
+  user_id: string;
+  score: number;
+  is_host: boolean;
+  time_spent: Record<string, number>;
+}
+
+export const playerData: PlayerData = {
+  user_id: '',
+  score: 0,
+  is_host: false,
+  time_spent: {},
+};
