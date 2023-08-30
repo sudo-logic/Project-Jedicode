@@ -169,12 +169,12 @@ function Editor() {
       setExtensions([]);
     }
 
-    console.log(language_mapping[lang.name]);
-    console.log(init_templates[language_mapping[lang.name]]);
+    // console.log(language_mapping[lang.name]);
+    // console.log(init_templates[language_mapping[lang.name]]);
 
-    if (init_templates[language_mapping[lang.name]]) {
-      setCode(init_templates[language_mapping[lang.name]]);
-    }
+    // if (init_templates[language_mapping[lang.name]]) {
+    //   setCode(init_templates[language_mapping[lang.name]]);
+    // }
     // console.log(extensions);
   }, [state.languageId]);
 
