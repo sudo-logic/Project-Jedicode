@@ -104,7 +104,7 @@ export default function Navbar() {
               <img
                 src={Logo}
                 className="w-44 cursor-pointer transition-shadow duration-100 "
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/")}
               />
             </div>
             {/*      <!-- Mobile trigger --> */}

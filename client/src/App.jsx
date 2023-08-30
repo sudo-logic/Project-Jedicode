@@ -11,7 +11,6 @@ import useToken from "./utils/token";
 import { useEffect } from "react";
 import Results from "./pages/Results";
 import PageNotFound from "./pages/PageNotFound";
-import IntermediateResult from "./pages/IntermediateResult";
 
 function App() {
   const state = useSnapshot(globalState);
@@ -35,7 +34,7 @@ function App() {
   // console.log(state?.profile)
 
   return (
-    <div className="w-screen h-screen bg-black text-neutral-400 overflow-x-hidden">
+    <div className="w-screen h-screen bg-[url('./assets/background.jpg')]  text-neutral-400 overflow-x-hidden">
       <ToastContainer theme="dark" />
 
       <Routes>

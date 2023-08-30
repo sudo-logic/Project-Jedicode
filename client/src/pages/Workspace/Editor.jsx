@@ -18,12 +18,14 @@ import {
   init_templates,
 } from "../../utils/extras";
 import { subscribeKey, useProxy } from "valtio/utils";
+import { loadLanguage } from "@uiw/codemirror-extensions-langs";
 
 function Editor() {
   const navigate = useNavigate();
   const [code, setCode] = useState(`print("Hello World")`);
   const [codeResponse, setCodeResponse] = useState([]);
   const [load, setLoad] = useState(true);
+  const [extensions, setExtensions] = useState([]);
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
@@ -238,7 +240,6 @@ function Editor() {
       </Split>
       <div className="absolute bottom-0 right-0 pb-6 pr-6">
         <div className="flex flex-row relative justify-end gap-8 ">
-
           {state.submissions[state.questionId] ? (
             <p className="absolute top-1/4 left-[-6rem] underline underline-offset-4 text-white">
               Score: {state.submissions[state.questionId].score}
