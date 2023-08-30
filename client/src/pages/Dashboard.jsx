@@ -14,21 +14,19 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="h-full px-10 pt-10 grid grid-rows-2 grid-cols-4 justify-center items-start gap-x-16 bg-black">
+      <div className="grid  grid-cols-3 gap-4 p-10 h-full bg-black">
         {/* war options */}
-        <div className="row-start-1 row-span-1 col-span-3">
+        <div className="col-span-2 flex-col space-y-10">
           <CustomizeWar />
+          <WarHistory />
         </div>
-        <div className="grid col-start-4 flex-col justify-center content-center gap-5">
+        <div className=" ">
           <Leaderboard />
         </div>
 
         {/* <div className="row-start-2 col-start-1 col-span-3 w-full h-2/3 bg-[url('./assets/dashboardBanner.jpg')] bg-cover rounded-md shadow-inner shadow-black -mt-16"></div> */}
 
         {/* leaderboard and war history */}
-        <div className="row-start-2 col-start-1 col-span-3">
-          <WarHistory />
-        </div>
       </div>
     </>
   );

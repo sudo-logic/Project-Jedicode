@@ -13,33 +13,34 @@ const Leaderboard = () => {
 
   return (
     <>
-      <form className=" w-full bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-6">
+      <div className="  bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-6">
         {/*  <!-- Body--> */}
-        <header className="text-center">
-          <h3 className="text-xl font-[700] text-white">Leaderboard</h3>
+        <header className="text-center pb-6">
+          <h3 className="text-xl font-[700] text-white ">Leaderboard</h3>
         </header>
 
         <table
-          className="my-6 w-full text-center border border-separate rounded overflow-y-scroll border-slate-200 shadow-md shadow-[#5656ff]"
+          className=" text-center border border-separate rounded overflow-y-scroll border-slate-200 shadow-md shadow-[#5656ff]
+          table-fixed  w-full"
           cellSpacing="0"
         >
           <tbody>
             <tr>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
               >
                 Rank
               </th>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
               >
                 Score
               </th>
@@ -49,20 +50,20 @@ const Leaderboard = () => {
                 key={user.id}
                 className="transition-colors duration-300 hover:bg-dark-layer-2 bg-black"
               >
-                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
                   {index + 1}
                 </td>
-                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
                   {user.username}
                 </td>
-                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
                   {user.score}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </form>
+      </div>
     </>
   );
 };

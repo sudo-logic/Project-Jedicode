@@ -101,108 +101,109 @@ const WarHistory = () => {
 
   return (
     // <></>
-    <div className="w-full rounded pb-10">
-      <h1 className="text-lg text-slate-100 text-center tracking-widest mb-2  font-sans">
-        Your Past Wars
-      </h1>
 
-      <table
-        className="w-full text-left border border-separate rounded overflow-y-auto border-slate-200 shadow-md shadow-[#00FF00]"
-        cellSpacing="0"
-      >
-        <tbody>
-          <tr>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Index
-            </th>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Room ID
-            </th>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Creator
-            </th>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Played
-            </th>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Score
-            </th>
-            <th
-              scope="col"
-              className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
-            >
-              Position
-            </th>
-          </tr>
-
-          {warHistory.map((war, index) => (
-            <tr
-              key={war.id}
-              className="transition-colors duration-300 cursor-pointer hover:bg-slate-50 hover:text-black bg-black"
-            >
-              {/* index td */}
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {index + 1}
-              </td>
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {war.id}
-              </td>
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {war.created_by.username}
-              </td>
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {timeSince(new Date(war.created_at))} ago
-              </td>
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {
-                  war.player_data.find(
-                    (player) => player.user_id === $state.profile.sub
-                  ).score
-                }
-              </td>
-              <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
-                {/* {war.player_data
-                  .sort((a, b) => b.score - a.score)
-                  .findIndex(
-                    (player) => player.user_id === $state.profile.sub
-                  ) + 1}{" "}
-                / {war.player_data.length} */}
-                {stringifyNumber(
-                  war.player_data
+    <div className="  bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-6">
+      <div className="w-full rounded pb-10">
+        <header className="text-center pb-6">
+          <h3 className="text-xl font-[700] text-white">Past Wars</h3>
+        </header>
+        <table
+          className="w-full text-left border border-separate rounded overflow-y-auto border-slate-200 shadow-md shadow-[#00FF00]"
+          cellSpacing="0"
+        >
+          <tbody>
+            <tr>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Index
+              </th>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Room ID
+              </th>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Creator
+              </th>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Played
+              </th>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Score
+              </th>
+              <th
+                scope="col"
+                className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200"
+              >
+                Position
+              </th>
+            </tr>
+            {warHistory.map((war, index) => (
+              <tr
+                key={war.id}
+                className="cursor-pointer transition-colors duration-300 hover:bg-dark-layer-2 bg-black"
+              >
+                {/* index td */}
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {index + 1}
+                </td>
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {war.id}
+                </td>
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {war.created_by.username}
+                </td>
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {timeSince(new Date(war.created_at))} ago
+                </td>
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {
+                    war.player_data.find(
+                      (player) => player.user_id === $state.profile.sub
+                    ).score
+                  }
+                </td>
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500">
+                  {/* {war.player_data
                     .sort((a, b) => b.score - a.score)
                     .findIndex(
                       (player) => player.user_id === $state.profile.sub
-                    ) + 1
-                )
-                  .charAt(0)
-                  .toUpperCase() +
-                  stringifyNumber(
+                    ) + 1}{" "}
+                  / {war.player_data.length} */}
+                  {stringifyNumber(
                     war.player_data
                       .sort((a, b) => b.score - a.score)
                       .findIndex(
                         (player) => player.user_id === $state.profile.sub
                       ) + 1
-                  ).slice(1)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  )
+                    .charAt(0)
+                    .toUpperCase() +
+                    stringifyNumber(
+                      war.player_data
+                        .sort((a, b) => b.score - a.score)
+                        .findIndex(
+                          (player) => player.user_id === $state.profile.sub
+                        ) + 1
+                    ).slice(1)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
