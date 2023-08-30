@@ -113,7 +113,7 @@ export default function CustomizeWar() {
 
   return (
     <>
-      <div className="h-fit relative shadow-inner shadow-black rounded-md flex flex-row justify-center items-stretch gap-20 text-white font-sans">
+      <div className="h-fit relative shadow-inner shadow-black rounded-md flex flex-row justify-center items-stretch gap-4 text-white font-sans">
         <form className="overflow-hidden w-full bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
           {/*  <!-- Body--> */}
           <div className="p-6">
