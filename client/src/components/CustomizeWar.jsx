@@ -252,13 +252,13 @@ export default function CustomizeWar() {
                   />
                 </svg>
                 <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-neutral-400 transition">
-                  <span>Number of questions of the competition</span>
+                  <span>Number of questions </span>
                 </small>
               </div>
             </div>
           </div>
           {/*  <!-- Action base sized basic button --> */}
-          <div className="flex flex-col justify-end px-6 pb-3">
+          <div className="flex flex-col justify-end px-6 pb-6">
             <button
               onClick={createNewRoom}
               className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-neutral-950 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:scale-[1.01] focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
@@ -314,12 +314,11 @@ export default function CustomizeWar() {
                   value={roomId}
                   onKeyUp={handleInputEnter}
                   onChange={(e) => setRoomId(e.target.value)}
-                  placeholder="Room ID"
-                  className="peer relative h-10 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
+                  className="peer relative h-12 w-full rounded border border-neutral-200 px-4 text-sm text-white placeholder-transparent bg-[#212121] outline-none transition-all autofill:bg-black focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-400"
                 />
                 <label
                   htmlFor="room"
-                  className="absolute left-2 -top-2 z-[1] px-2 text-xs text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:before:bg-transparent"
+                  className="absolute left-2 top-3.5 z-[1] px-2 text-sm text-neutral-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-[#212121] before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:before:bg-transparent"
                 >
                   Room ID
                 </label>
