@@ -31,6 +31,8 @@ export default function CustomizeWar() {
   const joinRoom = async (e) => {
     if (e) e.preventDefault();
 
+    $state.questionTime = {}
+
     if (!state.profile.username || !roomId) {
       toast.error("Room ID is required! 😥");
       return;
