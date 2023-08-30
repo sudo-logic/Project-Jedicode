@@ -163,18 +163,18 @@ function Editor() {
   useEffect(() => {
     const lang = judge_langs.find((lang) => lang.id === state.languageId);
 
-    if (lang && language_mapping[lang.name]) {
-      setExtensions([loadLanguage(language_mapping[lang.name])]);
+    if (lang && language_mapping[lang?.name]) {
+      setExtensions([loadLanguage(language_mapping[lang?.name])]);
     } else {
       setExtensions([]);
     }
 
-    // console.log(language_mapping[lang.name]);
-    // console.log(init_templates[language_mapping[lang.name]]);
+    console.log(language_mapping[lang?.name]);
+    console.log(init_templates[language_mapping[lang?.name]]);
 
-    // if (init_templates[language_mapping[lang.name]]) {
-    //   setCode(init_templates[language_mapping[lang.name]]);
-    // }
+    if (init_templates[language_mapping[lang?.name]]) {
+      setCode(init_templates[language_mapping[lang?.name]]);
+    }
     // console.log(extensions);
   }, [state.languageId]);
 
