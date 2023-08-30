@@ -5,7 +5,7 @@ import LandingFeatures from "../components/LandingPage/LandingFeatures";
 
 const LandingPage = () => {
   return (
-    <div className="">
+    <div className="bg-[url('./assets/background.jpg')]">
       <div className="flex flex-row justify-center items-center gap-12 px-20">
         <div className="w-1/2 flex flex-col justify-center items-start gap-5 h-screen">
           <p className="text-5xl w-2/3 text-slate-200 leading-tight">
@@ -22,7 +22,7 @@ const LandingPage = () => {
         <RegistrationBlock />
       </div>
 
-      <div className="mt-20 flex flex-row justify-center items-stretch mb-40 gap-20 px-8">
+      <div className="mt-20 flex flex-row justify-center items-stretch pb-40 gap-20 px-8">
         <LandingFeatures
           heading="JediCode Arena"
           paragraph="Engage in epic coding duels. Challenge friends or rivals to head-to-head coding battles and see who emerges as the coding Jedi Master."
