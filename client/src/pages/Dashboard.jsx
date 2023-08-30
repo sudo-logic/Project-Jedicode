@@ -14,9 +14,9 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="grid  grid-cols-3 gap-4 p-10 h-full bg-black">
+      <div className="grid grid-cols-3 gap-4 p-8 h-full bg-black">
         {/* war options */}
-        <div className="col-span-2 flex-col space-y-10">
+        <div className="col-span-2 flex-col space-y-4">
           <CustomizeWar />
           <WarHistory />
         </div>

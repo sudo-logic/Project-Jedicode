@@ -102,8 +102,8 @@ const WarHistory = () => {
   return (
     // <></>
 
-    <div className="  bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-6">
-      <div className="w-full rounded pb-10">
+    <div className="  bg-[#212121] text-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-6 mb-8">
+      <div className="w-full rounded ">
         <header className="text-center pb-6">
           <h3 className="text-xl font-[700] text-white">Past Wars</h3>
         </header>
