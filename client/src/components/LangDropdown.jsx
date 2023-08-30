@@ -3,7 +3,6 @@ import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { globalState } from "../utils/proxy";
 import axios from "axios";
-import { judge_langs } from "../utils/extras";
 
 export default function LangDropdown() {
   const changeState = globalState;
@@ -13,9 +12,17 @@ export default function LangDropdown() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    setLanguages(judge_langs);
-    setSelected(judge_langs.find((lang) => lang.id == 71));
-    setLoad(false);
+    const fetchLanguages = async () => {
+      return await axios
+        .get(`https://ce.judge0.com/languages/all`)
+        .then((res) => res.data.filter((lang) => !lang.is_archived));
+    };
+
+    fetchLanguages().then((res) => {
+      setLanguages(res);
+      setSelected(res[43]);
+      setLoad(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -48,13 +55,13 @@ export default function LangDropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full text-gray-400 z-10 overflow-auto rounded-md bg-dark-layer-2 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+              <Listbox.Options className="absolute mt-1 max-h-60 w-full z-10 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {languages?.map((language, languageIdx) => (
                   <Listbox.Option
                     key={languageIdx}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 px-4 ${
-                        active ? "bg-dark-gray-6 text-white" : "text-gray-200"
+                        active ? "bg-dark-gray-7 text-white" : "text-gray-900"
                       }`
                     }
                     value={language}
@@ -63,15 +70,13 @@ export default function LangDropdown() {
                       <>
                         <span
                           className={`block truncate ${
-                            selected
-                              ? "font-semibold text-white"
-                              : "font-normal"
+                            selected ? "font-semibold" : "font-normal"
                           }`}
                         >
                           {language.name}
                         </span>
                         {selected ? (
-                          <span className="absolute font-semibold inset-y-0 right-2 flex items-center pl-3 text-white">
+                          <span className="absolute font-semibold inset-y-0 right-2 flex items-center pl-3 text-neutral-950">
                             ✦
                           </span>
                         ) : null}

@@ -14,6 +14,11 @@ const globalStateInit = {
   submissions: {},
   questionId: "",
   selected: {},
+  questionTime: {},
+  clients: 1
+  // startTime: null,
+  // endTime: null,
+  // submitted: false,
 };
 
 export const globalState = proxy(
