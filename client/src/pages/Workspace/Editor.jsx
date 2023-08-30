@@ -12,7 +12,13 @@ import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ModalIconActionButtons from "../../components/EndTestButton";
-import { subscribeKey, useProxy } from "valtio/utils";
+import LangDropdown from "../../components/LangDropdown";
+import { globalState } from "../../utils/proxy";
+import {
+  language_mapping,
+  judge_langs,
+  init_templates,
+} from "../../utils/extras";
 
 function Editor() {
   const navigate = useNavigate();
@@ -154,6 +160,22 @@ function Editor() {
     // navigate("/dashboard");
     return;
   };
+
+  useEffect(() => {
+    const lang = judge_langs.find((lang) => lang.id === state.languageId);
+
+    if (lang && language_mapping[lang.name]) {
+      setExtensions([loadLanguage(language_mapping[lang.name])]);
+
+      if (init_templates[language_mapping[lang.name]]) {
+        setCode(init_templates[language_mapping[lang.name]]);
+      } else {
+        setCode("");
+      }
+    } else {
+      setExtensions([]);
+    }
+  }, [state.languageId]);
 
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
