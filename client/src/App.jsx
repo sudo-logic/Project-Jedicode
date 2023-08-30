@@ -34,7 +34,7 @@ function App() {
   // console.log(state?.profile)
 
   return (
-    <div className="w-screen h-screen bg-[url('./assets/background.jpg')]  text-neutral-400 overflow-x-hidden">
+    <div className="w-screen h-screen bg-black text-neutral-400 overflow-x-hidden">
       <ToastContainer theme="dark" />
 
       <Routes>
