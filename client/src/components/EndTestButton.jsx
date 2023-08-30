@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { globalState } from "../utils/proxy";
 import { useProxy } from "valtio/utils";
+import axios from "axios";
 
 export default function ModalIconActionButtons() {
   const $state = useProxy(globalState, { sync: true });
@@ -80,12 +81,44 @@ export default function ModalIconActionButtons() {
     }
   }, [isShowing]);
 
-  const handleRoomExit = () => {
-    if($state.clients.length > 1) {
-      navigate(`/intermediate-result`);
-    }
-    else {
+  const { roomId } = useParams();
+
+  const handleRoomExit = async () => {
+    $state.room.player_data.forEach(async (player, key) => {
+      console.log("Working!!!!!!!!!!", player)
+      if (player.user_id == $state.profile.sub) {
+        player.time_spent = $state.questionTime;
+        console.log("This should happen before", player);
+        await axios
+          .put(`/rooms/${$state.room.id}`, {
+            player_data: $state.room.player_data,
+          })
+          .then((res) => {
+            console.log(res.data);
+            console.log("Room state!!!", $state.room);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Something went wrong! 😥");
+          });
+      }
+    });
+
+    if ($state.clients.length > 1) {
       navigate(`/result/${$state.room.id}`);
+    } else {
+      await axios
+        .put(`/rooms/${$state.room.id}`, {
+          completed_at: new Date().toISOString(),
+        })
+        .then((res) => {
+          console.log(res.data);
+          navigate(`/result/${$state.room.id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Something went wrong! 😥");
+        });
     }
     toast.success("Test Ended. Thank you for choosing us :)");
   };
