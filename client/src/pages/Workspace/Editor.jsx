@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import Split from "react-split";
-import { javascript } from "@codemirror/lang-javascript";
+import {
+  langNames,
+  langs,
+  loadLanguage,
+} from "@uiw/codemirror-extensions-langs";
 import { atomone } from "@uiw/codemirror-theme-atomone";
-import LangDropdown from "../../components/LangDropdown";
+import CodeMirror from "@uiw/react-codemirror";
 import axios from "axios";
-import { globalState } from "../../utils/proxy";
-import { subscribe, useSnapshot } from "valtio";
-import { BsCheck } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { toast } from "react-toastify";
+import { BsCheck } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import ModalIconActionButtons from "../../components/EndTestButton";
+import Split from "react-split";
+import { toast } from "react-toastify";
+import { subscribe, useSnapshot } from "valtio";
 import { subscribeKey, useProxy } from "valtio/utils";
+import ModalIconActionButtons from "../../components/EndTestButton";
+import LangDropdown from "../../components/LangDropdown";
+import { globalState } from "../../utils/proxy";
+import {
+  language_mapping,
+  judge_langs,
+  init_templates,
+} from "../../utils/extras";
 
 function Editor() {
   const navigate = useNavigate();
@@ -22,6 +31,7 @@ function Editor() {
   const state = useSnapshot(globalState);
   const $state = useProxy(globalState, { sync: true });
   const token = localStorage.getItem("token");
+  const [extensions, setExtensions] = useState([]);
 
   subscribeKey(globalState, "questionId", () => {
     // setCode("");
@@ -125,7 +135,8 @@ function Editor() {
     ) {
       toast(
         <div>
-          All questions are complete! <br /> You may end the test now or wait for your friends. 🐱
+          All questions are complete! <br /> You may end the test now or wait
+          for your friends. 🐱
         </div>
       );
     }
@@ -149,6 +160,24 @@ function Editor() {
     return;
   };
 
+  useEffect(() => {
+    const lang = judge_langs.find((lang) => lang.id === state.languageId);
+
+    if (lang && language_mapping[lang.name]) {
+      setExtensions([loadLanguage(language_mapping[lang.name])]);
+    } else {
+      setExtensions([]);
+    }
+
+    console.log(language_mapping[lang.name]);
+    console.log(init_templates[language_mapping[lang.name]]);
+
+    if (init_templates[language_mapping[lang.name]]) {
+      setCode(init_templates[language_mapping[lang.name]]);
+    }
+    // console.log(extensions);
+  }, [state.languageId]);
+
   return (
     <div className="flex flex-col bg-dark-layer-2 rounded-md ">
       <div className="flex w-full items-center bg-dark-layer-1 text-white rounded-t-md">
@@ -164,7 +193,7 @@ function Editor() {
           <CodeMirror
             value={code}
             theme={atomone}
-            extensions={[javascript()]}
+            extensions={extensions}
             style={{ fontSize: 16 }}
             onChange={(editor, data, value) => {
               handleCodeInput(editor, data, value);

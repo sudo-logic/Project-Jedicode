@@ -10,7 +10,6 @@ function classNames(...classes) {
 const Problem = () => {
   const [data, setData] = useState();
   const [load, setLoad] = useState(true);
-  const [cat, setCat] = useState([]);
 
   const getQuestion = (question) => {
     setLoad(true);
