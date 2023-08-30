@@ -12,8 +12,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ModalIconActionButtons from "../../components/EndTestButton";
-import LangDropdown from "../../components/LangDropdown";
-import { globalState } from "../../utils/proxy";
 import {
   language_mapping,
   judge_langs,
