@@ -44,7 +44,6 @@ function App() {
         <Route path="/lobby/:roomId" element={<Lobby />} />
         <Route path="/editor/:roomId" element={<Workspace />} />
         <Route path="/result/:roomId" element={<Results />} />
-        <Route path="/intermediate-result" element={<IntermediateResult />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
