@@ -193,7 +193,7 @@ function Editor() {
           <CodeMirror
             value={code}
             theme={atomone}
-            extensions={[javascript()]}
+            extensions={extensions}
             style={{ fontSize: 16 }}
             onChange={(editor, data, value) => {
               handleCodeInput(editor, data, value);
