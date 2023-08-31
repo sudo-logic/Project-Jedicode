@@ -244,13 +244,13 @@ export const Room = () => {
                   >
                     <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-[27.5rem]  -translate-x-[92%] transform px-4">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                        <div className="relative grid gap-8 bg-dark-layer-2 brightness-125 p-7 lg:grid-cols-2">
                           {clients.map((user) => (
                             <div
                               key={user.socketId}
-                              className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 "
+                              className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-dark-divider-border-2 "
                             >
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center text-neutral-950 bg-gray-100 rounded-lg sm:h-12 sm:w-12">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white bg-dark-fill-2 rounded-lg sm:h-12 sm:w-12">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -266,10 +266,16 @@ export const Room = () => {
                                   />
                                 </svg>
                               </div>
-                              <div className="ml-4">
-                                <p className="text-sm font-semibold text-neutral-950">
+                              <div className="ml-4 flex flex-col justify-center gap-1">
+                                <div className="text-sm font-semibold text-white mt-1">
                                   {user.username}
-                                </p>
+                                </div>
+                                <span className="text-xs -mt-1">
+                                  {" "}
+                                  {state.profile.username == user.username
+                                    ? "user"
+                                    : ""}
+                                </span>
                                 <p className="text-xs text-gray-500">
                                   {user.progress}
                                 </p>
@@ -277,17 +283,17 @@ export const Room = () => {
                             </div>
                           ))}
                         </div>
-                        <div className="bg-gray-100 p-4">
+                        <div className="bg-dark-layer-2 p-5">
                           <div className="flow-root rounded-md py-2 transition duration-150 ease-in-out">
-                            <span className="text-xl font-extrabold text-neutral-950">
+                            <span className="text-xl font-extrabold text-white">
                               Connected Jedi Knights
                             </span>
 
-                            <span className="block text-sm text-gray-500 pb-2">
+                            <span className="block text-sm text-gray-400 pb-2">
                               Jedi Order: Knights sparring session
                             </span>
                           </div>
-                          <div className="flex justify-between gap-4 h-10">
+                          <div className="flex justify-between gap-5 h-10">
                             {/* <div
                               onClick={copyRoomId}
                               className="flex mt-4 gap-2 p-1 flex-1 items-center justify-center shrink-0 bg-white rounded-lg  cursor-pointer"
