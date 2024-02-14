@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CodeRunnerDto } from './dto/code-runner.dto';
-import { TestCase } from '../shared/test-case.interface';
 import axios from 'axios';
 import { QuestionsService } from '../questions/questions.service';
+import { TestCase } from '../shared/test-case.interface';
+import { CodeRunnerDto } from './dto/code-runner.dto';
 @Injectable()
 export class RunnerService {
   constructor(private readonly questionsService: QuestionsService) {}
@@ -23,7 +23,7 @@ export class RunnerService {
 
   async submit_and_wait(codeRunnerDto: CodeRunnerDto, testCase: TestCase) {
     const response = await axios.post(
-      'http://34.100.255.183:2358/submissions/?wait=true',
+      process.env.JUDGE0_URL + '/submissions?wait=true',
       {
         source_code: codeRunnerDto.code,
         language_id: codeRunnerDto.language_id,
