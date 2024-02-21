@@ -133,4 +133,5 @@ dist
 
 # Custom
 development.env
+production.env
 pnpm-lock.yaml
