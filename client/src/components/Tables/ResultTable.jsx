@@ -14,6 +14,7 @@ const ResultTable = () => {
       .get(`/rooms/${roomId}`)
       .then((response) => {
         response.data.player_data;
+        console.log("room data", response.data);
         setData(response.data.player_data);
       })
       .catch((err) => console.log("Fetch result error", err));
@@ -24,12 +25,13 @@ const ResultTable = () => {
       axios
         .get(`/users/${data[i]?.user_id}`)
         .then((response) => {
+          console.log("player data", response.data);
+
           setUserId((prev) => [...prev, response.data.username]);
         })
         .catch((err) => console.log("Profile fetch error: ", err));
     }
     setLoad(false);
-    // console.log(data)
   }, [data]);
 
   return (
