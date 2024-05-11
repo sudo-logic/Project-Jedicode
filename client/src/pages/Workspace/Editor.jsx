@@ -201,26 +201,60 @@ function Editor() {
             className="cursor-text"
           />
         </div>
-        <div className="bg-black rounded-md p-3 text-white ">
-          <div className="p-1.5 font-bold px-3 bg-dark-layer-2 rounded-md w-fit h-fit">
+        <div className="bg-black rounded-md p-3 text-white h-full overflow-y-auto">
+          <div className="p-1.5 font-bold px-[14px] bg-dark-layer-2 rounded-md w-fit h-fit">
             Results
           </div>
 
           {codeResponse.map((response, id) => {
             return (
               <div className="py-3" key={id}>
-                {response?.stdout === null || response === undefined ? (
+                {response === undefined ? (
                   <></>
                 ) : (
-                  <div className="text-white w-36 justify-between flex flex-row items-center  ">
-                    test case {id + 1}:
+                  <div className="text-white gap-8 justify-start flex flex-row items-start  ">
+                    <span className="">
+                      Test&nbsp;case&nbsp;{id + 1}:{/* to review later */}
+                    </span>
+
                     {response.status.id === 4 ? (
-                      <AiOutlineClose className="text-red-500 text-lg" />
+                      <div className="flex flex-col gap-2">
+                        <div className="flex gap-4 items-center">
+                          <p className="text-red-500 h-full font-medium">
+                            {response.status.description}
+                            {/* aierubfl */}
+                          </p>
+                        </div>
+                        <div className="p-3 px-4 bg-dark-layer-2 rounded-md flex">
+                          <p className="font-mono">Output:&nbsp;</p>
+                          <p className="font-mono ">{response.stdout}</p>
+                        </div>
+                      </div>
                     ) : (
                       ""
-                    )}{" "}
+                    )}
                     {response.status.id === 3 ? (
-                      <BsCheck className="text-green-500 text-2xl" />
+                      <>
+                        {/* <BsCheck className="text-green-500 text-2xl" /> */}
+                        <p className="text-green-500 text-2xl">
+                          {response.status.description}
+                        </p>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {response.status.id === 11 ? (
+                      <div className="flex flex-col gap-2">
+                        <div className="flex gap-4">
+                          {/* <AiOutlineClose className="text-red-500" /> */}
+                          <div className="flex flex-col gap-4">
+                            <p className="text-red-500 h-full font-semibold">
+                              {response.status.description}
+                            </p>
+                            <p>{response.stderr}</p>
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       ""
                     )}
@@ -229,19 +263,21 @@ function Editor() {
                 {response?.stderr === null || response === undefined ? (
                   <></>
                 ) : (
-                  <div className="text-red-600 code text-lg flex">
-                    {id === 0 ? codeResponse[0]?.stderr : <></>}
-                  </div>
+                  // <div className="text-red-600 code text-lg flex">
+                  //   {/* for default error ids */}
+                  //   {id === 0 ? codeResponse[0]?.stderr : <></>}
+                  // </div>
+                  <div></div>
                 )}
               </div>
             );
           })}
         </div>
       </Split>
-      <div className="absolute bottom-0 right-0 pb-6 pr-6">
-        <div className="flex flex-row relative justify-end gap-8 ">
+      <div className="absolute bottom-6 right-6  ">
+        <div className="flex flex-row relative justify-end gap-8">
           {state.submissions[state.questionId] ? (
-            <p className="absolute top-1/4 left-[-6rem] underline underline-offset-4 text-white">
+            <p className="absolute top-1/4 left-[-6rem] underline underline-offset-4 text-white ">
               Score: {state.submissions[state.questionId].score}
             </p>
           ) : (
