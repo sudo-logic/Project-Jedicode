@@ -20,27 +20,26 @@ const Leaderboard = () => {
         </header>
 
         <table
-          className=" text-center border border-separate rounded overflow-y-scroll border-slate-200 shadow-md shadow-[#5656ff]
-          table-fixed  w-full"
+          className=" text-center border border-separate rounded overflow-y-scroll border-slate-200 shadow-md shadow-[#5656ff] w-full"
           cellSpacing="0"
         >
           <tbody>
             <tr>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
+                className="h-12 px-2 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
               >
                 Rank
               </th>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
+                className="h-12 px-3 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words "
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
+                className="h-12 px-2 text-sm font-bold border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-200  break-words"
               >
                 Score
               </th>
@@ -53,7 +52,7 @@ const Leaderboard = () => {
                 <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
                   {index + 1}
                 </td>
-                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
+                <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100">
                   {user.username}
                 </td>
                 <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-400 stroke-slate-500 text-slate-100 break-words">
